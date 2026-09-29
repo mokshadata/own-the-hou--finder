@@ -39,10 +39,10 @@ declare module "virtual:file-routes" {
       $$route: FileRouteEagerRef<typeof import("./src/routes/[...404]")>;
     },
     {
-      path: "/";
+      path: "/own-the-hou--finder/";
       page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/index")>;
-      $$route: FileRouteEagerRef<typeof import("./src/routes/index")>;
+      $component: FileRouteLazyRef<typeof import("./src/routes/own-the-hou--finder/index")>;
+      $$route: FileRouteEagerRef<typeof import("./src/routes/own-the-hou--finder/index")>;
     }
   ];
   export default routes;
@@ -50,19 +50,19 @@ declare module "virtual:file-routes" {
   /** The page entries, nested by path with grouping segments stripped. */
   export const pageRoutes: readonly [
     {
-      path: "/";
-      id: "/";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/index")>;
-      $$route: FileRouteEagerRef<typeof import("./src/routes/index")>;
-      children?: undefined;
-    },
-    {
       path: "/*404";
       id: "/*404";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/[...404]")>;
       $$route: FileRouteEagerRef<typeof import("./src/routes/[...404]")>;
+      children?: undefined;
+    },
+    {
+      path: "/own-the-hou--finder/";
+      id: "/own-the-hou--finder/";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/own-the-hou--finder/index")>;
+      $$route: FileRouteEagerRef<typeof import("./src/routes/own-the-hou--finder/index")>;
       children?: undefined;
     }
   ];

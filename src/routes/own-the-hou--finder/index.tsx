@@ -2,11 +2,11 @@ import { Title } from '@solidjs/meta';
 import { query, type RouteDefinition, type RouteProps } from '@solidjs/router';
 import { getRequestEvent } from '@solidjs/web';
 import { createMemo, For } from 'solid-js';
-import { paths } from '../router';
+import { paths } from '../../router';
 
 import { csv, json } from "d3-fetch";
 
-import { Map } from "../components/Mapbox";
+import { Map } from "../../components/Mapbox";
 
 
 // Async data loading: a query (cached per key) read through a memo — the
