@@ -1,0 +1,1026 @@
+1     statusTitle
+2     status
+3     price
+4     imageURL
+5     harURL
+6     addressLine1
+7     addressLine2
+8     city
+9     state
+10    zip
+11    statusDetails
+12    buildingType
+13    beds
+14    fullBaths
+15    interiorSize
+16    pricePer
+17    Geocodio Latitude
+18    Geocodio Longitude
+19    Geocodio Accuracy Score
+20    Geocodio Accuracy Type
+21    Geocodio Address Line 1
+22    Geocodio Address Line 2
+23    Geocodio Address Line 3
+24    Geocodio Address Line 4
+25    Geocodio House Number
+26    Geocodio Street
+27    Geocodio Unit Type
+28    Geocodio Unit Number
+29    Geocodio City
+30    Geocodio State / Province
+31    Geocodio Nation
+32    Geocodio County
+33    Geocodio Postal Code
+34    Geocodio Country
+35    Geocodio Building Name
+36    Geocodio Source
+37    Geocodio Stable Address Key
+38    Geocodio Match Type
+39    Census Year
+40    State FIPS
+41    County FIPS
+42    Place Name
+43    Place FIPS
+44    Census Tract Code
+45    Census Block Code
+46    Census Block Group
+47    Full FIPS (block)
+48    Full FIPS (tract)
+49    Metro/Micro Statistical Area Name
+50    Metro/Micro Statistical Area Code
+51    Metro/Micro Statistical Area Type
+52    Combined Statistical Area Name
+53    Combined Statistical Area Code
+54    Metropolitan Division Area Name
+55    Metropolitan Division Area Code
+56    County Subdivision Name
+57    County Subdivision FIPS
+58    County Subdivision Class Code
+59    County Subdivision Class Description
+60    Unified School District Name
+61    Unified School District LEA code
+62    Unified School District Grade Low
+63    Unified School District Grade High
+64    Elementary School District Name
+65    Elementary School District LEA code
+66    Elementary School District Grade Low
+67    Elementary School District Grade High
+68    Secondary School District Name
+69    Secondary School District LEA code
+70    Secondary School District Grade Low
+71    Secondary School District Grade High
+72    ACS Economics/Geography
+73    ACS Economics/Number of households/Total/Value
+74    ACS Economics/Number of households/Total/Margin of error
+75    ACS Economics/Median household income/Total/Value
+76    ACS Economics/Median household income/Total/Margin of error
+77    ACS Economics/Household income/Less than $10,000/Value
+78    ACS Economics/Household income/Less than $10,000/Margin of error
+79    ACS Economics/Household income/Less than $10,000/Percentage
+80    ACS Economics/Household income/$10,000 to $14,999/Value
+81    ACS Economics/Household income/$10,000 to $14,999/Margin of error
+82    ACS Economics/Household income/$10,000 to $14,999/Percentage
+83    ACS Economics/Household income/$15,000 to $19,999/Value
+84    ACS Economics/Household income/$15,000 to $19,999/Margin of error
+85    ACS Economics/Household income/$15,000 to $19,999/Percentage
+86    ACS Economics/Household income/$20,000 to $24,999/Value
+87    ACS Economics/Household income/$20,000 to $24,999/Margin of error
+88    ACS Economics/Household income/$20,000 to $24,999/Percentage
+89    ACS Economics/Household income/$25,000 to $29,999/Value
+90    ACS Economics/Household income/$25,000 to $29,999/Margin of error
+91    ACS Economics/Household income/$25,000 to $29,999/Percentage
+92    ACS Economics/Household income/$30,000 to $34,999/Value
+93    ACS Economics/Household income/$30,000 to $34,999/Margin of error
+94    ACS Economics/Household income/$30,000 to $34,999/Percentage
+95    ACS Economics/Household income/$35,000 to $39,999/Value
+96    ACS Economics/Household income/$35,000 to $39,999/Margin of error
+97    ACS Economics/Household income/$35,000 to $39,999/Percentage
+98    ACS Economics/Household income/$40,000 to $44,999/Value
+99    ACS Economics/Household income/$40,000 to $44,999/Margin of error
+100   ACS Economics/Household income/$40,000 to $44,999/Percentage
+101   ACS Economics/Household income/$45,000 to $49,999/Value
+102   ACS Economics/Household income/$45,000 to $49,999/Margin of error
+103   ACS Economics/Household income/$45,000 to $49,999/Percentage
+104   ACS Economics/Household income/$50,000 to $59,999/Value
+105   ACS Economics/Household income/$50,000 to $59,999/Margin of error
+106   ACS Economics/Household income/$50,000 to $59,999/Percentage
+107   ACS Economics/Household income/$60,000 to $74,999/Value
+108   ACS Economics/Household income/$60,000 to $74,999/Margin of error
+109   ACS Economics/Household income/$60,000 to $74,999/Percentage
+110   ACS Economics/Household income/$75,000 to $99,999/Value
+111   ACS Economics/Household income/$75,000 to $99,999/Margin of error
+112   ACS Economics/Household income/$75,000 to $99,999/Percentage
+113   ACS Economics/Household income/$100,000 to $124,999/Value
+114   ACS Economics/Household income/$100,000 to $124,999/Margin of error
+115   ACS Economics/Household income/$100,000 to $124,999/Percentage
+116   ACS Economics/Household income/$125,000 to $149,999/Value
+117   ACS Economics/Household income/$125,000 to $149,999/Margin of error
+118   ACS Economics/Household income/$125,000 to $149,999/Percentage
+119   ACS Economics/Household income/$150,000 to $199,999/Value
+120   ACS Economics/Household income/$150,000 to $199,999/Margin of error
+121   ACS Economics/Household income/$150,000 to $199,999/Percentage
+122   ACS Economics/Household income/$200,000 or more/Value
+123   ACS Economics/Household income/$200,000 or more/Margin of error
+124   ACS Economics/Household income/$200,000 or more/Percentage
+125   ACS Economics/Per capita income/Total/Value
+126   ACS Economics/Per capita income/Total/Margin of error
+127   ACS Demographics/Geography
+128   ACS Demographics/Median age/Total/Value
+129   ACS Demographics/Median age/Total/Margin of error
+130   ACS Demographics/Median age/Male/Value
+131   ACS Demographics/Median age/Male/Margin of error
+132   ACS Demographics/Median age/Female/Value
+133   ACS Demographics/Median age/Female/Margin of error
+134   ACS Demographics/Population by age range/Total/Value
+135   ACS Demographics/Population by age range/Total/Margin of error
+136   ACS Demographics/Population by age range/Male/Value
+137   ACS Demographics/Population by age range/Male/Margin of error
+138   ACS Demographics/Population by age range/Male/Percentage
+139   ACS Demographics/Population by age range/Male: Under 5 years/Value
+140   ACS Demographics/Population by age range/Male: Under 5 years/Margin of error
+141   ACS Demographics/Population by age range/Male: Under 5 years/Percentage
+142   ACS Demographics/Population by age range/Male: 5 to 9 years/Value
+143   ACS Demographics/Population by age range/Male: 5 to 9 years/Margin of error
+144   ACS Demographics/Population by age range/Male: 5 to 9 years/Percentage
+145   ACS Demographics/Population by age range/Male: 10 to 14 years/Value
+146   ACS Demographics/Population by age range/Male: 10 to 14 years/Margin of error
+147   ACS Demographics/Population by age range/Male: 10 to 14 years/Percentage
+148   ACS Demographics/Population by age range/Male: 15 to 17 years/Value
+149   ACS Demographics/Population by age range/Male: 15 to 17 years/Margin of error
+150   ACS Demographics/Population by age range/Male: 15 to 17 years/Percentage
+151   ACS Demographics/Population by age range/Male: 18 and 19 years/Value
+152   ACS Demographics/Population by age range/Male: 18 and 19 years/Margin of error
+153   ACS Demographics/Population by age range/Male: 18 and 19 years/Percentage
+154   ACS Demographics/Population by age range/Male: 20 years/Value
+155   ACS Demographics/Population by age range/Male: 20 years/Margin of error
+156   ACS Demographics/Population by age range/Male: 20 years/Percentage
+157   ACS Demographics/Population by age range/Male: 21 years/Value
+158   ACS Demographics/Population by age range/Male: 21 years/Margin of error
+159   ACS Demographics/Population by age range/Male: 21 years/Percentage
+160   ACS Demographics/Population by age range/Male: 22 to 24 years/Value
+161   ACS Demographics/Population by age range/Male: 22 to 24 years/Margin of error
+162   ACS Demographics/Population by age range/Male: 22 to 24 years/Percentage
+163   ACS Demographics/Population by age range/Male: 25 to 29 years/Value
+164   ACS Demographics/Population by age range/Male: 25 to 29 years/Margin of error
+165   ACS Demographics/Population by age range/Male: 25 to 29 years/Percentage
+166   ACS Demographics/Population by age range/Male: 30 to 34 years/Value
+167   ACS Demographics/Population by age range/Male: 30 to 34 years/Margin of error
+168   ACS Demographics/Population by age range/Male: 30 to 34 years/Percentage
+169   ACS Demographics/Population by age range/Male: 35 to 39 years/Value
+170   ACS Demographics/Population by age range/Male: 35 to 39 years/Margin of error
+171   ACS Demographics/Population by age range/Male: 35 to 39 years/Percentage
+172   ACS Demographics/Population by age range/Male: 40 to 44 years/Value
+173   ACS Demographics/Population by age range/Male: 40 to 44 years/Margin of error
+174   ACS Demographics/Population by age range/Male: 40 to 44 years/Percentage
+175   ACS Demographics/Population by age range/Male: 45 to 49 years/Value
+176   ACS Demographics/Population by age range/Male: 45 to 49 years/Margin of error
+177   ACS Demographics/Population by age range/Male: 45 to 49 years/Percentage
+178   ACS Demographics/Population by age range/Male: 50 to 54 years/Value
+179   ACS Demographics/Population by age range/Male: 50 to 54 years/Margin of error
+180   ACS Demographics/Population by age range/Male: 50 to 54 years/Percentage
+181   ACS Demographics/Population by age range/Male: 55 to 59 years/Value
+182   ACS Demographics/Population by age range/Male: 55 to 59 years/Margin of error
+183   ACS Demographics/Population by age range/Male: 55 to 59 years/Percentage
+184   ACS Demographics/Population by age range/Male: 60 and 61 years/Value
+185   ACS Demographics/Population by age range/Male: 60 and 61 years/Margin of error
+186   ACS Demographics/Population by age range/Male: 60 and 61 years/Percentage
+187   ACS Demographics/Population by age range/Male: 62 to 64 years/Value
+188   ACS Demographics/Population by age range/Male: 62 to 64 years/Margin of error
+189   ACS Demographics/Population by age range/Male: 62 to 64 years/Percentage
+190   ACS Demographics/Population by age range/Male: 65 and 66 years/Value
+191   ACS Demographics/Population by age range/Male: 65 and 66 years/Margin of error
+192   ACS Demographics/Population by age range/Male: 65 and 66 years/Percentage
+193   ACS Demographics/Population by age range/Male: 67 to 69 years/Value
+194   ACS Demographics/Population by age range/Male: 67 to 69 years/Margin of error
+195   ACS Demographics/Population by age range/Male: 67 to 69 years/Percentage
+196   ACS Demographics/Population by age range/Male: 70 to 74 years/Value
+197   ACS Demographics/Population by age range/Male: 70 to 74 years/Margin of error
+198   ACS Demographics/Population by age range/Male: 70 to 74 years/Percentage
+199   ACS Demographics/Population by age range/Male: 75 to 79 years/Value
+200   ACS Demographics/Population by age range/Male: 75 to 79 years/Margin of error
+201   ACS Demographics/Population by age range/Male: 75 to 79 years/Percentage
+202   ACS Demographics/Population by age range/Male: 80 to 84 years/Value
+203   ACS Demographics/Population by age range/Male: 80 to 84 years/Margin of error
+204   ACS Demographics/Population by age range/Male: 80 to 84 years/Percentage
+205   ACS Demographics/Population by age range/Male: 85 years and over/Value
+206   ACS Demographics/Population by age range/Male: 85 years and over/Margin of error
+207   ACS Demographics/Population by age range/Male: 85 years and over/Percentage
+208   ACS Demographics/Population by age range/Female/Value
+209   ACS Demographics/Population by age range/Female/Margin of error
+210   ACS Demographics/Population by age range/Female/Percentage
+211   ACS Demographics/Population by age range/Female: Under 5 years/Value
+212   ACS Demographics/Population by age range/Female: Under 5 years/Margin of error
+213   ACS Demographics/Population by age range/Female: Under 5 years/Percentage
+214   ACS Demographics/Population by age range/Female: 5 to 9 years/Value
+215   ACS Demographics/Population by age range/Female: 5 to 9 years/Margin of error
+216   ACS Demographics/Population by age range/Female: 5 to 9 years/Percentage
+217   ACS Demographics/Population by age range/Female: 10 to 14 years/Value
+218   ACS Demographics/Population by age range/Female: 10 to 14 years/Margin of error
+219   ACS Demographics/Population by age range/Female: 10 to 14 years/Percentage
+220   ACS Demographics/Population by age range/Female: 15 to 17 years/Value
+221   ACS Demographics/Population by age range/Female: 15 to 17 years/Margin of error
+222   ACS Demographics/Population by age range/Female: 15 to 17 years/Percentage
+223   ACS Demographics/Population by age range/Female: 18 and 19 years/Value
+224   ACS Demographics/Population by age range/Female: 18 and 19 years/Margin of error
+225   ACS Demographics/Population by age range/Female: 18 and 19 years/Percentage
+226   ACS Demographics/Population by age range/Female: 20 years/Value
+227   ACS Demographics/Population by age range/Female: 20 years/Margin of error
+228   ACS Demographics/Population by age range/Female: 20 years/Percentage
+229   ACS Demographics/Population by age range/Female: 21 years/Value
+230   ACS Demographics/Population by age range/Female: 21 years/Margin of error
+231   ACS Demographics/Population by age range/Female: 21 years/Percentage
+232   ACS Demographics/Population by age range/Female: 22 to 24 years/Value
+233   ACS Demographics/Population by age range/Female: 22 to 24 years/Margin of error
+234   ACS Demographics/Population by age range/Female: 22 to 24 years/Percentage
+235   ACS Demographics/Population by age range/Female: 25 to 29 years/Value
+236   ACS Demographics/Population by age range/Female: 25 to 29 years/Margin of error
+237   ACS Demographics/Population by age range/Female: 25 to 29 years/Percentage
+238   ACS Demographics/Population by age range/Female: 30 to 34 years/Value
+239   ACS Demographics/Population by age range/Female: 30 to 34 years/Margin of error
+240   ACS Demographics/Population by age range/Female: 30 to 34 years/Percentage
+241   ACS Demographics/Population by age range/Female: 35 to 39 years/Value
+242   ACS Demographics/Population by age range/Female: 35 to 39 years/Margin of error
+243   ACS Demographics/Population by age range/Female: 35 to 39 years/Percentage
+244   ACS Demographics/Population by age range/Female: 40 to 44 years/Value
+245   ACS Demographics/Population by age range/Female: 40 to 44 years/Margin of error
+246   ACS Demographics/Population by age range/Female: 40 to 44 years/Percentage
+247   ACS Demographics/Population by age range/Female: 45 to 49 years/Value
+248   ACS Demographics/Population by age range/Female: 45 to 49 years/Margin of error
+249   ACS Demographics/Population by age range/Female: 45 to 49 years/Percentage
+250   ACS Demographics/Population by age range/Female: 50 to 54 years/Value
+251   ACS Demographics/Population by age range/Female: 50 to 54 years/Margin of error
+252   ACS Demographics/Population by age range/Female: 50 to 54 years/Percentage
+253   ACS Demographics/Population by age range/Female: 55 to 59 years/Value
+254   ACS Demographics/Population by age range/Female: 55 to 59 years/Margin of error
+255   ACS Demographics/Population by age range/Female: 55 to 59 years/Percentage
+256   ACS Demographics/Population by age range/Female: 60 and 61 years/Value
+257   ACS Demographics/Population by age range/Female: 60 and 61 years/Margin of error
+258   ACS Demographics/Population by age range/Female: 60 and 61 years/Percentage
+259   ACS Demographics/Population by age range/Female: 62 to 64 years/Value
+260   ACS Demographics/Population by age range/Female: 62 to 64 years/Margin of error
+261   ACS Demographics/Population by age range/Female: 62 to 64 years/Percentage
+262   ACS Demographics/Population by age range/Female: 65 and 66 years/Value
+263   ACS Demographics/Population by age range/Female: 65 and 66 years/Margin of error
+264   ACS Demographics/Population by age range/Female: 65 and 66 years/Percentage
+265   ACS Demographics/Population by age range/Female: 67 to 69 years/Value
+266   ACS Demographics/Population by age range/Female: 67 to 69 years/Margin of error
+267   ACS Demographics/Population by age range/Female: 67 to 69 years/Percentage
+268   ACS Demographics/Population by age range/Female: 70 to 74 years/Value
+269   ACS Demographics/Population by age range/Female: 70 to 74 years/Margin of error
+270   ACS Demographics/Population by age range/Female: 70 to 74 years/Percentage
+271   ACS Demographics/Population by age range/Female: 75 to 79 years/Value
+272   ACS Demographics/Population by age range/Female: 75 to 79 years/Margin of error
+273   ACS Demographics/Population by age range/Female: 75 to 79 years/Percentage
+274   ACS Demographics/Population by age range/Female: 80 to 84 years/Value
+275   ACS Demographics/Population by age range/Female: 80 to 84 years/Margin of error
+276   ACS Demographics/Population by age range/Female: 80 to 84 years/Percentage
+277   ACS Demographics/Population by age range/Female: 85 years and over/Value
+278   ACS Demographics/Population by age range/Female: 85 years and over/Margin of error
+279   ACS Demographics/Population by age range/Female: 85 years and over/Percentage
+280   ACS Demographics/Sex/Total/Value
+281   ACS Demographics/Sex/Total/Margin of error
+282   ACS Demographics/Sex/Male/Value
+283   ACS Demographics/Sex/Male/Margin of error
+284   ACS Demographics/Sex/Male/Percentage
+285   ACS Demographics/Sex/Female/Value
+286   ACS Demographics/Sex/Female/Margin of error
+287   ACS Demographics/Sex/Female/Percentage
+288   ACS Demographics/Race and ethnicity/Total/Value
+289   ACS Demographics/Race and ethnicity/Total/Margin of error
+290   ACS Demographics/Race and ethnicity/Not Hispanic or Latino/Value
+291   ACS Demographics/Race and ethnicity/Not Hispanic or Latino/Margin of error
+292   ACS Demographics/Race and ethnicity/Not Hispanic or Latino/Percentage
+293   ACS Demographics/Race and ethnicity/Not Hispanic or Latino: White alone/Value
+294   ACS Demographics/Race and ethnicity/Not Hispanic or Latino: White alone/Margin of error
+295   ACS Demographics/Race and ethnicity/Not Hispanic or Latino: White alone/Percentage
+296   ACS Demographics/Race and ethnicity/Not Hispanic or Latino: Black or African American alone/Value
+297   ACS Demographics/Race and ethnicity/Not Hispanic or Latino: Black or African American alone/Margin of error
+298   ACS Demographics/Race and ethnicity/Not Hispanic or Latino: Black or African American alone/Percentage
+299   ACS Demographics/Race and ethnicity/Not Hispanic or Latino: American Indian and Alaska Native alone/Value
+300   ACS Demographics/Race and ethnicity/Not Hispanic or Latino: American Indian and Alaska Native alone/Margin of error
+301   ACS Demographics/Race and ethnicity/Not Hispanic or Latino: American Indian and Alaska Native alone/Percentage
+302   ACS Demographics/Race and ethnicity/Not Hispanic or Latino: Asian alone/Value
+303   ACS Demographics/Race and ethnicity/Not Hispanic or Latino: Asian alone/Margin of error
+304   ACS Demographics/Race and ethnicity/Not Hispanic or Latino: Asian alone/Percentage
+305   ACS Demographics/Race and ethnicity/Not Hispanic or Latino: Native Hawaiian and Other Pacific Islander alone/Value
+306   ACS Demographics/Race and ethnicity/Not Hispanic or Latino: Native Hawaiian and Other Pacific Islander alone/Margin of error
+307   ACS Demographics/Race and ethnicity/Not Hispanic or Latino: Native Hawaiian and Other Pacific Islander alone/Percentage
+308   ACS Demographics/Race and ethnicity/Not Hispanic or Latino: Some other race alone/Value
+309   ACS Demographics/Race and ethnicity/Not Hispanic or Latino: Some other race alone/Margin of error
+310   ACS Demographics/Race and ethnicity/Not Hispanic or Latino: Some other race alone/Percentage
+311   ACS Demographics/Race and ethnicity/Not Hispanic or Latino: Two or more races/Value
+312   ACS Demographics/Race and ethnicity/Not Hispanic or Latino: Two or more races/Margin of error
+313   ACS Demographics/Race and ethnicity/Not Hispanic or Latino: Two or more races/Percentage
+314   ACS Demographics/Race and ethnicity/Not Hispanic or Latino: Two or more races: Two races including Some other race/Value
+315   ACS Demographics/Race and ethnicity/Not Hispanic or Latino: Two or more races: Two races including Some other race/Margin of error
+316   ACS Demographics/Race and ethnicity/Not Hispanic or Latino: Two or more races: Two races including Some other race/Percentage
+317   ACS Demographics/Race and ethnicity/Not Hispanic or Latino: Two or more races: Two races excluding Some other race, and three or more races/Value
+318   ACS Demographics/Race and ethnicity/Not Hispanic or Latino: Two or more races: Two races excluding Some other race, and three or more races/Margin of error
+319   ACS Demographics/Race and ethnicity/Not Hispanic or Latino: Two or more races: Two races excluding Some other race, and three or more races/Percentage
+320   ACS Demographics/Race and ethnicity/Hispanic or Latino/Value
+321   ACS Demographics/Race and ethnicity/Hispanic or Latino/Margin of error
+322   ACS Demographics/Race and ethnicity/Hispanic or Latino/Percentage
+323   ACS Demographics/Race and ethnicity/Hispanic or Latino: White alone/Value
+324   ACS Demographics/Race and ethnicity/Hispanic or Latino: White alone/Margin of error
+325   ACS Demographics/Race and ethnicity/Hispanic or Latino: White alone/Percentage
+326   ACS Demographics/Race and ethnicity/Hispanic or Latino: Black or African American alone/Value
+327   ACS Demographics/Race and ethnicity/Hispanic or Latino: Black or African American alone/Margin of error
+328   ACS Demographics/Race and ethnicity/Hispanic or Latino: Black or African American alone/Percentage
+329   ACS Demographics/Race and ethnicity/Hispanic or Latino: American Indian and Alaska Native alone/Value
+330   ACS Demographics/Race and ethnicity/Hispanic or Latino: American Indian and Alaska Native alone/Margin of error
+331   ACS Demographics/Race and ethnicity/Hispanic or Latino: American Indian and Alaska Native alone/Percentage
+332   ACS Demographics/Race and ethnicity/Hispanic or Latino: Asian alone/Value
+333   ACS Demographics/Race and ethnicity/Hispanic or Latino: Asian alone/Margin of error
+334   ACS Demographics/Race and ethnicity/Hispanic or Latino: Asian alone/Percentage
+335   ACS Demographics/Race and ethnicity/Hispanic or Latino: Native Hawaiian and Other Pacific Islander alone/Value
+336   ACS Demographics/Race and ethnicity/Hispanic or Latino: Native Hawaiian and Other Pacific Islander alone/Margin of error
+337   ACS Demographics/Race and ethnicity/Hispanic or Latino: Native Hawaiian and Other Pacific Islander alone/Percentage
+338   ACS Demographics/Race and ethnicity/Hispanic or Latino: Some other race alone/Value
+339   ACS Demographics/Race and ethnicity/Hispanic or Latino: Some other race alone/Margin of error
+340   ACS Demographics/Race and ethnicity/Hispanic or Latino: Some other race alone/Percentage
+341   ACS Demographics/Race and ethnicity/Hispanic or Latino: Two or more races/Value
+342   ACS Demographics/Race and ethnicity/Hispanic or Latino: Two or more races/Margin of error
+343   ACS Demographics/Race and ethnicity/Hispanic or Latino: Two or more races/Percentage
+344   ACS Demographics/Race and ethnicity/Hispanic or Latino: Two or more races: Two races including Some other race/Value
+345   ACS Demographics/Race and ethnicity/Hispanic or Latino: Two or more races: Two races including Some other race/Margin of error
+346   ACS Demographics/Race and ethnicity/Hispanic or Latino: Two or more races: Two races including Some other race/Percentage
+347   ACS Demographics/Race and ethnicity/Hispanic or Latino: Two or more races: Two races excluding Some other race, and three or more races/Value
+348   ACS Demographics/Race and ethnicity/Hispanic or Latino: Two or more races: Two races excluding Some other race, and three or more races/Margin of error
+349   ACS Demographics/Race and ethnicity/Hispanic or Latino: Two or more races: Two races excluding Some other race, and three or more races/Percentage
+350   ACS Housing/Geography
+351   ACS Housing/Number of housing units/Total/Value
+352   ACS Housing/Number of housing units/Total/Margin of error
+353   ACS Housing/Occupancy status/Occupied/Value
+354   ACS Housing/Occupancy status/Occupied/Margin of error
+355   ACS Housing/Occupancy status/Occupied/Percentage
+356   ACS Housing/Occupancy status/Vacant/Value
+357   ACS Housing/Occupancy status/Vacant/Margin of error
+358   ACS Housing/Occupancy status/Vacant/Percentage
+359   ACS Housing/Ownership of occupied units/Owner occupied/Value
+360   ACS Housing/Ownership of occupied units/Owner occupied/Margin of error
+361   ACS Housing/Ownership of occupied units/Owner occupied/Percentage
+362   ACS Housing/Ownership of occupied units/Renter occupied/Value
+363   ACS Housing/Ownership of occupied units/Renter occupied/Margin of error
+364   ACS Housing/Ownership of occupied units/Renter occupied/Percentage
+365   ACS Housing/Units in structure/1, detached unit/Value
+366   ACS Housing/Units in structure/1, detached unit/Margin of error
+367   ACS Housing/Units in structure/1, detached unit/Percentage
+368   ACS Housing/Units in structure/1, attached unit/Value
+369   ACS Housing/Units in structure/1, attached unit/Margin of error
+370   ACS Housing/Units in structure/1, attached unit/Percentage
+371   ACS Housing/Units in structure/2 units/Value
+372   ACS Housing/Units in structure/2 units/Margin of error
+373   ACS Housing/Units in structure/2 units/Percentage
+374   ACS Housing/Units in structure/3 or 4 units/Value
+375   ACS Housing/Units in structure/3 or 4 units/Margin of error
+376   ACS Housing/Units in structure/3 or 4 units/Percentage
+377   ACS Housing/Units in structure/5 to 9 units/Value
+378   ACS Housing/Units in structure/5 to 9 units/Margin of error
+379   ACS Housing/Units in structure/5 to 9 units/Percentage
+380   ACS Housing/Units in structure/10 to 19 unit/Value
+381   ACS Housing/Units in structure/10 to 19 unit/Margin of error
+382   ACS Housing/Units in structure/10 to 19 unit/Percentage
+383   ACS Housing/Units in structure/20 to 49 units/Value
+384   ACS Housing/Units in structure/20 to 49 units/Margin of error
+385   ACS Housing/Units in structure/20 to 49 units/Percentage
+386   ACS Housing/Units in structure/50 or more units/Value
+387   ACS Housing/Units in structure/50 or more units/Margin of error
+388   ACS Housing/Units in structure/50 or more units/Percentage
+389   ACS Housing/Units in structure/Mobile home units/Value
+390   ACS Housing/Units in structure/Mobile home units/Margin of error
+391   ACS Housing/Units in structure/Mobile home units/Percentage
+392   ACS Housing/Units in structure/Boat, RV, van, etc. units/Value
+393   ACS Housing/Units in structure/Boat, RV, van, etc. units/Margin of error
+394   ACS Housing/Units in structure/Boat, RV, van, etc. units/Percentage
+395   ACS Housing/Median value of owner-occupied housing units/Total/Value
+396   ACS Housing/Median value of owner-occupied housing units/Total/Margin of error
+397   ACS Housing/Value of owner-occupied housing units/Less than $10,000/Value
+398   ACS Housing/Value of owner-occupied housing units/Less than $10,000/Margin of error
+399   ACS Housing/Value of owner-occupied housing units/Less than $10,000/Percentage
+400   ACS Housing/Value of owner-occupied housing units/$10,000 to $14,999/Value
+401   ACS Housing/Value of owner-occupied housing units/$10,000 to $14,999/Margin of error
+402   ACS Housing/Value of owner-occupied housing units/$10,000 to $14,999/Percentage
+403   ACS Housing/Value of owner-occupied housing units/$15,000 to $19,999/Value
+404   ACS Housing/Value of owner-occupied housing units/$15,000 to $19,999/Margin of error
+405   ACS Housing/Value of owner-occupied housing units/$15,000 to $19,999/Percentage
+406   ACS Housing/Value of owner-occupied housing units/$20,000 to $24,999/Value
+407   ACS Housing/Value of owner-occupied housing units/$20,000 to $24,999/Margin of error
+408   ACS Housing/Value of owner-occupied housing units/$20,000 to $24,999/Percentage
+409   ACS Housing/Value of owner-occupied housing units/$25,000 to $29,999/Value
+410   ACS Housing/Value of owner-occupied housing units/$25,000 to $29,999/Margin of error
+411   ACS Housing/Value of owner-occupied housing units/$25,000 to $29,999/Percentage
+412   ACS Housing/Value of owner-occupied housing units/$30,000 to $34,999/Value
+413   ACS Housing/Value of owner-occupied housing units/$30,000 to $34,999/Margin of error
+414   ACS Housing/Value of owner-occupied housing units/$30,000 to $34,999/Percentage
+415   ACS Housing/Value of owner-occupied housing units/$35,000 to $39,999/Value
+416   ACS Housing/Value of owner-occupied housing units/$35,000 to $39,999/Margin of error
+417   ACS Housing/Value of owner-occupied housing units/$35,000 to $39,999/Percentage
+418   ACS Housing/Value of owner-occupied housing units/$40,000 to $49,999/Value
+419   ACS Housing/Value of owner-occupied housing units/$40,000 to $49,999/Margin of error
+420   ACS Housing/Value of owner-occupied housing units/$40,000 to $49,999/Percentage
+421   ACS Housing/Value of owner-occupied housing units/$50,000 to $59,999/Value
+422   ACS Housing/Value of owner-occupied housing units/$50,000 to $59,999/Margin of error
+423   ACS Housing/Value of owner-occupied housing units/$50,000 to $59,999/Percentage
+424   ACS Housing/Value of owner-occupied housing units/$60,000 to $69,999/Value
+425   ACS Housing/Value of owner-occupied housing units/$60,000 to $69,999/Margin of error
+426   ACS Housing/Value of owner-occupied housing units/$60,000 to $69,999/Percentage
+427   ACS Housing/Value of owner-occupied housing units/$70,000 to $79,999/Value
+428   ACS Housing/Value of owner-occupied housing units/$70,000 to $79,999/Margin of error
+429   ACS Housing/Value of owner-occupied housing units/$70,000 to $79,999/Percentage
+430   ACS Housing/Value of owner-occupied housing units/$80,000 to $89,999/Value
+431   ACS Housing/Value of owner-occupied housing units/$80,000 to $89,999/Margin of error
+432   ACS Housing/Value of owner-occupied housing units/$80,000 to $89,999/Percentage
+433   ACS Housing/Value of owner-occupied housing units/$90,000 to $99,999/Value
+434   ACS Housing/Value of owner-occupied housing units/$90,000 to $99,999/Margin of error
+435   ACS Housing/Value of owner-occupied housing units/$90,000 to $99,999/Percentage
+436   ACS Housing/Value of owner-occupied housing units/$100,000 to $124,999/Value
+437   ACS Housing/Value of owner-occupied housing units/$100,000 to $124,999/Margin of error
+438   ACS Housing/Value of owner-occupied housing units/$100,000 to $124,999/Percentage
+439   ACS Housing/Value of owner-occupied housing units/$125,000 to $149,999/Value
+440   ACS Housing/Value of owner-occupied housing units/$125,000 to $149,999/Margin of error
+441   ACS Housing/Value of owner-occupied housing units/$125,000 to $149,999/Percentage
+442   ACS Housing/Value of owner-occupied housing units/$150,000 to $174,999/Value
+443   ACS Housing/Value of owner-occupied housing units/$150,000 to $174,999/Margin of error
+444   ACS Housing/Value of owner-occupied housing units/$150,000 to $174,999/Percentage
+445   ACS Housing/Value of owner-occupied housing units/$175,000 to $199,999/Value
+446   ACS Housing/Value of owner-occupied housing units/$175,000 to $199,999/Margin of error
+447   ACS Housing/Value of owner-occupied housing units/$175,000 to $199,999/Percentage
+448   ACS Housing/Value of owner-occupied housing units/$200,000 to $249,999/Value
+449   ACS Housing/Value of owner-occupied housing units/$200,000 to $249,999/Margin of error
+450   ACS Housing/Value of owner-occupied housing units/$200,000 to $249,999/Percentage
+451   ACS Housing/Value of owner-occupied housing units/$250,000 to $299,999/Value
+452   ACS Housing/Value of owner-occupied housing units/$250,000 to $299,999/Margin of error
+453   ACS Housing/Value of owner-occupied housing units/$250,000 to $299,999/Percentage
+454   ACS Housing/Value of owner-occupied housing units/$300,000 to $399,999/Value
+455   ACS Housing/Value of owner-occupied housing units/$300,000 to $399,999/Margin of error
+456   ACS Housing/Value of owner-occupied housing units/$300,000 to $399,999/Percentage
+457   ACS Housing/Value of owner-occupied housing units/$400,000 to $499,999/Value
+458   ACS Housing/Value of owner-occupied housing units/$400,000 to $499,999/Margin of error
+459   ACS Housing/Value of owner-occupied housing units/$400,000 to $499,999/Percentage
+460   ACS Housing/Value of owner-occupied housing units/$500,000 to $749,999/Value
+461   ACS Housing/Value of owner-occupied housing units/$500,000 to $749,999/Margin of error
+462   ACS Housing/Value of owner-occupied housing units/$500,000 to $749,999/Percentage
+463   ACS Housing/Value of owner-occupied housing units/$750,000 to $999,999/Value
+464   ACS Housing/Value of owner-occupied housing units/$750,000 to $999,999/Margin of error
+465   ACS Housing/Value of owner-occupied housing units/$750,000 to $999,999/Percentage
+466   ACS Housing/Value of owner-occupied housing units/$1,000,000 to $1,499,999/Value
+467   ACS Housing/Value of owner-occupied housing units/$1,000,000 to $1,499,999/Margin of error
+468   ACS Housing/Value of owner-occupied housing units/$1,000,000 to $1,499,999/Percentage
+469   ACS Housing/Value of owner-occupied housing units/$1,500,000 to $1,999,999/Value
+470   ACS Housing/Value of owner-occupied housing units/$1,500,000 to $1,999,999/Margin of error
+471   ACS Housing/Value of owner-occupied housing units/$1,500,000 to $1,999,999/Percentage
+472   ACS Housing/Value of owner-occupied housing units/$2,000,000 or more/Value
+473   ACS Housing/Value of owner-occupied housing units/$2,000,000 or more/Margin of error
+474   ACS Housing/Value of owner-occupied housing units/$2,000,000 or more/Percentage
+475   ACS Families/Geography
+476   ACS Families/Household type by household/Total/Value
+477   ACS Families/Household type by household/Total/Margin of error
+478   ACS Families/Household type by household/Family households/Value
+479   ACS Families/Household type by household/Family households/Margin of error
+480   ACS Families/Household type by household/Family households/Percentage
+481   ACS Families/Household type by household/Family households: Married-couple family/Value
+482   ACS Families/Household type by household/Family households: Married-couple family/Margin of error
+483   ACS Families/Household type by household/Family households: Married-couple family/Percentage
+484   ACS Families/Household type by household/Family households: Other family/Value
+485   ACS Families/Household type by household/Family households: Other family/Margin of error
+486   ACS Families/Household type by household/Family households: Other family/Percentage
+487   ACS Families/Household type by household/Family households: Other family: Male householder, no spouse present/Value
+488   ACS Families/Household type by household/Family households: Other family: Male householder, no spouse present/Margin of error
+489   ACS Families/Household type by household/Family households: Other family: Male householder, no spouse present/Percentage
+490   ACS Families/Household type by household/Family households: Other family: Female householder, no spouse present/Value
+491   ACS Families/Household type by household/Family households: Other family: Female householder, no spouse present/Margin of error
+492   ACS Families/Household type by household/Family households: Other family: Female householder, no spouse present/Percentage
+493   ACS Families/Household type by household/Nonfamily households/Value
+494   ACS Families/Household type by household/Nonfamily households/Margin of error
+495   ACS Families/Household type by household/Nonfamily households/Percentage
+496   ACS Families/Household type by household/Nonfamily households: Householder living alone/Value
+497   ACS Families/Household type by household/Nonfamily households: Householder living alone/Margin of error
+498   ACS Families/Household type by household/Nonfamily households: Householder living alone/Percentage
+499   ACS Families/Household type by household/Nonfamily households: Householder not living alone/Value
+500   ACS Families/Household type by household/Nonfamily households: Householder not living alone/Margin of error
+501   ACS Families/Household type by household/Nonfamily households: Householder not living alone/Percentage
+502   ACS Families/Household type by population/Total/Value
+503   ACS Families/Household type by population/Total/Margin of error
+504   ACS Families/Household type by population/In family households/Value
+505   ACS Families/Household type by population/In family households/Margin of error
+506   ACS Families/Household type by population/In family households/Percentage
+507   ACS Families/Household type by population/In family households: In married-couple family/Value
+508   ACS Families/Household type by population/In family households: In married-couple family/Margin of error
+509   ACS Families/Household type by population/In family households: In married-couple family/Percentage
+510   ACS Families/Household type by population/In family households: In married-couple family: Relatives/Value
+511   ACS Families/Household type by population/In family households: In married-couple family: Relatives/Margin of error
+512   ACS Families/Household type by population/In family households: In married-couple family: Relatives/Percentage
+513   ACS Families/Household type by population/In family households: In married-couple family: Nonrelatives/Value
+514   ACS Families/Household type by population/In family households: In married-couple family: Nonrelatives/Margin of error
+515   ACS Families/Household type by population/In family households: In married-couple family: Nonrelatives/Percentage
+516   ACS Families/Household type by population/In family households: In male householder, no spouse present, family/Value
+517   ACS Families/Household type by population/In family households: In male householder, no spouse present, family/Margin of error
+518   ACS Families/Household type by population/In family households: In male householder, no spouse present, family/Percentage
+519   ACS Families/Household type by population/In family households: In male householder, no spouse present, family: Relatives/Value
+520   ACS Families/Household type by population/In family households: In male householder, no spouse present, family: Relatives/Margin of error
+521   ACS Families/Household type by population/In family households: In male householder, no spouse present, family: Relatives/Percentage
+522   ACS Families/Household type by population/In family households: In male householder, no spouse present, family: Nonrelatives/Value
+523   ACS Families/Household type by population/In family households: In male householder, no spouse present, family: Nonrelatives/Margin of error
+524   ACS Families/Household type by population/In family households: In male householder, no spouse present, family: Nonrelatives/Percentage
+525   ACS Families/Household type by population/In family households: In female householder, no spouse present, family/Value
+526   ACS Families/Household type by population/In family households: In female householder, no spouse present, family/Margin of error
+527   ACS Families/Household type by population/In family households: In female householder, no spouse present, family/Percentage
+528   ACS Families/Household type by population/In family households: In female householder, no spouse present, family: Relatives/Value
+529   ACS Families/Household type by population/In family households: In female householder, no spouse present, family: Relatives/Margin of error
+530   ACS Families/Household type by population/In family households: In female householder, no spouse present, family: Relatives/Percentage
+531   ACS Families/Household type by population/In family households: In female householder, no spouse present, family: Nonrelatives/Value
+532   ACS Families/Household type by population/In family households: In female householder, no spouse present, family: Nonrelatives/Margin of error
+533   ACS Families/Household type by population/In family households: In female householder, no spouse present, family: Nonrelatives/Percentage
+534   ACS Families/Household type by population/In nonfamily households/Value
+535   ACS Families/Household type by population/In nonfamily households/Margin of error
+536   ACS Families/Household type by population/In nonfamily households/Percentage
+537   ACS Families/Marital status/Male/Value
+538   ACS Families/Marital status/Male/Margin of error
+539   ACS Families/Marital status/Male/Percentage
+540   ACS Families/Marital status/Male: Never married/Value
+541   ACS Families/Marital status/Male: Never married/Margin of error
+542   ACS Families/Marital status/Male: Never married/Percentage
+543   ACS Families/Marital status/Male: Now married/Value
+544   ACS Families/Marital status/Male: Now married/Margin of error
+545   ACS Families/Marital status/Male: Now married/Percentage
+546   ACS Families/Marital status/Male: Now married: Married, spouse present/Value
+547   ACS Families/Marital status/Male: Now married: Married, spouse present/Margin of error
+548   ACS Families/Marital status/Male: Now married: Married, spouse present/Percentage
+549   ACS Families/Marital status/Male: Now married: Married, spouse absent/Value
+550   ACS Families/Marital status/Male: Now married: Married, spouse absent/Margin of error
+551   ACS Families/Marital status/Male: Now married: Married, spouse absent/Percentage
+552   ACS Families/Marital status/Male: Now married: Married, spouse absent: Separated/Value
+553   ACS Families/Marital status/Male: Now married: Married, spouse absent: Separated/Margin of error
+554   ACS Families/Marital status/Male: Now married: Married, spouse absent: Separated/Percentage
+555   ACS Families/Marital status/Male: Now married: Married, spouse absent: Other/Value
+556   ACS Families/Marital status/Male: Now married: Married, spouse absent: Other/Margin of error
+557   ACS Families/Marital status/Male: Now married: Married, spouse absent: Other/Percentage
+558   ACS Families/Marital status/Male: Widowed/Value
+559   ACS Families/Marital status/Male: Widowed/Margin of error
+560   ACS Families/Marital status/Male: Widowed/Percentage
+561   ACS Families/Marital status/Male: Divorced/Value
+562   ACS Families/Marital status/Male: Divorced/Margin of error
+563   ACS Families/Marital status/Male: Divorced/Percentage
+564   ACS Families/Marital status/Female/Value
+565   ACS Families/Marital status/Female/Margin of error
+566   ACS Families/Marital status/Female/Percentage
+567   ACS Families/Marital status/Female: Never married/Value
+568   ACS Families/Marital status/Female: Never married/Margin of error
+569   ACS Families/Marital status/Female: Never married/Percentage
+570   ACS Families/Marital status/Female: Now married/Value
+571   ACS Families/Marital status/Female: Now married/Margin of error
+572   ACS Families/Marital status/Female: Now married/Percentage
+573   ACS Families/Marital status/Female: Now married: Married, spouse present/Value
+574   ACS Families/Marital status/Female: Now married: Married, spouse present/Margin of error
+575   ACS Families/Marital status/Female: Now married: Married, spouse present/Percentage
+576   ACS Families/Marital status/Female: Now married: Married, spouse absent/Value
+577   ACS Families/Marital status/Female: Now married: Married, spouse absent/Margin of error
+578   ACS Families/Marital status/Female: Now married: Married, spouse absent/Percentage
+579   ACS Families/Marital status/Female: Now married: Married, spouse absent: Separated/Value
+580   ACS Families/Marital status/Female: Now married: Married, spouse absent: Separated/Margin of error
+581   ACS Families/Marital status/Female: Now married: Married, spouse absent: Separated/Percentage
+582   ACS Families/Marital status/Female: Now married: Married, spouse absent: Other/Value
+583   ACS Families/Marital status/Female: Now married: Married, spouse absent: Other/Margin of error
+584   ACS Families/Marital status/Female: Now married: Married, spouse absent: Other/Percentage
+585   ACS Families/Marital status/Female: Widowed/Value
+586   ACS Families/Marital status/Female: Widowed/Margin of error
+587   ACS Families/Marital status/Female: Widowed/Percentage
+588   ACS Families/Marital status/Female: Divorced/Value
+589   ACS Families/Marital status/Female: Divorced/Margin of error
+590   ACS Families/Marital status/Female: Divorced/Percentage
+591   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Total/Value
+592   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Total/Margin of error
+593   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Married-couple family/Value
+594   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Married-couple family/Margin of error
+595   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Married-couple family/Percentage
+596   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Married-couple family: With own children of the householder under 18 years/Value
+597   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Married-couple family: With own children of the householder under 18 years/Margin of error
+598   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Married-couple family: With own children of the householder under 18 years/Percentage
+599   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Married-couple family: With own children of the householder under 18 years: Under 6 years only/Value
+600   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Married-couple family: With own children of the householder under 18 years: Under 6 years only/Margin of error
+601   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Married-couple family: With own children of the householder under 18 years: Under 6 years only/Percentage
+602   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Married-couple family: With own children of the householder under 18 years: Under 6 years and 6 to 17 years/Value
+603   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Married-couple family: With own children of the householder under 18 years: Under 6 years and 6 to 17 years/Margin of error
+604   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Married-couple family: With own children of the householder under 18 years: Under 6 years and 6 to 17 years/Percentage
+605   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Married-couple family: With own children of the householder under 18 years: 6 to 17 years only/Value
+606   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Married-couple family: With own children of the householder under 18 years: 6 to 17 years only/Margin of error
+607   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Married-couple family: With own children of the householder under 18 years: 6 to 17 years only/Percentage
+608   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Married-couple family: No own children of the householder under 18 years/Value
+609   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Married-couple family: No own children of the householder under 18 years/Margin of error
+610   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Married-couple family: No own children of the householder under 18 years/Percentage
+611   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family/Value
+612   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family/Margin of error
+613   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family/Percentage
+614   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Male householder, no spouse present/Value
+615   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Male householder, no spouse present/Margin of error
+616   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Male householder, no spouse present/Percentage
+617   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Male householder, no spouse present: With own children of the householder under 18 years/Value
+618   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Male householder, no spouse present: With own children of the householder under 18 years/Margin of error
+619   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Male householder, no spouse present: With own children of the householder under 18 years/Percentage
+620   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Male householder, no spouse present: With own children of the householder under 18 years: Under 6 years only/Value
+621   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Male householder, no spouse present: With own children of the householder under 18 years: Under 6 years only/Margin of error
+622   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Male householder, no spouse present: With own children of the householder under 18 years: Under 6 years only/Percentage
+623   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Male householder, no spouse present: With own children of the householder under 18 years: Under 6 years and 6 to 17 years/Value
+624   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Male householder, no spouse present: With own children of the householder under 18 years: Under 6 years and 6 to 17 years/Margin of error
+625   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Male householder, no spouse present: With own children of the householder under 18 years: Under 6 years and 6 to 17 years/Percentage
+626   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Male householder, no spouse present: With own children of the householder under 18 years: 6 to 17 years only/Value
+627   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Male householder, no spouse present: With own children of the householder under 18 years: 6 to 17 years only/Margin of error
+628   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Male householder, no spouse present: With own children of the householder under 18 years: 6 to 17 years only/Percentage
+629   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Male householder, no spouse present: No own children of the householder under 18 years/Value
+630   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Male householder, no spouse present: No own children of the householder under 18 years/Margin of error
+631   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Male householder, no spouse present: No own children of the householder under 18 years/Percentage
+632   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Female householder, no spouse present/Value
+633   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Female householder, no spouse present/Margin of error
+634   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Female householder, no spouse present/Percentage
+635   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Female householder, no spouse present: With own children of the householder under 18 years/Value
+636   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Female householder, no spouse present: With own children of the householder under 18 years/Margin of error
+637   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Female householder, no spouse present: With own children of the householder under 18 years/Percentage
+638   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Female householder, no spouse present: With own children of the householder under 18 years: Under 6 years only/Value
+639   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Female householder, no spouse present: With own children of the householder under 18 years: Under 6 years only/Margin of error
+640   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Female householder, no spouse present: With own children of the householder under 18 years: Under 6 years only/Percentage
+641   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Female householder, no spouse present: With own children of the householder under 18 years: Under 6 years and 6 to 17 years/Value
+642   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Female householder, no spouse present: With own children of the householder under 18 years: Under 6 years and 6 to 17 years/Margin of error
+643   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Female householder, no spouse present: With own children of the householder under 18 years: Under 6 years and 6 to 17 years/Percentage
+644   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Female householder, no spouse present: With own children of the householder under 18 years: 6 to 17 years only/Value
+645   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Female householder, no spouse present: With own children of the householder under 18 years: 6 to 17 years only/Margin of error
+646   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Female householder, no spouse present: With own children of the householder under 18 years: 6 to 17 years only/Percentage
+647   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Female householder, no spouse present: No own children of the householder under 18 years/Value
+648   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Female householder, no spouse present: No own children of the householder under 18 years/Margin of error
+649   ACS Families/Family Type by Presence and Age of Own Children Under 18 Years/Other family: Female householder, no spouse present: No own children of the householder under 18 years/Percentage
+650   ACS Families/Average Household Size of Occupied Housing Units by Tenure/Total/Value
+651   ACS Families/Average Household Size of Occupied Housing Units by Tenure/Total/Margin of error
+652   ACS Families/Average Household Size of Occupied Housing Units by Tenure/Owner occupied/Value
+653   ACS Families/Average Household Size of Occupied Housing Units by Tenure/Owner occupied/Margin of error
+654   ACS Families/Average Household Size of Occupied Housing Units by Tenure/Renter occupied/Value
+655   ACS Families/Average Household Size of Occupied Housing Units by Tenure/Renter occupied/Margin of error
+656   ACS Families/Own Children Under 18 Years by Family Type and Age/Total/Value
+657   ACS Families/Own Children Under 18 Years by Family Type and Age/Total/Margin of error
+658   ACS Families/Own Children Under 18 Years by Family Type and Age/In married-couple families/Value
+659   ACS Families/Own Children Under 18 Years by Family Type and Age/In married-couple families/Margin of error
+660   ACS Families/Own Children Under 18 Years by Family Type and Age/In married-couple families/Percentage
+661   ACS Families/Own Children Under 18 Years by Family Type and Age/In married-couple families: Under 3 years/Value
+662   ACS Families/Own Children Under 18 Years by Family Type and Age/In married-couple families: Under 3 years/Margin of error
+663   ACS Families/Own Children Under 18 Years by Family Type and Age/In married-couple families: Under 3 years/Percentage
+664   ACS Families/Own Children Under 18 Years by Family Type and Age/In married-couple families: 3 and 4 years/Value
+665   ACS Families/Own Children Under 18 Years by Family Type and Age/In married-couple families: 3 and 4 years/Margin of error
+666   ACS Families/Own Children Under 18 Years by Family Type and Age/In married-couple families: 3 and 4 years/Percentage
+667   ACS Families/Own Children Under 18 Years by Family Type and Age/In married-couple families: 5 years/Value
+668   ACS Families/Own Children Under 18 Years by Family Type and Age/In married-couple families: 5 years/Margin of error
+669   ACS Families/Own Children Under 18 Years by Family Type and Age/In married-couple families: 5 years/Percentage
+670   ACS Families/Own Children Under 18 Years by Family Type and Age/In married-couple families: 6 to 11 years/Value
+671   ACS Families/Own Children Under 18 Years by Family Type and Age/In married-couple families: 6 to 11 years/Margin of error
+672   ACS Families/Own Children Under 18 Years by Family Type and Age/In married-couple families: 6 to 11 years/Percentage
+673   ACS Families/Own Children Under 18 Years by Family Type and Age/In married-couple families: 12 to 17 years/Value
+674   ACS Families/Own Children Under 18 Years by Family Type and Age/In married-couple families: 12 to 17 years/Margin of error
+675   ACS Families/Own Children Under 18 Years by Family Type and Age/In married-couple families: 12 to 17 years/Percentage
+676   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families/Value
+677   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families/Margin of error
+678   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families/Percentage
+679   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Male householder, no spouse present/Value
+680   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Male householder, no spouse present/Margin of error
+681   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Male householder, no spouse present/Percentage
+682   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Male householder, no spouse present: Under 3 years/Value
+683   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Male householder, no spouse present: Under 3 years/Margin of error
+684   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Male householder, no spouse present: Under 3 years/Percentage
+685   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Male householder, no spouse present: 3 and 4 years/Value
+686   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Male householder, no spouse present: 3 and 4 years/Margin of error
+687   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Male householder, no spouse present: 3 and 4 years/Percentage
+688   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Male householder, no spouse present: 5 years/Value
+689   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Male householder, no spouse present: 5 years/Margin of error
+690   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Male householder, no spouse present: 5 years/Percentage
+691   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Male householder, no spouse present: 6 to 11 years/Value
+692   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Male householder, no spouse present: 6 to 11 years/Margin of error
+693   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Male householder, no spouse present: 6 to 11 years/Percentage
+694   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Male householder, no spouse present: 12 to 17 years/Value
+695   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Male householder, no spouse present: 12 to 17 years/Margin of error
+696   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Male householder, no spouse present: 12 to 17 years/Percentage
+697   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Female householder, no spouse present/Value
+698   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Female householder, no spouse present/Margin of error
+699   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Female householder, no spouse present/Percentage
+700   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Female householder, no spouse present: Under 3 years/Value
+701   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Female householder, no spouse present: Under 3 years/Margin of error
+702   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Female householder, no spouse present: Under 3 years/Percentage
+703   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Female householder, no spouse present: 3 and 4 years/Value
+704   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Female householder, no spouse present: 3 and 4 years/Margin of error
+705   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Female householder, no spouse present: 3 and 4 years/Percentage
+706   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Female householder, no spouse present: 5 years/Value
+707   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Female householder, no spouse present: 5 years/Margin of error
+708   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Female householder, no spouse present: 5 years/Percentage
+709   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Female householder, no spouse present: 6 to 11 years/Value
+710   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Female householder, no spouse present: 6 to 11 years/Margin of error
+711   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Female householder, no spouse present: 6 to 11 years/Percentage
+712   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Female householder, no spouse present: 12 to 17 years/Value
+713   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Female householder, no spouse present: 12 to 17 years/Margin of error
+714   ACS Families/Own Children Under 18 Years by Family Type and Age/In other families: Female householder, no spouse present: 12 to 17 years/Percentage
+715   ACS Social/Geography
+716   ACS Social/Population by minimum level of education/Total/Value
+717   ACS Social/Population by minimum level of education/Total/Margin of error
+718   ACS Social/Population by minimum level of education/Male/Value
+719   ACS Social/Population by minimum level of education/Male/Margin of error
+720   ACS Social/Population by minimum level of education/Male/Percentage
+721   ACS Social/Population by minimum level of education/Male: No schooling completed/Value
+722   ACS Social/Population by minimum level of education/Male: No schooling completed/Margin of error
+723   ACS Social/Population by minimum level of education/Male: No schooling completed/Percentage
+724   ACS Social/Population by minimum level of education/Male: Nursery to 4th grade/Value
+725   ACS Social/Population by minimum level of education/Male: Nursery to 4th grade/Margin of error
+726   ACS Social/Population by minimum level of education/Male: Nursery to 4th grade/Percentage
+727   ACS Social/Population by minimum level of education/Male: 5th and 6th grade/Value
+728   ACS Social/Population by minimum level of education/Male: 5th and 6th grade/Margin of error
+729   ACS Social/Population by minimum level of education/Male: 5th and 6th grade/Percentage
+730   ACS Social/Population by minimum level of education/Male: 7th and 8th grade/Value
+731   ACS Social/Population by minimum level of education/Male: 7th and 8th grade/Margin of error
+732   ACS Social/Population by minimum level of education/Male: 7th and 8th grade/Percentage
+733   ACS Social/Population by minimum level of education/Male: 9th grade/Value
+734   ACS Social/Population by minimum level of education/Male: 9th grade/Margin of error
+735   ACS Social/Population by minimum level of education/Male: 9th grade/Percentage
+736   ACS Social/Population by minimum level of education/Male: 10th grade/Value
+737   ACS Social/Population by minimum level of education/Male: 10th grade/Margin of error
+738   ACS Social/Population by minimum level of education/Male: 10th grade/Percentage
+739   ACS Social/Population by minimum level of education/Male: 11th grade/Value
+740   ACS Social/Population by minimum level of education/Male: 11th grade/Margin of error
+741   ACS Social/Population by minimum level of education/Male: 11th grade/Percentage
+742   ACS Social/Population by minimum level of education/Male: 12th grade, no diploma/Value
+743   ACS Social/Population by minimum level of education/Male: 12th grade, no diploma/Margin of error
+744   ACS Social/Population by minimum level of education/Male: 12th grade, no diploma/Percentage
+745   ACS Social/Population by minimum level of education/Male: High school graduate (includes equivalency)/Value
+746   ACS Social/Population by minimum level of education/Male: High school graduate (includes equivalency)/Margin of error
+747   ACS Social/Population by minimum level of education/Male: High school graduate (includes equivalency)/Percentage
+748   ACS Social/Population by minimum level of education/Male: Some college, less than 1 year/Value
+749   ACS Social/Population by minimum level of education/Male: Some college, less than 1 year/Margin of error
+750   ACS Social/Population by minimum level of education/Male: Some college, less than 1 year/Percentage
+751   ACS Social/Population by minimum level of education/Male: Some college, 1 or more years, no degree/Value
+752   ACS Social/Population by minimum level of education/Male: Some college, 1 or more years, no degree/Margin of error
+753   ACS Social/Population by minimum level of education/Male: Some college, 1 or more years, no degree/Percentage
+754   ACS Social/Population by minimum level of education/Male: Associate's degree/Value
+755   ACS Social/Population by minimum level of education/Male: Associate's degree/Margin of error
+756   ACS Social/Population by minimum level of education/Male: Associate's degree/Percentage
+757   ACS Social/Population by minimum level of education/Male: Bachelor's degree/Value
+758   ACS Social/Population by minimum level of education/Male: Bachelor's degree/Margin of error
+759   ACS Social/Population by minimum level of education/Male: Bachelor's degree/Percentage
+760   ACS Social/Population by minimum level of education/Male: Master's degree/Value
+761   ACS Social/Population by minimum level of education/Male: Master's degree/Margin of error
+762   ACS Social/Population by minimum level of education/Male: Master's degree/Percentage
+763   ACS Social/Population by minimum level of education/Male: Professional school degree/Value
+764   ACS Social/Population by minimum level of education/Male: Professional school degree/Margin of error
+765   ACS Social/Population by minimum level of education/Male: Professional school degree/Percentage
+766   ACS Social/Population by minimum level of education/Male: Doctorate degree/Value
+767   ACS Social/Population by minimum level of education/Male: Doctorate degree/Margin of error
+768   ACS Social/Population by minimum level of education/Male: Doctorate degree/Percentage
+769   ACS Social/Population by minimum level of education/Female/Value
+770   ACS Social/Population by minimum level of education/Female/Margin of error
+771   ACS Social/Population by minimum level of education/Female/Percentage
+772   ACS Social/Population by minimum level of education/Female: No schooling completed/Value
+773   ACS Social/Population by minimum level of education/Female: No schooling completed/Margin of error
+774   ACS Social/Population by minimum level of education/Female: No schooling completed/Percentage
+775   ACS Social/Population by minimum level of education/Female: Nursery to 4th grade/Value
+776   ACS Social/Population by minimum level of education/Female: Nursery to 4th grade/Margin of error
+777   ACS Social/Population by minimum level of education/Female: Nursery to 4th grade/Percentage
+778   ACS Social/Population by minimum level of education/Female: 5th and 6th grade/Value
+779   ACS Social/Population by minimum level of education/Female: 5th and 6th grade/Margin of error
+780   ACS Social/Population by minimum level of education/Female: 5th and 6th grade/Percentage
+781   ACS Social/Population by minimum level of education/Female: 7th and 8th grade/Value
+782   ACS Social/Population by minimum level of education/Female: 7th and 8th grade/Margin of error
+783   ACS Social/Population by minimum level of education/Female: 7th and 8th grade/Percentage
+784   ACS Social/Population by minimum level of education/Female: 9th grade/Value
+785   ACS Social/Population by minimum level of education/Female: 9th grade/Margin of error
+786   ACS Social/Population by minimum level of education/Female: 9th grade/Percentage
+787   ACS Social/Population by minimum level of education/Female: 10th grade/Value
+788   ACS Social/Population by minimum level of education/Female: 10th grade/Margin of error
+789   ACS Social/Population by minimum level of education/Female: 10th grade/Percentage
+790   ACS Social/Population by minimum level of education/Female: 11th grade/Value
+791   ACS Social/Population by minimum level of education/Female: 11th grade/Margin of error
+792   ACS Social/Population by minimum level of education/Female: 11th grade/Percentage
+793   ACS Social/Population by minimum level of education/Female: 12th grade, no diploma/Value
+794   ACS Social/Population by minimum level of education/Female: 12th grade, no diploma/Margin of error
+795   ACS Social/Population by minimum level of education/Female: 12th grade, no diploma/Percentage
+796   ACS Social/Population by minimum level of education/Female: High school graduate (includes equivalency)/Value
+797   ACS Social/Population by minimum level of education/Female: High school graduate (includes equivalency)/Margin of error
+798   ACS Social/Population by minimum level of education/Female: High school graduate (includes equivalency)/Percentage
+799   ACS Social/Population by minimum level of education/Female: Some college, less than 1 year/Value
+800   ACS Social/Population by minimum level of education/Female: Some college, less than 1 year/Margin of error
+801   ACS Social/Population by minimum level of education/Female: Some college, less than 1 year/Percentage
+802   ACS Social/Population by minimum level of education/Female: Some college, 1 or more years, no degree/Value
+803   ACS Social/Population by minimum level of education/Female: Some college, 1 or more years, no degree/Margin of error
+804   ACS Social/Population by minimum level of education/Female: Some college, 1 or more years, no degree/Percentage
+805   ACS Social/Population by minimum level of education/Female: Associate's degree/Value
+806   ACS Social/Population by minimum level of education/Female: Associate's degree/Margin of error
+807   ACS Social/Population by minimum level of education/Female: Associate's degree/Percentage
+808   ACS Social/Population by minimum level of education/Female: Bachelor's degree/Value
+809   ACS Social/Population by minimum level of education/Female: Bachelor's degree/Margin of error
+810   ACS Social/Population by minimum level of education/Female: Bachelor's degree/Percentage
+811   ACS Social/Population by minimum level of education/Female: Master's degree/Value
+812   ACS Social/Population by minimum level of education/Female: Master's degree/Margin of error
+813   ACS Social/Population by minimum level of education/Female: Master's degree/Percentage
+814   ACS Social/Population by minimum level of education/Female: Professional school degree/Value
+815   ACS Social/Population by minimum level of education/Female: Professional school degree/Margin of error
+816   ACS Social/Population by minimum level of education/Female: Professional school degree/Percentage
+817   ACS Social/Population by minimum level of education/Female: Doctorate degree/Value
+818   ACS Social/Population by minimum level of education/Female: Doctorate degree/Margin of error
+819   ACS Social/Population by minimum level of education/Female: Doctorate degree/Percentage
+820   ACS Social/Population with veteran status/Total/Value
+821   ACS Social/Population with veteran status/Total/Margin of error
+822   ACS Social/Population with veteran status/Veteran/Value
+823   ACS Social/Population with veteran status/Veteran/Margin of error
+824   ACS Social/Population with veteran status/Veteran/Percentage
+825   ACS Social/Population with veteran status/Nonveteran/Value
+826   ACS Social/Population with veteran status/Nonveteran/Margin of error
+827   ACS Social/Population with veteran status/Nonveteran/Percentage
+828   ACS Social/Population with veteran status/Male/Value
+829   ACS Social/Population with veteran status/Male/Margin of error
+830   ACS Social/Population with veteran status/Male/Percentage
+831   ACS Social/Population with veteran status/Male: Veteran/Value
+832   ACS Social/Population with veteran status/Male: Veteran/Margin of error
+833   ACS Social/Population with veteran status/Male: Veteran/Percentage
+834   ACS Social/Population with veteran status/Male: Nonveteran/Value
+835   ACS Social/Population with veteran status/Male: Nonveteran/Margin of error
+836   ACS Social/Population with veteran status/Male: Nonveteran/Percentage
+837   ACS Social/Population with veteran status/Male: 18 to 34 years/Value
+838   ACS Social/Population with veteran status/Male: 18 to 34 years/Margin of error
+839   ACS Social/Population with veteran status/Male: 18 to 34 years/Percentage
+840   ACS Social/Population with veteran status/Male: 18 to 34 years: Veteran/Value
+841   ACS Social/Population with veteran status/Male: 18 to 34 years: Veteran/Margin of error
+842   ACS Social/Population with veteran status/Male: 18 to 34 years: Veteran/Percentage
+843   ACS Social/Population with veteran status/Male: 18 to 34 years: Nonveteran/Value
+844   ACS Social/Population with veteran status/Male: 18 to 34 years: Nonveteran/Margin of error
+845   ACS Social/Population with veteran status/Male: 18 to 34 years: Nonveteran/Percentage
+846   ACS Social/Population with veteran status/Male: 35 to 54 years/Value
+847   ACS Social/Population with veteran status/Male: 35 to 54 years/Margin of error
+848   ACS Social/Population with veteran status/Male: 35 to 54 years/Percentage
+849   ACS Social/Population with veteran status/Male: 35 to 54 years: Veteran/Value
+850   ACS Social/Population with veteran status/Male: 35 to 54 years: Veteran/Margin of error
+851   ACS Social/Population with veteran status/Male: 35 to 54 years: Veteran/Percentage
+852   ACS Social/Population with veteran status/Male: 35 to 54 years: Nonveteran/Value
+853   ACS Social/Population with veteran status/Male: 35 to 54 years: Nonveteran/Margin of error
+854   ACS Social/Population with veteran status/Male: 35 to 54 years: Nonveteran/Percentage
+855   ACS Social/Population with veteran status/Male: 55 to 64 years/Value
+856   ACS Social/Population with veteran status/Male: 55 to 64 years/Margin of error
+857   ACS Social/Population with veteran status/Male: 55 to 64 years/Percentage
+858   ACS Social/Population with veteran status/Male: 55 to 64 years: Veteran/Value
+859   ACS Social/Population with veteran status/Male: 55 to 64 years: Veteran/Margin of error
+860   ACS Social/Population with veteran status/Male: 55 to 64 years: Veteran/Percentage
+861   ACS Social/Population with veteran status/Male: 55 to 64 years: Nonveteran/Value
+862   ACS Social/Population with veteran status/Male: 55 to 64 years: Nonveteran/Margin of error
+863   ACS Social/Population with veteran status/Male: 55 to 64 years: Nonveteran/Percentage
+864   ACS Social/Population with veteran status/Male: 65 to 74 years/Value
+865   ACS Social/Population with veteran status/Male: 65 to 74 years/Margin of error
+866   ACS Social/Population with veteran status/Male: 65 to 74 years/Percentage
+867   ACS Social/Population with veteran status/Male: 65 to 74 years: Veteran/Value
+868   ACS Social/Population with veteran status/Male: 65 to 74 years: Veteran/Margin of error
+869   ACS Social/Population with veteran status/Male: 65 to 74 years: Veteran/Percentage
+870   ACS Social/Population with veteran status/Male: 65 to 74 years: Nonveteran/Value
+871   ACS Social/Population with veteran status/Male: 65 to 74 years: Nonveteran/Margin of error
+872   ACS Social/Population with veteran status/Male: 65 to 74 years: Nonveteran/Percentage
+873   ACS Social/Population with veteran status/Male: 75 years and over/Value
+874   ACS Social/Population with veteran status/Male: 75 years and over/Margin of error
+875   ACS Social/Population with veteran status/Male: 75 years and over/Percentage
+876   ACS Social/Population with veteran status/Male: 75 years and over: Veteran/Value
+877   ACS Social/Population with veteran status/Male: 75 years and over: Veteran/Margin of error
+878   ACS Social/Population with veteran status/Male: 75 years and over: Veteran/Percentage
+879   ACS Social/Population with veteran status/Male: 75 years and over: Nonveteran/Value
+880   ACS Social/Population with veteran status/Male: 75 years and over: Nonveteran/Margin of error
+881   ACS Social/Population with veteran status/Male: 75 years and over: Nonveteran/Percentage
+882   ACS Social/Population with veteran status/Female/Value
+883   ACS Social/Population with veteran status/Female/Margin of error
+884   ACS Social/Population with veteran status/Female/Percentage
+885   ACS Social/Population with veteran status/Female: Veteran/Value
+886   ACS Social/Population with veteran status/Female: Veteran/Margin of error
+887   ACS Social/Population with veteran status/Female: Veteran/Percentage
+888   ACS Social/Population with veteran status/Female: Nonveteran/Value
+889   ACS Social/Population with veteran status/Female: Nonveteran/Margin of error
+890   ACS Social/Population with veteran status/Female: Nonveteran/Percentage
+891   ACS Social/Population with veteran status/Female: 18 to 34 years/Value
+892   ACS Social/Population with veteran status/Female: 18 to 34 years/Margin of error
+893   ACS Social/Population with veteran status/Female: 18 to 34 years/Percentage
+894   ACS Social/Population with veteran status/Female: 18 to 34 years: Veteran/Value
+895   ACS Social/Population with veteran status/Female: 18 to 34 years: Veteran/Margin of error
+896   ACS Social/Population with veteran status/Female: 18 to 34 years: Veteran/Percentage
+897   ACS Social/Population with veteran status/Female: 18 to 34 years: Nonveteran/Value
+898   ACS Social/Population with veteran status/Female: 18 to 34 years: Nonveteran/Margin of error
+899   ACS Social/Population with veteran status/Female: 18 to 34 years: Nonveteran/Percentage
+900   ACS Social/Population with veteran status/Female: 35 to 54 years/Value
+901   ACS Social/Population with veteran status/Female: 35 to 54 years/Margin of error
+902   ACS Social/Population with veteran status/Female: 35 to 54 years/Percentage
+903   ACS Social/Population with veteran status/Female: 35 to 54 years: Veteran/Value
+904   ACS Social/Population with veteran status/Female: 35 to 54 years: Veteran/Margin of error
+905   ACS Social/Population with veteran status/Female: 35 to 54 years: Veteran/Percentage
+906   ACS Social/Population with veteran status/Female: 35 to 54 years: Nonveteran/Value
+907   ACS Social/Population with veteran status/Female: 35 to 54 years: Nonveteran/Margin of error
+908   ACS Social/Population with veteran status/Female: 35 to 54 years: Nonveteran/Percentage
+909   ACS Social/Population with veteran status/Female: 55 to 64 years/Value
+910   ACS Social/Population with veteran status/Female: 55 to 64 years/Margin of error
+911   ACS Social/Population with veteran status/Female: 55 to 64 years/Percentage
+912   ACS Social/Population with veteran status/Female: 55 to 64 years: Veteran/Value
+913   ACS Social/Population with veteran status/Female: 55 to 64 years: Veteran/Margin of error
+914   ACS Social/Population with veteran status/Female: 55 to 64 years: Veteran/Percentage
+915   ACS Social/Population with veteran status/Female: 55 to 64 years: Nonveteran/Value
+916   ACS Social/Population with veteran status/Female: 55 to 64 years: Nonveteran/Margin of error
+917   ACS Social/Population with veteran status/Female: 55 to 64 years: Nonveteran/Percentage
+918   ACS Social/Population with veteran status/Female: 65 to 74 years/Value
+919   ACS Social/Population with veteran status/Female: 65 to 74 years/Margin of error
+920   ACS Social/Population with veteran status/Female: 65 to 74 years/Percentage
+921   ACS Social/Population with veteran status/Female: 65 to 74 years: Veteran/Value
+922   ACS Social/Population with veteran status/Female: 65 to 74 years: Veteran/Margin of error
+923   ACS Social/Population with veteran status/Female: 65 to 74 years: Veteran/Percentage
+924   ACS Social/Population with veteran status/Female: 65 to 74 years: Nonveteran/Value
+925   ACS Social/Population with veteran status/Female: 65 to 74 years: Nonveteran/Margin of error
+926   ACS Social/Population with veteran status/Female: 65 to 74 years: Nonveteran/Percentage
+927   ACS Social/Population with veteran status/Female: 75 years and over/Value
+928   ACS Social/Population with veteran status/Female: 75 years and over/Margin of error
+929   ACS Social/Population with veteran status/Female: 75 years and over/Percentage
+930   ACS Social/Population with veteran status/Female: 75 years and over: Veteran/Value
+931   ACS Social/Population with veteran status/Female: 75 years and over: Veteran/Margin of error
+932   ACS Social/Population with veteran status/Female: 75 years and over: Veteran/Percentage
+933   ACS Social/Population with veteran status/Female: 75 years and over: Nonveteran/Value
+934   ACS Social/Population with veteran status/Female: 75 years and over: Nonveteran/Margin of error
+935   ACS Social/Population with veteran status/Female: 75 years and over: Nonveteran/Percentage
+936   ACS Social/Period of military service for veterans/Total/Value
+937   ACS Social/Period of military service for veterans/Total/Margin of error
+938   ACS Social/Period of military service for veterans/Gulf War (9/2001 or later), no Gulf War (8/1990 to 8/2001), no Vietnam Era/Value
+939   ACS Social/Period of military service for veterans/Gulf War (9/2001 or later), no Gulf War (8/1990 to 8/2001), no Vietnam Era/Margin of error
+940   ACS Social/Period of military service for veterans/Gulf War (9/2001 or later), no Gulf War (8/1990 to 8/2001), no Vietnam Era/Percentage
+941   ACS Social/Period of military service for veterans/Gulf War (9/2001 or later) and Gulf War (8/1990 to 8/2001), no Vietnam Era/Value
+942   ACS Social/Period of military service for veterans/Gulf War (9/2001 or later) and Gulf War (8/1990 to 8/2001), no Vietnam Era/Margin of error
+943   ACS Social/Period of military service for veterans/Gulf War (9/2001 or later) and Gulf War (8/1990 to 8/2001), no Vietnam Era/Percentage
+944   ACS Social/Period of military service for veterans/Gulf War (9/2001 or later), and Gulf War (8/1990 to 8/2001), and Vietnam Era/Value
+945   ACS Social/Period of military service for veterans/Gulf War (9/2001 or later), and Gulf War (8/1990 to 8/2001), and Vietnam Era/Margin of error
+946   ACS Social/Period of military service for veterans/Gulf War (9/2001 or later), and Gulf War (8/1990 to 8/2001), and Vietnam Era/Percentage
+947   ACS Social/Period of military service for veterans/Gulf War (8/1990 to 8/2001), no Vietnam Era/Value
+948   ACS Social/Period of military service for veterans/Gulf War (8/1990 to 8/2001), no Vietnam Era/Margin of error
+949   ACS Social/Period of military service for veterans/Gulf War (8/1990 to 8/2001), no Vietnam Era/Percentage
+950   ACS Social/Period of military service for veterans/Gulf War (8/1990 to 8/2001) and Vietnam Era/Value
+951   ACS Social/Period of military service for veterans/Gulf War (8/1990 to 8/2001) and Vietnam Era/Margin of error
+952   ACS Social/Period of military service for veterans/Gulf War (8/1990 to 8/2001) and Vietnam Era/Percentage
+953   ACS Social/Period of military service for veterans/Vietnam Era, no Korean War, no World War II/Value
+954   ACS Social/Period of military service for veterans/Vietnam Era, no Korean War, no World War II/Margin of error
+955   ACS Social/Period of military service for veterans/Vietnam Era, no Korean War, no World War II/Percentage
+956   ACS Social/Period of military service for veterans/Vietnam Era and Korean War, no World War II/Value
+957   ACS Social/Period of military service for veterans/Vietnam Era and Korean War, no World War II/Margin of error
+958   ACS Social/Period of military service for veterans/Vietnam Era and Korean War, no World War II/Percentage
+959   ACS Social/Period of military service for veterans/Vietnam Era and Korean War and World War II/Value
+960   ACS Social/Period of military service for veterans/Vietnam Era and Korean War and World War II/Margin of error
+961   ACS Social/Period of military service for veterans/Vietnam Era and Korean War and World War II/Percentage
+962   ACS Social/Period of military service for veterans/Korean War, no Vietnam Era, no World War II/Value
+963   ACS Social/Period of military service for veterans/Korean War, no Vietnam Era, no World War II/Margin of error
+964   ACS Social/Period of military service for veterans/Korean War, no Vietnam Era, no World War II/Percentage
+965   ACS Social/Period of military service for veterans/Korean War and World War II, no Vietnam Era/Value
+966   ACS Social/Period of military service for veterans/Korean War and World War II, no Vietnam Era/Margin of error
+967   ACS Social/Period of military service for veterans/Korean War and World War II, no Vietnam Era/Percentage
+968   ACS Social/Period of military service for veterans/World War II, no Korean War, no Vietnam Era/Value
+969   ACS Social/Period of military service for veterans/World War II, no Korean War, no Vietnam Era/Margin of error
+970   ACS Social/Period of military service for veterans/World War II, no Korean War, no Vietnam Era/Percentage
+971   ACS Social/Period of military service for veterans/Between Gulf War and Vietnam Era only/Value
+972   ACS Social/Period of military service for veterans/Between Gulf War and Vietnam Era only/Margin of error
+973   ACS Social/Period of military service for veterans/Between Gulf War and Vietnam Era only/Percentage
+974   ACS Social/Period of military service for veterans/Between Vietnam Era and Korean War only/Value
+975   ACS Social/Period of military service for veterans/Between Vietnam Era and Korean War only/Margin of error
+976   ACS Social/Period of military service for veterans/Between Vietnam Era and Korean War only/Percentage
+977   ACS Social/Period of military service for veterans/Between Korean War and World War II only/Value
+978   ACS Social/Period of military service for veterans/Between Korean War and World War II only/Margin of error
+979   ACS Social/Period of military service for veterans/Between Korean War and World War II only/Percentage
+980   ACS Social/Period of military service for veterans/Pre-World War II only/Value
+981   ACS Social/Period of military service for veterans/Pre-World War II only/Margin of error
+982   ACS Social/Period of military service for veterans/Pre-World War II only/Percentage
+983   HMDA/CRA collection year
+984   MSA/MD Code
+985   FIPS state code
+986   FIPS county code
+987   Census tract
+988   Principal city?
+989   Small county code
+990   Small county description
+991   Split tract code
+992   Split tract description
+993   Demographic data code
+994   Demographic data description
+995   Urban/rural code
+996   Urban/rural description
+997   MSA/MD median family income
+998   MSA/MD median household income
+999   Tract median family income as a percentage of the MSA/MD median family income
+1000  FFIEC Estimated MSA/MD median family income
+1001  Income indicator
+1002  CRA poverty criteria?
+1003  CRA unemployment criteria?
+1004  CRA distressed criteria?
+1005  CRA remote rural (low density) criteria?
+1006  Previous year CRA distressed criteria?
+1007  Previous year CRA underserved criterion?
+1008  Meets at least one of current or previous year's CRA distressed/underserved tract criteria?
+1009  Minority population as a percentage of the tract population
+1010  ZIP+4 Range Start
+1011  ZIP+4 Range End (or blank if no range)
+1012  ZIP 9 Range Start
+1013  ZIP 9 Range End (or blank if no range)
+1014  Record Type Code
+1015  Record Type Description
+1016  Residential Indicator
+1017  Carrier Route ID
+1018  Carrier Route Description
+1019  Building or Firm Name
+1020  Government Building Code
+1021  Government Building Description
+1022  Facility Code
+1023  Facility Description
+1024  City Delivery?
+1025  Valid delivery area?
+1026  Exact Match?
