@@ -85,11 +85,11 @@ const getListings = query(async () => {
   // (getRequestEvent() is undefined in the browser, where location wins).
   const origin = getRequestEvent()?.request.url ?? location.origin;
 
-  const listings = await json((new URL('./data/houses.json', origin)).toString());
-  const listingsWithGeocoding = await csv((new URL('./data/houses.csv', origin)).toString());
+  const listings = await json((new URL('/own-the-hou--finder/data/houses.json', origin)).toString());
+  const listingsWithGeocoding = await csv((new URL('/own-the-hou--finder/data/houses.csv', origin)).toString());
 
-  const harrisCountyProgramLimits = await json((new URL('./data/unincorp-harris-county.geojson', origin)).toString());
-  const cohProgramLimits = await json((new URL('./data/coh-city-limits.geojson', origin)).toString());
+  const harrisCountyProgramLimits = await json((new URL('/own-the-hou--finder/data/unincorp-harris-county.geojson', origin)).toString());
+  const cohProgramLimits = await json((new URL('/own-the-hou--finder/data/coh-city-limits.geojson', origin)).toString());
 
   const programBoundsGeoJSON = {
     type: 'FeatureCollection',
