@@ -41,10 +41,10 @@ export function Map(props: {
         'id': 'subdivision-on-map',
         'type': 'fill',
         'source': 'houses',
-        'filter': ['==', '$type', 'Polygon'],
+        'filter': ['==', ['get', 'type'], 'subdivision'],
         'layout': {},
         'paint': {
-          'fill-color': '#0080ff', // blue color fill
+          'fill-color': '#85625c', // blue color fill
           'fill-opacity': 0.5,
         },
       });
@@ -52,10 +52,32 @@ export function Map(props: {
         'id': 'subdivision-on-map-border',
         'type': 'line',
         'source': 'houses',
-        'filter': ['==', '$type', 'Polygon'],
+        'filter': ['==', ['get', 'type'], 'subdivision'],
         'layout': {},
         'paint': {
-          'line-color': '#0080ff',
+          'line-color': '#85625c',
+          'line-width': 1,
+        },
+      });
+      map.addLayer({
+        'id': 'program-bounds-on-map',
+        'type': 'fill',
+        'source': 'houses',
+        'filter': ['==', ['get', 'type'], 'program-bounds'],
+        'layout': {},
+        'paint': {
+          'fill-color': '#503aa8', // blue color fill
+          'fill-opacity': 0.05,
+        },
+      });
+      map.addLayer({
+        'id': 'program-bounds-on-map-border',
+        'type': 'line',
+        'source': 'houses',
+        'filter': ['==', ['get', 'type'], 'program-bounds'],
+        'layout': {},
+        'paint': {
+          'line-color': '#503aa8',
           'line-width': 1,
         },
       });
@@ -63,7 +85,7 @@ export function Map(props: {
         'id': 'houses-on-map',
         'type': 'circle',
         'source': 'houses',
-        'filter': ['==', '$type', 'Point'],
+        'filter': ['==', ['get', 'type'], 'listing'],
         'paint': {
           'circle-radius': [
             'interpolate',
@@ -72,14 +94,34 @@ export function Map(props: {
             12, 4,   // At zoom level 5 or lower, radius is 2px
             15, 8  // At zoom level 15 or higher, radius is 20px
           ],
-            'circle-color': [
-                'case',
-                ['==', ['feature-state', 'selected'], true],
-                '#000', // Color when selected
-                '#B42222',  // Default color
-            ],
+          'circle-color': '#e86e24',  // Default color
+          'circle-stroke-width': 1,
+          'circle-stroke-color': '#503aa8', // Color when selected
         },
       });
+      map.addLayer({
+        'id': 'houses-on-map-active',
+        'type': 'circle',
+        'source': 'houses',
+        'filter': ['==', ['get', 'type'], 'listing'],
+        'paint': {
+          'circle-radius': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            12, 4,   // At zoom level 5 or lower, radius is 2px
+            15, 8  // At zoom level 15 or higher, radius is 20px
+          ],
+          'circle-stroke-width': 0,
+          'circle-color': [
+              'case',
+              ['==', ['feature-state', 'selected'], true],
+              '#503aa8', // Color when selected
+              'transparent',  // Default color
+          ],
+        },
+      });
+
       map.on('mousemove', 'houses-on-map', (e) => {
         if (e.features.length > 0) {
           // console.log(e.features[0]);
@@ -87,6 +129,11 @@ export function Map(props: {
           map.getCanvas().style.cursor = 'pointer';
 
           setActiveMapSelection(e.features[0].id)
+
+          document.querySelector(`[data-listing="listing-${e.features[0].id}"]`)?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          })
         }
       })
 

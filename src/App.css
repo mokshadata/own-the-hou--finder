@@ -8,3 +8,154 @@
     transform: rotate(360deg);
   }
 }
+:root {
+    /* https://coolors.co/1c335f-373f5f-514b5e-6b575d-85625c-9f6e5b-b97a5a-d38659-ed9158-e86e24 */
+
+    /* CSS HEX */
+    --oth2--twilight-indigo: #1c335fff;
+    --oth2--twilight-indigo-2: #373f5fff;
+    --oth2--vintage-grape: #514b5eff;
+    --oth2--taupe-grey: #6b575dff;
+    --oth2--smoky-rose: #85625cff;
+    --oth2--cinnamon-wood: #9f6e5bff;
+    --oth2--cinnamon-wood-2: #b97a5aff;
+    --oth2--toasted-almond: #d38659ff;
+    --oth2--tangerine-dream: #ed9158ff;
+    --oth2--autumn-leaf: #e86e24ff;
+    --oth2--porcelain: #FBFAF3;
+    --oth2--amber-flame: #fcb900ff;
+
+    /* CSS HSL */
+    --oth2--twilight-indigo--hsl: 219, 54%, 24%;
+    --oth2--twilight-indigo-2--hsl: 228, 27%, 29%;
+    --oth2--vintage-grape--hsl: 259, 11%, 33%;
+    --oth2--taupe-grey--hsl: 342, 10%, 38%;
+    --oth2--smoky-rose--hsl: 9, 18%, 44%;
+    --oth2--cinnamon-wood--hsl: 17, 27%, 49%;
+    --oth2--cinnamon-wood-2--hsl: 20, 40%, 54%;
+    --oth2--toasted-almond--hsl: 22, 58%, 59%;
+    --oth2--tangerine-dream--hsl: 23, 81%, 64%;
+    --oth2--autumn-leaf--hsl: 23, 81%, 53%;
+    --oth2--amber-flame--hsl: 44, 100%, 49%;
+
+
+    --oth--twilight-indigo-rgb: 28, 51, 95;
+    --oth--twilight-indigo-2-rgb: 55, 63, 95;
+    --oth--vintage-grape-rgb: 81, 75, 94;
+    --oth--taupe-grey-rgb: 107, 87, 93;
+    --oth--smoky-rose-rgb: 133, 98, 92;
+    --oth--cinnamon-wood-rgb: 159, 110, 91;
+    --oth--cinnamon-wood-2-rgb: 185, 122, 90;
+    --oth--toasted-almond-rgb: 211, 134, 89;
+    --oth--tangerine-dream-rgb: 237, 145, 88;
+    --oth--autumn-leaf-rgb: 232, 110, 36;
+
+
+    /* https://coolors.co/1c335f-524d87-8866af-be80d7-d98deb-f399ff-f18fc9-ee8492-eb795b-e86e24 */
+
+    /* CSS HEX */
+    --oth--chapter--twilight-indigo: #1c335fff;
+    --oth--chapter--dusty-grape: #524d87ff;
+    --oth--chapter--lavender-purple: #8866afff;
+    --oth--chapter--bright-lavender: #be80d7ff;
+    --oth--chapter--violet: #d98debff;
+    --oth--chapter--violet-2: #f399ffff;
+    --oth--chapter--pink-carnation: #f18fc9ff;
+    --oth--chapter--cotton-candy: #ee8492ff;
+    --oth--chapter--burnt-peach: #eb795bff;
+    --oth--chapter--autumn-leaf: #e86e24ff;
+
+    /* CSS HSL */
+    --oth--chapter--twilight-indigo--hsl: 219, 54%, 24%;
+    --oth--chapter--dusty-grape--hsl: 245, 27%, 42%;
+    --oth--chapter--lavender-purple--hsl: 268, 31%, 54%;
+    --oth--chapter--bright-lavender--hsl: 283, 52%, 67%;
+    --oth--chapter--violet--hsl: 289, 70%, 74%;
+    --oth--chapter--violet-2--hsl: 293, 100%, 80%;
+    --oth--chapter--pink-carnation--hsl: 324, 78%, 75%;
+    --oth--chapter--cotton-candy--hsl: 352, 76%, 73%;
+    --oth--chapter--burnt-peach--hsl: 12, 78%, 64%;
+    --oth--chapter--autumn-leaf--hsl: 23, 81%, 53%;
+
+    /* https://coolors.co/1c335f-e86e24-fcb900-00d084-0693e3-503aa8-fbfaf3 */
+
+/* CSS HEX */
+--twilight-indigo: #1c335fff;
+--autumn-leaf: #e86e24ff;
+--amber-flame: #fcb900ff;
+--emerald: #00d084ff;
+--blue-bell: #0693e3ff;
+--rebecca-purple: #503aa8ff;
+--porcelain: #fbfaf3ff;
+
+/* CSS HSL */
+--twilight-indigo-hsl: 219, 54%, 24%;
+--autumn-leaf-hsl: 23, 81%, 53%;
+--amber-flame-hsl: 44, 100%, 49%;
+--emerald-hsl: 158, 100%, 41%;
+--blue-bell-hsl: 202, 95%, 46%;
+--rebecca-purple-hsl: 252, 49%, 44%;
+--porcelain-hsl: 53, 50%, 97%;
+
+--twilight-indigo-rgb: 28, 51, 95;
+--autumn-leaf-rgb: 232, 110, 36;
+--amber-flame-rgb: 252, 185, 0;
+--emerald-rgb: 0, 208, 132;
+--blue-bell-rgb: 6, 147, 227;
+--rebecca-purple-rgb: 80, 58, 168;
+--porcelain-rgb: 251, 250, 243;
+
+--bs-body-bg: transparent;
+
+--bs-info-rgb: var(--rebecca-purple-rgb);
+--bs-primary-rgb: var(--blue-bell-rgb);
+--bs-dark-rgb: var(--oth--twilight-indigo-rgb);
+
+}
+:root,
+:host {
+
+  --oth-family-primary: "Outfit", Inter, SF Pro, Segoe UI, Roboto, Oxygen, Ubuntu, Helvetica Neue, Helvetica, Arial, sans-serif;
+  --oth-family-secondary: "Outfit", Inter, SF Pro, Segoe UI, Roboto, Oxygen, Ubuntu, Helvetica Neue, Helvetica, Arial, sans-serif;
+  --oth-family-code: Inconsolata, Hack, SF Mono, Roboto Mono, Source Code Pro, Ubuntu Mono, monospace;
+
+  --bs-body-font-family: var(--oth-family-primary);
+}
+
+.card {
+  --bs-card-bg: white;
+
+  --bs-card-border-color: var(--oth2--twilight-indigo);
+  --bs-card-border-width: 2px;
+}
+html {
+    height: 100%;
+    scrollbar-color: #868686 transparent;
+    background-attachment: fixed;
+
+    /* https://coolors.co/gradient-maker/adc2eb-d9bbdd-fcd19c?position=0,60,100&opacity=100,100,100&type=linear&rotation=90 */
+    /* background-color: hsla(220, 61%, 80%, 1);
+    background-image: linear-gradient(-45deg, hsla(220, 61%, 80%, 1) 0%, hsla(293, 33%, 80%, 1) 60%, hsla(33, 94%, 80%, 1) 100%);
+    background-image: -moz-linear-gradient(-45deg, hsla(220, 61%, 80%, 1) 0%, hsla(293, 33%, 80%, 1) 60%, hsla(33, 94%, 80%, 1) 100%);
+    background-image: -webkit-linear-gradient(-45deg, hsla(220, 61%, 80%, 1) 0%, hsla(293, 33%, 80%, 1) 60%, hsla(33, 94%, 80%, 1) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#ADC2EB", endColorstr="#D9BBDD", GradientType=1 ); */
+
+    /* https://coolors.co/gradient-maker/adc2eb-fcd19c?position=0,100&opacity=100,100&type=linear&rotation=135 */
+    background-color: hsla(220, 61%, 80%, 1);
+    background-image: linear-gradient(-45deg, hsla(220, 61%, 80%, 1) 0%, hsla(33, 94%, 80%, 1) 100%);
+    background-image: -moz-linear-gradient(-45deg, hsla(220, 61%, 80%, 1) 0%, hsla(33, 94%, 80%, 1) 100%);
+    background-image: -webkit-linear-gradient(-45deg, hsla(220, 61%, 80%, 1) 0%, hsla(33, 94%, 80%, 1) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#adc2eb", endColorstr="#fcd19c", GradientType=1 );
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: end;
+}
+
+.navbar-brand span {
+  font-weight: 200;
+  font-size: 14px;
+  line-height: 1;
+  margin-left: 0.25rem;
+}
