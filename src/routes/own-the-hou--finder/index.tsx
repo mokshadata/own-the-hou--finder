@@ -274,6 +274,7 @@ export default function Listings() {
                         <span class="badge rounded-pill border border-primary text-primary me-1">{item.properties.fullBaths + ((item.properties.halfBaths || 0)/2)} bathrooms</span>
                         <span class="badge rounded-pill border border-primary text-primary me-1">{item.properties.interiorSize} sqft.</span>
                         <span class="badge rounded-pill border border-primary text-primary me-1">{item.properties.buildingType}</span>
+                        <span class="badge rounded-pill border border-primary text-primary me-1">{item.properties.schoolDistrict}</span>
                         <p class="card-text mb-0 mt-2">
                           <small>
                           <strong>Available Down Payment Assistance Programs</strong>
@@ -282,7 +283,6 @@ export default function Listings() {
                         <For each={item.properties.programs}>{(program) => (
                           <span class="badge rounded-pill border border-info text-info me-1">{program}</span>
                         )}</For>
-                        {/* <span class="badge rounded-pill border border-info text-info me-1">{item.properties.schoolDistrict}</span> */}
                       </div>
                     </div>
                   </div>
@@ -299,37 +299,15 @@ export default function Listings() {
                 geojson={listings().geoJSON}
               />
               <Show when={activeFeature()}>
-                <div class="mt-3 container-fluid overflow-y-scroll" style={{height: '50vh'}}>
+                <div class="mt-1">
                   <div class="row">
                     <div class="col">                      
                       <h2>{activeFeature().properties.subdivision}</h2>
-                      <p>{activeSubdivision().properties.houseCount} house{activeSubdivision().properties.houseCount > 1 && 's' || ''} available in subdivision through <a target="_blank" href={activeSubdivision().properties.agencyURL}><strong>{activeSubdivision().properties.agency}</strong></a></p>
-                    </div>
-                  </div>
-                  {/* <div class="row">
-                    <div class="col">
-                      <img src={activeFeature().properties.imageURL} class="card-img-top object-fit-cover border-bottom border-gray" style="height: 12em;"/>
-                    </div>
-                    <div class="col">
-                      <h3 class="mt-3 mb-0">
-                        {new Intl.NumberFormat("en-US",{
-                          style: "currency",
-                          currency: "USD",
-                          maximumFractionDigits: 0,
-                        }).format(activeFeature().properties.price * 1)}
-                      </h3>
-                      <p class="mb-0">{activeFeature().properties.addressLine1}<br/>{activeFeature().properties.addressLine2}</p>
-                      <span class="badge rounded-pill border border-info text-primary me-1">{activeFeature().properties.beds} bedrooms</span>
-                      <span class="badge rounded-pill border border-info text-primary me-1">{activeFeature().properties.fullBaths + ((activeFeature().properties.halfBaths || 0)/2)} bathrooms</span>
-                      <span class="badge rounded-pill border border-info text-primary me-1">{activeFeature().properties.interiorSize} sqft.</span>
-                      <span class="badge rounded-pill border border-info text-primary me-1">{activeFeature().properties.buildingType}</span>
-                      <span class="badge rounded-pill border border-info text-primary me-1">{activeFeature().properties.schoolDistrict}</span>
-                    </div>
-                  </div> */}
-
-                  <p class="mb-0 mt-2">
+                      <p class="mb-0">{activeSubdivision().properties.houseCount} house{activeSubdivision().properties.houseCount > 1 && 's' || ''} available in subdivision through <a target="_blank" href={activeSubdivision().properties.agencyURL}><strong>{activeSubdivision().properties.agency}</strong></a></p>
+                  <p class="mb-0 mt-0">
                     <strong>Recommended Down Payment Range (3 - 20%)</strong>
                   </p>
+
                   <div class="progress-stacked">
                     <div class="progress" role="progressbar" aria-label="Segment one" aria-valuenow="3" aria-valuemin="0" aria-valuemax="100" style="width: 3%">
                       <div class="progress-bar" style="background: var(--bs-progress-bg);"></div>
@@ -338,7 +316,7 @@ export default function Listings() {
                       <div class="progress-bar bg-info progress-bar-striped progress-bar-animated"></div>
                     </div>
                   </div>
-                  <p>
+                  <p class="mb-1">
                     <strong>{new Intl.NumberFormat("en-US",{
                       style: "currency",
                       currency: "USD",
@@ -349,6 +327,12 @@ export default function Listings() {
                       maximumFractionDigits: 0,
                     }).format(activeFeature().properties.price * 0.2)}</strong>
                   </p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+
+<div class="overflow-y-scroll" style="height: 28vh;">
                   <p>Depending on your household income, you may qualify for Down Payment Assistance through: <br/> {activeFeature().properties.programs.join(', ')}.</p>
                   <Show when={activeFeature().properties.agency === 'HCLT'}>
                     <p>You can received up to $150,000 in financial assistance grants through <a href={activeFeature().properties.agencyURL} target="_blank">Houston Community Land Trust</a> to help lower the cost of buying this home.</p>
@@ -358,6 +342,13 @@ export default function Listings() {
                       currency: "USD",
                       maximumFractionDigits: 0,
                     }).format(activeFeature().properties.price * 0.05)}</strong>.</p>
+
+</div>
+
+                    </div>
+
+                  </div>
+
                   <div class="btn-group">
                     <a class="btn btn-outline-primary" target="_blank" href={activeFeature().properties.harURL}>See Listing on HAR</a>
                     <a class="btn btn-outline-primary" target="_blank" href={activeFeature().properties.agencyURL}>Get DPA with <strong>{activeFeature().properties.agency}</strong></a>
