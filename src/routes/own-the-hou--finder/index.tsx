@@ -42,6 +42,27 @@ const subdivisions = {
 const subs = {
   17656310: 'Mansfield Park',
   17648359: 'Mansfield Park',
+
+  3338797: 'Green Ridge North',
+  3339184: 'Green Ridge North',
+  3327285: 'Green Ridge North',
+  3351258: 'Green Ridge North',
+  10456897: 'Green Ridge North',
+  3333535: 'Green Ridge North',
+  3331331: 'Green Ridge North',
+
+  3410482: 'Northwest Park',
+  10033029: 'Northwest Park',
+  3372917: 'Northwest Park',
+  8829460: 'Northwest Park',
+  3491211: 'Northwest Park',
+  3404538: 'Northwest Park',
+  3491638: 'Northwest Park',
+  10033102: 'Northwest Park',
+  11963382: 'Northwest Park',
+  9456528: 'Northwest Park',
+  3463866: 'Northwest Park',
+  3372966: 'Northwest Park',
 }
 
 const subdivisionsURL = {
@@ -52,6 +73,8 @@ const subdivisionsURL = {
   'Waverly Gardens': 'https://www.har.com/pricetrends/waverly-gardens-realestate/2155',
   'Allison Park': 'https://www.har.com/pricetrends/allison-park-realestate/16107',
   'Flower City': 'https://www.har.com/pricetrends/flower-city-realestate/2220',
+  'Green Ridge North': 'https://www.har.com/pricetrends/green-ridge-north-realestate/2554',
+  'Northwest Park': 'https://www.har.com/pricetrends/northwest-park-realestate/3402',
   'Central Gardens Ext': 'https://www.har.com/pricetrends/central-gardens-77026-realestate/1582',
   'Highland Heights': 'https://www.har.com/pricetrends/highland-heights-realestate/3532',
   'Mansfield Park': 'https://www.har.com/pricetrends/mansfield-park-realestate/15773',
@@ -64,6 +87,8 @@ const organizations = {
   'Waverly Gardens': 'Tejano',
   'Allison Park': 'Tejano',
   'Flower City': 'Tejano',
+  'Green Ridge North': 'Tejano',
+  'Northwest Park': 'Tejano',
   'Central Gardens Ext': 'Houston Habitat',
   'Highland Heights': 'Houston Habitat',
   'Mansfield Park': 'HCLT',
@@ -83,13 +108,30 @@ const orgReferences = {
 const getListings = query(async () => {
   // Same-origin URLs need an explicit origin when this runs during SSR
   // (getRequestEvent() is undefined in the browser, where location wins).
-  const origin = getRequestEvent()?.request.url ?? location.origin;
+  const origin = location.origin;
 
-  const listings = await json((new URL('/own-the-hou--finder/data/houses.json', origin)).toString());
-  const listingsWithGeocoding = await csv((new URL('/own-the-hou--finder/data/houses.csv', origin)).toString());
+  const listings01 = await json((new URL('./data/houses.json', origin)).toString());
+  const listingsWithGeocoding01 = await csv((new URL('./data/houses.csv', origin)).toString());
 
-  const harrisCountyProgramLimits = await json((new URL('/own-the-hou--finder/data/unincorp-harris-county.geojson', origin)).toString());
-  const cohProgramLimits = await json((new URL('/own-the-hou--finder/data/coh-city-limits.geojson', origin)).toString());
+  const listings02 = await json((new URL('./data/houses-hc.json', origin)).toString());
+  const listingsWithGeocoding02 = await csv((new URL('./data/houses-hc.csv', origin)).toString());
+
+  const listings03 = await json((new URL('./data/houses-03.json', origin)).toString());
+  const listingsWithGeocoding03 = await csv((new URL('./data/houses-03.csv', origin)).toString());
+
+  const listings = [
+    ...listings01,
+    ...listings02,
+    ...listings03,
+  ]
+  const listingsWithGeocoding = [
+    ...listingsWithGeocoding01,
+    ...listingsWithGeocoding02,
+    ...listingsWithGeocoding03,
+  ]
+
+  const harrisCountyProgramLimits = await json((new URL('./data/unincorp-harris-county.geojson', origin)).toString());
+  const cohProgramLimits = await json((new URL('./data/coh-city-limits.geojson', origin)).toString());
 
   const programBoundsGeoJSON = {
     type: 'FeatureCollection',
@@ -126,7 +168,7 @@ const getListings = query(async () => {
         .filter((programBounds) => (booleanContains(programBounds, feature)))
         .map((programBounds) => (programBounds.properties.programs))
         .reduce((result, current) => ([...result, ...current]), []),
-        'Texas Homebuyer', 'TSAHC',
+        // 'Texas Homebuyer', 'TSAHC',
     ]
 
     
