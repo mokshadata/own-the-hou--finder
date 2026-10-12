@@ -110,14 +110,14 @@ const getListings = query(async () => {
   // (getRequestEvent() is undefined in the browser, where location wins).
   const origin = location.origin;
 
-  const listings01 = await json((new URL('./data/houses.json', origin)).toString());
-  const listingsWithGeocoding01 = await csv((new URL('./data/houses.csv', origin)).toString());
+  const listings01 = await json((new URL('/own-the-hou--finder/data/houses.json', origin)).toString());
+  const listingsWithGeocoding01 = await csv((new URL('/own-the-hou--finder/data/houses.csv', origin)).toString());
 
-  const listings02 = await json((new URL('./data/houses-hc.json', origin)).toString());
-  const listingsWithGeocoding02 = await csv((new URL('./data/houses-hc.csv', origin)).toString());
+  const listings02 = await json((new URL('/own-the-hou--finder/data/houses-hc.json', origin)).toString());
+  const listingsWithGeocoding02 = await csv((new URL('/own-the-hou--finder/data/houses-hc.csv', origin)).toString());
 
-  const listings03 = await json((new URL('./data/houses-03.json', origin)).toString());
-  const listingsWithGeocoding03 = await csv((new URL('./data/houses-03.csv', origin)).toString());
+  const listings03 = await json((new URL('/own-the-hou--finder/data/houses-03.json', origin)).toString());
+  const listingsWithGeocoding03 = await csv((new URL('/own-the-hou--finder/data/houses-03.csv', origin)).toString());
 
   const listings = [
     ...listings01,
@@ -130,8 +130,8 @@ const getListings = query(async () => {
     ...listingsWithGeocoding03,
   ]
 
-  const harrisCountyProgramLimits = await json((new URL('./data/unincorp-harris-county.geojson', origin)).toString());
-  const cohProgramLimits = await json((new URL('./data/coh-city-limits.geojson', origin)).toString());
+  const harrisCountyProgramLimits = await json((new URL('/own-the-hou--finder/data/unincorp-harris-county.geojson', origin)).toString());
+  const cohProgramLimits = await json((new URL('/own-the-hou--finder/data/coh-city-limits.geojson', origin)).toString());
 
   const programBoundsGeoJSON = {
     type: 'FeatureCollection',
@@ -168,7 +168,7 @@ const getListings = query(async () => {
         .filter((programBounds) => (booleanContains(programBounds, feature)))
         .map((programBounds) => (programBounds.properties.programs))
         .reduce((result, current) => ([...result, ...current]), []),
-        // 'Texas Homebuyer', 'TSAHC',
+        'Texas Homebuyer', 'TSAHC',
     ]
 
     
