@@ -1,6 +1,5 @@
 import { Title } from '@solidjs/meta';
 import { query, type RouteDefinition, type RouteProps } from '@solidjs/router';
-import { getRequestEvent } from '@solidjs/web';
 import { createEffect, createMemo, For, Show, } from 'solid-js';
 
 import { points, bbox, bboxPolygon, transformScale, booleanContains } from "@turf/turf"
@@ -10,60 +9,6 @@ import { activeMapSelection, setActiveMapSelection } from '../../stores';
 import { csv, json } from "d3-fetch";
 
 import { Map } from "../../components/Mapbox";
-
-const subdivisions = {
-  16579: 'Avenue Park Replat',
-  16114: 'Robins Landing',
-  17086: 'Pineapple Square',
-  16586: 'Pineapple Square',
-  17440: 'Waverly Gardens',
-  17659: 'Waverly Gardens',
-  17657: 'Allison Park',
-  17629: 'Allison Park',
-  17088: 'Allison Park',
-  17625: 'Allison Park',
-  17648: 'Allison Park',
-  17607: 'Allison Park',
-  17656: 'Allison Park',
-
-  3165: 'Flower City',
-  17633: 'Central Gardens Ext',
-  17621: 'Highland Heights',
-  2966: 'Highland Heights',
-
-  17660: 'Mansfield Park', // 17648, 17656
-  17642: 'Mansfield Park', // 17648, 17656
-  17626: 'Mansfield Park', // 17648, 17656
-  17560: 'Mansfield Park', // 17648, 17656
-  17549: 'Mansfield Park', // 17648, 17656
-  17635: 'Mansfield Park', // 17648, 17656
-}
-
-const subs = {
-  17656310: 'Mansfield Park',
-  17648359: 'Mansfield Park',
-
-  3338797: 'Green Ridge North',
-  3339184: 'Green Ridge North',
-  3327285: 'Green Ridge North',
-  3351258: 'Green Ridge North',
-  10456897: 'Green Ridge North',
-  3333535: 'Green Ridge North',
-  3331331: 'Green Ridge North',
-
-  3410482: 'Northwest Park',
-  10033029: 'Northwest Park',
-  3372917: 'Northwest Park',
-  8829460: 'Northwest Park',
-  3491211: 'Northwest Park',
-  3404538: 'Northwest Park',
-  3491638: 'Northwest Park',
-  10033102: 'Northwest Park',
-  11963382: 'Northwest Park',
-  9456528: 'Northwest Park',
-  3463866: 'Northwest Park',
-  3372966: 'Northwest Park',
-}
 
 const subdivisionsURL = {
   'Avenue Park Replat': 'https://www.har.com/pricetrends/avenue-park-replat-realestate/16111',
@@ -78,20 +23,17 @@ const subdivisionsURL = {
   'Central Gardens Ext': 'https://www.har.com/pricetrends/central-gardens-77026-realestate/1582',
   'Highland Heights': 'https://www.har.com/pricetrends/highland-heights-realestate/3532',
   'Mansfield Park': 'https://www.har.com/pricetrends/mansfield-park-realestate/15773',
-}
 
-const organizations = {
-  'Avenue Park Replat': 'Avenue CDC',
-  'Robins Landing': 'Fifth Ward CRC',
-  'Pineapple Square': 'Tejano',
-  'Waverly Gardens': 'Tejano',
-  'Allison Park': 'Tejano',
-  'Flower City': 'Tejano',
-  'Green Ridge North': 'Tejano',
-  'Northwest Park': 'Tejano',
-  'Central Gardens Ext': 'Houston Habitat',
-  'Highland Heights': 'Houston Habitat',
-  'Mansfield Park': 'HCLT',
+  "Highland Acre Homes": "https://www.har.com/pricetrends/highland-acre-homes-realestate/3446",
+  "Carver Estates": "https://www.har.com/pricetrends/carver-estates-realestate/3554",
+  "Ryon": "https://www.har.com/pricetrends/ryon-realestate/594",
+  "Meadow Creek Village": "https://www.har.com/pricetrends/meadow-creek-village-realestate/865",
+  "Stratton Place": "https://www.har.com/pricetrends/stratton-place-realestate/1141",
+  "Prairie Home": "https://www.har.com/pricetrends/prairie-home-realestate/126",
+  "Sydnor": "https://www.har.com/pricetrends/sydnor-realestate/1010",
+  "Riverside Terrace": "https://www.har.com/pricetrends/riverside-terrace-houston-realestate/1069",
+  "Wilson Wm A": "https://www.har.com/pricetrends/wilson-wm-a-realestate/119",
+  "Fidelity": "https://www.har.com/pricetrends/fidelity-realestate/1696",
 }
 
 const orgReferences = {
@@ -110,28 +52,11 @@ const getListings = query(async () => {
   // (getRequestEvent() is undefined in the browser, where location wins).
   const origin = location.origin;
 
-  const listings01 = await json((new URL('/own-the-hou--finder/data/houses.json', origin)).toString());
-  const listingsWithGeocoding01 = await csv((new URL('/own-the-hou--finder/data/houses.csv', origin)).toString());
+  const listings = await json((new URL('./data/combined-20261019--single-family.json', origin)).toString());
+  const listingsWithGeocoding = await csv((new URL('./data/combined-20261019--single-family.csv', origin)).toString());
 
-  const listings02 = await json((new URL('/own-the-hou--finder/data/houses-hc.json', origin)).toString());
-  const listingsWithGeocoding02 = await csv((new URL('/own-the-hou--finder/data/houses-hc.csv', origin)).toString());
-
-  const listings03 = await json((new URL('/own-the-hou--finder/data/houses-03.json', origin)).toString());
-  const listingsWithGeocoding03 = await csv((new URL('/own-the-hou--finder/data/houses-03.csv', origin)).toString());
-
-  const listings = [
-    ...listings01,
-    ...listings02,
-    ...listings03,
-  ]
-  const listingsWithGeocoding = [
-    ...listingsWithGeocoding01,
-    ...listingsWithGeocoding02,
-    ...listingsWithGeocoding03,
-  ]
-
-  const harrisCountyProgramLimits = await json((new URL('/own-the-hou--finder/data/unincorp-harris-county.geojson', origin)).toString());
-  const cohProgramLimits = await json((new URL('/own-the-hou--finder/data/coh-city-limits.geojson', origin)).toString());
+  const harrisCountyProgramLimits = await json((new URL('./data/unincorp-harris-county.geojson', origin)).toString());
+  const cohProgramLimits = await json((new URL('./data/coh-city-limits.geojson', origin)).toString());
 
   const programBoundsGeoJSON = {
     type: 'FeatureCollection',
@@ -142,6 +67,7 @@ const getListings = query(async () => {
           ...harrisCountyProgramLimits.features[0].properties,
           type: 'program-bounds',
           programs: ['County DPA'],
+          boundName: 'Harris County unincorporated',
         },
         id: 100,
       },
@@ -153,6 +79,7 @@ const getListings = query(async () => {
             ...feature.properties,
             type: 'program-bounds',
             programs: ['CoH Homebuyer', 'HCLT Homebuyer Choice Program'],
+            boundName: 'City of Houston',
           }
         }))
     ],
@@ -170,34 +97,34 @@ const getListings = query(async () => {
         .reduce((result, current) => ([...result, ...current]), []),
         'Texas Homebuyer', 'TSAHC',
     ]
-
-    
   }
 
-  const houses = listings.map((item, index) => ({
-    ...item,
-    latitude: listingsWithGeocoding[index]['Geocodio Latitude'] * 1,
-    longitude: listingsWithGeocoding[index]['Geocodio Longitude'] * 1,
-    houseNumber: listingsWithGeocoding[index]['Geocodio House Number'] * 1,
-    schoolDistrict: listingsWithGeocoding[index]['Unified School District Name'],
-    streetName: listingsWithGeocoding[index]['Geocodio Street'],
-    urlParts: item.harURL.split('/'),
-  }))
-  .map((item, index) => ({
+  const houses = listings.map((item) => {
+    const listing = listingsWithGeocoding.find((geo) => (geo.harURL === item.harURL))
+
+    return {
+      ...item,
+      latitude: listing['Geocodio Latitude'] * 1,
+      longitude: listing['Geocodio Longitude'] * 1,
+      houseNumber: listing['Geocodio House Number'] * 1,
+      schoolDistrict: listing['Unified School District Name'],
+      streetName: listing['Geocodio Street'],
+      urlParts: item.harURL.split('/'),
+    }
+  })
+  .map((item) => ({
     ...item,
     id: `${item.urlParts[item.urlParts.length - 1].split('?')[0]}` * 1,
   }))
-  .map((item, index) => ({
-    ...item,
-    subdivision: subs[item.id] || subdivisions[Math.floor(item.id/1000)],
-  }))
-  .map((item, index) => ({
+  .map((item) => ({
     ...item,
     subdivisionURL: subdivisionsURL[item.subdivision],
-    agency: organizations[item.subdivision],
-    agencyURL: orgReferences[organizations[item.subdivision]],
+    agencyURL: orgReferences[item.agency],
   }))
-  .toSorted((a, b) => (`${a.agency} ${a.subdivision} ${a.streetName} ${a.houseNumber}`.localeCompare(`${b.agency} ${b.subdivision} ${b.streetName} ${b.houseNumber}`)))
+  .toSorted((a, b) => (
+    `${a.subdivision} ${a.streetName} ${(a.houseNumber + '').padStart(6, '0')}`
+      .localeCompare(`${b.subdivision} ${b.streetName} ${(b.houseNumber + '').padStart(6, '0')}`)
+  ))
 
   const groupedBySubs = Object.entries(Object.groupBy(houses, (house) => (house.subdivision)))
     .map(([subdivision, houses]) => ([subdivision, {
@@ -224,8 +151,8 @@ const getListings = query(async () => {
         houses: item.houses.map((house) => (house.id)),
         houseCount: item.houses.length,
         subdivisionURL: item.subdivisionURL,
-        agency: organizations[subdivision],
-        agencyURL: orgReferences[organizations[subdivision]],
+        agency: item.agency,
+        agencyURL: orgReferences[item.agency],
 
         type: 'subdivision',
       },
