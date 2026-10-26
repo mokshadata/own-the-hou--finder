@@ -40,7 +40,7 @@ const orgReferences = {
   'Avenue CDC': 'https://avenuecdc.org/affordable-homes/for-sale/',
   'Fifth Ward CRC': 'https://www.fifthwardcrc.org/programs-services/real-estate/residential-properties-for-sale/',
   'Tejano': 'https://www.tejanocenter.org/programs-resources/supportive-housing/affordable-housing-and-community-redevelopment',
-  'Houston Habitat': 'https://www.houstonhabitat.org/homeownership-process',
+  'Habitat for Humanity': 'https://www.houstonhabitat.org/homeownership-process',
   'HCLT': 'https://www.houstonclt.org/how-to-buy',
 }
 
@@ -52,11 +52,11 @@ const getListings = query(async () => {
   // (getRequestEvent() is undefined in the browser, where location wins).
   const origin = location.origin;
 
-  const listings = await json((new URL('/own-the-hou--finder/data/combined-20261019--single-family.json', origin)).toString());
-  const listingsWithGeocoding = await csv((new URL('/own-the-hou--finder/data/combined-20261019--single-family.csv', origin)).toString());
+  const listings = await json((new URL('/own-the-house--finder/data/combined-20261019--single-family.json', origin)).toString());
+  const listingsWithGeocoding = await csv((new URL('/own-the-house--finder/data/combined-20261019--single-family.csv', origin)).toString());
 
-  const harrisCountyProgramLimits = await json((new URL('/own-the-hou--finder/data/unincorp-harris-county.geojson', origin)).toString());
-  const cohProgramLimits = await json((new URL('/own-the-hou--finder/data/coh-city-limits.geojson', origin)).toString());
+  const harrisCountyProgramLimits = await json((new URL('/own-the-house--finder/data/unincorp-harris-county.geojson', origin)).toString());
+  const cohProgramLimits = await json((new URL('/own-the-house--finder/data/coh-city-limits.geojson', origin)).toString());
 
   const programBoundsGeoJSON = {
     type: 'FeatureCollection',
@@ -151,9 +151,12 @@ const getListings = query(async () => {
         houses: item.houses.map((house) => (house.id)),
         houseCount: item.houses.length,
         subdivisionURL: item.subdivisionURL,
-        agency: item.agency,
-        agencyURL: orgReferences[item.agency],
-
+        agencies: Object.entries((Object.groupBy(item.houses, (house) => (house.agency))))
+          .map(([agency, houses]) => ({
+            name: agency,
+            url: orgReferences[agency],
+            count: houses?.length,
+          })),
         type: 'subdivision',
       },
     }))
@@ -229,7 +232,7 @@ export default function Listings() {
                               style: "currency",
                               currency: "USD",
                               maximumFractionDigits: 0,
-                            }).format(item.properties.price * 1)}
+                            }).format(item.properties.price * 1 || item.properties.priceListed * 1)}
                           </h5>
 
                           <span class="badge rounded-pill border border-primary text-primary me-1">{item.properties.statusTitle}</span>
@@ -272,8 +275,14 @@ export default function Listings() {
                   <div class="row">
                     <div class="col">                      
                       <h2>{activeFeature().properties.subdivision}</h2>
-                      <p class="mb-0">{activeSubdivision().properties.houseCount} house{activeSubdivision().properties.houseCount > 1 && 's' || ''} available in subdivision through <a target="_blank" href={activeSubdivision().properties.agencyURL}><strong>{activeSubdivision().properties.agency}</strong></a></p>
-                  <p class="mb-0 mt-0">
+                      {
+                        activeSubdivision().properties.agencies.map((item) => (
+                          <p class="mb-0">
+                             {item.count} house{item.count > 1 && 's' || ''} available through <a target="_blank" href={item.url}><strong>{item.name}</strong></a>
+                          </p>
+                        ))
+                      }
+                  <p class="mb-0 mt-2">
                     <strong>Recommended Down Payment Range (3 - 20%)</strong>
                   </p>
 
@@ -300,22 +309,19 @@ export default function Listings() {
                   </div>
                   <div class="row">
                     <div class="col">
-
-<div class="overflow-y-scroll" style="height: 28vh;">
-                  <p>Depending on your household income, you may qualify for Down Payment Assistance through: <br/> {activeFeature().properties.programs.join(', ')}.</p>
-                  <Show when={activeFeature().properties.agency === 'HCLT'}>
-                    <p>You can received up to $150,000 in financial assistance grants through <a href={activeFeature().properties.agencyURL} target="_blank">Houston Community Land Trust</a> to help lower the cost of buying this home.</p>
-                  </Show>
-                  <p>The Texas Homebuyer Program or Texas State Affordable Housing Corporation may be able to offer you up to 5% of the purchase price, or <strong>{new Intl.NumberFormat("en-US",{
-                      style: "currency",
-                      currency: "USD",
-                      maximumFractionDigits: 0,
-                    }).format(activeFeature().properties.price * 0.05)}</strong>.</p>
-
-</div>
-
+                      <div class="overflow-y-scroll" style="height: 28vh;">
+                        <p>Depending on your household income, you may qualify for Down Payment Assistance through: <br/> {activeFeature().properties.programs.join(', ')}.</p>
+                        <Show when={activeFeature().properties.agency === 'HCLT'}>
+                          <p>You can received up to $150,000 in financial assistance grants through <a href={activeFeature().properties.agencyURL} target="_blank">Houston Community Land Trust</a> to help lower the cost of buying this home.</p>
+                        </Show>
+                        <p>The Texas Homebuyer Program or Texas State Affordable Housing Corporation may be able to offer you up to 5% of the purchase price, or <strong>{new Intl.NumberFormat("en-US",{
+                            style: "currency",
+                            currency: "USD",
+                            maximumFractionDigits: 0,
+                          }).format(activeFeature().properties.price * 0.05)}</strong>.
+                        </p>
+                      </div>
                     </div>
-
                   </div>
 
                   <div class="btn-group">
