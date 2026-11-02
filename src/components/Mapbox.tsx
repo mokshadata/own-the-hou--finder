@@ -37,28 +37,28 @@ export function Map(props: {
         data: props.geojson,
       })
 
-      map.addLayer({
-        'id': 'subdivision-on-map',
-        'type': 'fill',
-        'source': 'houses',
-        'filter': ['==', ['get', 'type'], 'subdivision'],
-        'layout': {},
-        'paint': {
-          'fill-color': '#85625c', // blue color fill
-          'fill-opacity': 0.5,
-        },
-      });
-      map.addLayer({
-        'id': 'subdivision-on-map-border',
-        'type': 'line',
-        'source': 'houses',
-        'filter': ['==', ['get', 'type'], 'subdivision'],
-        'layout': {},
-        'paint': {
-          'line-color': '#85625c',
-          'line-width': 1,
-        },
-      });
+      // map.addLayer({
+      //   'id': 'subdivision-on-map',
+      //   'type': 'fill',
+      //   'source': 'houses',
+      //   'filter': ['==', ['get', 'type'], 'subdivision'],
+      //   'layout': {},
+      //   'paint': {
+      //     'fill-color': '#85625c', // blue color fill
+      //     'fill-opacity': 0.5,
+      //   },
+      // });
+      // map.addLayer({
+      //   'id': 'subdivision-on-map-border',
+      //   'type': 'line',
+      //   'source': 'houses',
+      //   'filter': ['==', ['get', 'type'], 'subdivision'],
+      //   'layout': {},
+      //   'paint': {
+      //     'line-color': '#85625c',
+      //     'line-width': 1,
+      //   },
+      // });
       map.addLayer({
         'id': 'program-bounds-on-map',
         'type': 'fill',
@@ -123,7 +123,7 @@ export function Map(props: {
       });
 
       map.on('mousemove', 'houses-on-map', (e) => {
-        if (e.features.length > 0) {
+        if (e.features.length > 0 && document) {
           // console.log(e.features[0]);
 
           map.getCanvas().style.cursor = 'pointer';
@@ -145,13 +145,6 @@ export function Map(props: {
   const focusFeatureCoords = () => (activeFeature().geometry.coordinates)
   const focusSubdivisionCoords = () => (activeSubdivision() && centroid(activeSubdivision().geometry).geometry.coordinates || [])
 
-  createEffect(() => (activeSubdivision()), (value, previous) => {
-    console.log({
-      sub: value,
-      center: focusSubdivisionCoords(),
-    })
-  })
-
   createEffect(() => (activeMapSelection()), (value, previous) => {
     if (!map) {return}
 
@@ -166,8 +159,13 @@ export function Map(props: {
       { source: 'houses', id: value },
       { selected: true }
     );
+  })
+  
+  createEffect(() => (focusSubdivisionCoords()), (value, previous) => {    
+    if (!map) {return}
+
     map.flyTo({
-      center: focusSubdivisionCoords(),
+      center: value,
       zoom: 16,
     })
   })

@@ -1,8 +1,12 @@
 import { Title } from '@solidjs/meta';
 import { query, type RouteDefinition, type RouteProps } from '@solidjs/router';
-import { createEffect, createMemo, For, Show, } from 'solid-js';
+import { createEffect, createMemo, For, Show, Errored, onSettled} from 'solid-js';
 
-import { points, bbox, bboxPolygon, transformScale, booleanContains } from "@turf/turf"
+import { DPATool, DPAProgramsList, DPAProgram, DPAProgramBadge, DPAProgramSummary, getMatchingPrograms } from 'own-the-hou--tools';
+
+import { FinderDrawerProvider, FinderDrawer, FinderController, FinderDrawerPanel } from '../../components/Sidebar';
+
+import { points, bbox, bboxPolygon, transformScale, } from "@turf/turf"
 
 import { activeMapSelection, setActiveMapSelection } from '../../stores';
 
@@ -52,11 +56,11 @@ const getListings = query(async () => {
   // (getRequestEvent() is undefined in the browser, where location wins).
   const origin = location.origin;
 
-  const listings = await json((new URL('/own-the-hou--finder/data/combined-20261019--single-family.json', origin)).toString());
-  const listingsWithGeocoding = await csv((new URL('/own-the-hou--finder/data/combined-20261019--single-family.csv', origin)).toString());
+  const listings = await json((new URL('./data/combined-20261019--single-family.json', origin)).toString());
+  const listingsWithGeocoding = await csv((new URL('./data/combined-20261019--single-family.csv', origin)).toString());
 
-  const harrisCountyProgramLimits = await json((new URL('/own-the-hou--finder/data/unincorp-harris-county.geojson', origin)).toString());
-  const cohProgramLimits = await json((new URL('/own-the-hou--finder/data/coh-city-limits.geojson', origin)).toString());
+  const harrisCountyProgramLimits = await json((new URL('./data/unincorp-harris-county.geojson', origin)).toString());
+  const cohProgramLimits = await json((new URL('./data/coh-city-limits.geojson', origin)).toString());
 
   const programBoundsGeoJSON = {
     type: 'FeatureCollection',
@@ -83,20 +87,6 @@ const getListings = query(async () => {
           }
         }))
     ],
-  }
-
-  function getPotentialPrograms(feature) {
-    if (feature.properties.agency === 'HCLT') {
-      return ['HCLT Program', 'Texas Homebuyer', 'TSAHC']
-    }
-
-    return [...
-      programBoundsGeoJSON.features
-        .filter((programBounds) => (booleanContains(programBounds, feature)))
-        .map((programBounds) => (programBounds.properties.programs))
-        .reduce((result, current) => ([...result, ...current]), []),
-        'Texas Homebuyer', 'TSAHC',
-    ]
   }
 
   const houses = listings.map((item) => {
@@ -178,7 +168,13 @@ const getListings = query(async () => {
     ...feature,
     properties: {
       ...feature.properties,
-      programs: getPotentialPrograms(feature),
+      programs: getMatchingPrograms({
+        coordinates: feature.geometry.coordinates, // [-95.374543, 29.850715],
+        // householdSize: householdSize(),
+        // annualIncome: householdIncome(),
+        // coordinates: [-95.484657, 29.930173],
+        houseListingPrice: feature.properties.price,
+      }),//getPotentialPrograms(feature),
     }
   }))
 
@@ -190,7 +186,6 @@ const getListings = query(async () => {
   return {houses, geoJSON}
 
 }, 'listings');
-
 
 // Starts the fetch as soon as navigation begins, before the page renders.
 export const route = {
@@ -204,138 +199,150 @@ export default function Listings() {
   // const focusFeatureCoords = () => (activeFeature().geometry.coordinates)
   // const focusSubdivisionCoords = () => (activeSubdivision() && centroid(activeSubdivision().geometry).geometry.coordinates || [])
 
-
-  createEffect(() => (listings()), (value) => {
-    console.log({ houses: value })
-  })
-
-  createEffect(() => (activeFeature()), (value) => {
-    console.log({active: value})
-  })
-
   return (
-    <main class="py-5">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-8">
-            <div class="container-fluid">
-              <div class="row g-3">
+    <FinderDrawerProvider>
+      <FinderDrawer
+        scroll={true}
+        backdrop={false}
+        tabindex={-1}
+        label="finder-sidebar"
+        style={{'background-color': 'rgba(255, 255, 255, 0.75)'}}
+        header={(
+        <div class="d-flex flex-column w-100">
+          <nav class="drawer-title navbar gap-3 bg-dark p-3 w-100" data-bs-theme="dark">
+            <a href="#" class="navbar-brand">
+              <img
+                src="https://ownthehou.org/wp-content/themes/twentytwentyfive--own-the-hou/assets/images/logo-header.svg"
+                style="height: 44.9833px"
+              />
+              <span>Home Finder</span>
+            </a>
+            <FinderController/>
+          </nav>
+          <div style={{height: '40vh', width: '100%'}}>
+            <Map
+              center={{lat: 29.749907, long: -95.358421,}}
+              zoom={10}
+              geojson={listings().geoJSON}
+            />
+          </div>
+        </div>
+      )}
+      footer={(<Show when={activeFeature()}>
+        <div class="btn-group btn-group-flush w-100" role="group">
+          <a class="btn btn-subtle theme-primary" target="_blank" href={activeFeature().properties.harURL}>View listing</a>
+          <a class="btn btn-subtle theme-primary" target="_blank" href={activeFeature().properties.agencyURL}>Contact <strong>{activeFeature().properties.agency}</strong></a>
+        </div>
+      </Show>)}
+      >
+        <Show when={activeFeature()}>
+          <div class="px-4 pt-4">
+            <h2>{activeFeature().properties.subdivision}</h2>
+            {
+              activeSubdivision().properties.agencies.map((item) => (
+                <p class="mb-0">
+                  {item.count} house{item.count > 1 && 's' || ''} available through <a target="_blank" href={item.url}><strong>{item.name}</strong></a>
+                </p>
+              ))
+            }
+            <p class="mb-0 mt-2">
+              <strong>Recommended Down Payment Range (3 - 20%)</strong>
+            </p>
 
-                <For each={listings().geoJSON.features.filter((feature) => (feature.properties.type === 'listing'))}>{(item, i) => (
-                  <div class="col-12 col-lg-6" role="button" data-listing={`listing-${item.id}`}>
-                    <div class={`card ${item.id === activeMapSelection() && 'bg-primary-subtle' || ''}`} onClick={() => {setActiveMapSelection(item.id)}}>
-                      <img src={item.properties.imageURL} class="card-img-top object-fit-cover border-bottom border-gray" style="height: 15em;"/>
-                      <div class="card-body">
-                        <div class="card-title">
-                          <h5>
-                            {new Intl.NumberFormat("en-US",{
-                              style: "currency",
-                              currency: "USD",
-                              maximumFractionDigits: 0,
-                            }).format(item.properties.price * 1 || item.properties.priceListed * 1)}
-                          </h5>
-
-                          <span class="badge rounded-pill border border-primary text-primary me-1">{item.properties.statusTitle}</span>
-                        </div>
-                        <p class="card-text mb-0">
-                          {item.properties.addressLine1}<br/>{item.properties.addressLine2}
-                        </p>
-                        <span class="badge rounded-pill border border-primary text-primary me-1">{item.properties.subdivision}</span>
-                        {/* <span class="badge rounded-pill border border-primary text-primary me-1">{item.properties.agency}</span> */}
-                        <span class="badge rounded-pill border border-primary text-primary me-1">{item.properties.beds} bedrooms</span>
-                        <span class="badge rounded-pill border border-primary text-primary me-1">{item.properties.fullBaths + ((item.properties.halfBaths || 0)/2)} bathrooms</span>
-                        <span class="badge rounded-pill border border-primary text-primary me-1">{item.properties.interiorSize} sqft.</span>
-                        <span class="badge rounded-pill border border-primary text-primary me-1">{item.properties.buildingType}</span>
-                        <span class="badge rounded-pill border border-primary text-primary me-1">{item.properties.schoolDistrict}</span>
-                        <p class="card-text mb-0 mt-2">
-                          <small>
-                          <strong>Available Down Payment Assistance Programs</strong>
-                          </small>
-                        </p>
-                        <For each={item.properties.programs}>{(program) => (
-                          <span class="badge rounded-pill border border-info text-info me-1">{program}</span>
-                        )}</For>
-                      </div>
-                    </div>
-                  </div>
-                )}</For>
-
+            <div class="progress-stacked">
+              <div class="progress" role="progressbar" aria-label="Segment one" aria-valuenow="3.5" aria-valuemin="0" aria-valuemax="100" style="width: 3.5%">
+                <div class="progress-bar" style="background: var(--bs-progress-bg);"></div>
+              </div>
+              <div class="progress" role="progressbar" aria-label="Segment two" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100" style="width: 5%">
+                <div class="progress-bar bg-info progress-bar-striped progress-bar-animated"></div>
               </div>
             </div>
+            <p class="mb-1">
+              <strong>{new Intl.NumberFormat("en-US",{
+                style: "currency",
+                currency: "USD",
+                maximumFractionDigits: 0,
+              }).format((activeFeature().properties.price || activeFeature().properties.priceListed) * 0.035)}</strong> to <strong>{new Intl.NumberFormat("en-US",{
+                style: "currency",
+                currency: "USD",
+                maximumFractionDigits: 0,
+              }).format((activeFeature().properties.price || activeFeature().properties.priceListed) * 0.05)}</strong>
+            </p>
+            <p>Depending on your household income, you may qualify for Down Payment Assistance through:</p>
           </div>
-          <div class="col-4">
-            <div class="sticky-top" style={{height: '45vh'}}>
-              <Map
-                center={{lat: 29.749907, long: -95.358421,}}
-                zoom={10}
-                geojson={listings().geoJSON}
+          <div class="accordion accordion-sm theme-primary">
+            {activeFeature().properties.programs.map((program) => (
+              <DPAProgramSummary
+                program={program}
+                houseListingPrice={() => (activeFeature().properties.price)}
+                downPaymentPercentLower={() => (0.035)}
+                downPaymentPercentUpper={() => (0.05)}
               />
-              <Show when={activeFeature()}>
-                <div class="mt-1">
-                  <div class="row">
-                    <div class="col">                      
-                      <h2>{activeFeature().properties.subdivision}</h2>
-                      {
-                        activeSubdivision().properties.agencies.map((item) => (
-                          <p class="mb-0">
-                             {item.count} house{item.count > 1 && 's' || ''} available through <a target="_blank" href={item.url}><strong>{item.name}</strong></a>
-                          </p>
-                        ))
-                      }
-                  <p class="mb-0 mt-2">
-                    <strong>Recommended Down Payment Range (3 - 20%)</strong>
-                  </p>
-
-                  <div class="progress-stacked">
-                    <div class="progress" role="progressbar" aria-label="Segment one" aria-valuenow="3" aria-valuemin="0" aria-valuemax="100" style="width: 3%">
-                      <div class="progress-bar" style="background: var(--bs-progress-bg);"></div>
-                    </div>
-                    <div class="progress" role="progressbar" aria-label="Segment two" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 17%">
-                      <div class="progress-bar bg-info progress-bar-striped progress-bar-animated"></div>
-                    </div>
-                  </div>
-                  <p class="mb-1">
-                    <strong>{new Intl.NumberFormat("en-US",{
-                      style: "currency",
-                      currency: "USD",
-                      maximumFractionDigits: 0,
-                    }).format(activeFeature().properties.price * 0.03)}</strong> to <strong>{new Intl.NumberFormat("en-US",{
-                      style: "currency",
-                      currency: "USD",
-                      maximumFractionDigits: 0,
-                    }).format(activeFeature().properties.price * 0.2)}</strong>
-                  </p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col">
-                      <div class="overflow-y-scroll" style="height: 28vh;">
-                        <p>Depending on your household income, you may qualify for Down Payment Assistance through: <br/> {activeFeature().properties.programs.join(', ')}.</p>
-                        <Show when={activeFeature().properties.agency === 'HCLT'}>
-                          <p>You can received up to $150,000 in financial assistance grants through <a href={activeFeature().properties.agencyURL} target="_blank">Houston Community Land Trust</a> to help lower the cost of buying this home.</p>
-                        </Show>
-                        <p>The Texas Homebuyer Program or Texas State Affordable Housing Corporation may be able to offer you up to 5% of the purchase price, or <strong>{new Intl.NumberFormat("en-US",{
+            ))}
+          </div>
+        </Show>
+      </FinderDrawer>
+      <FinderDrawerPanel>
+        <div class="d-flex flex-column p-4" style={{'max-width': '1200px'}}>
+          <div class="alert theme-info d-flex flex-column m-4" role="alert">
+            <h4 class="alert-heading mb-2">
+              Affordable Home Finder
+              <FinderController/>
+            </h4>
+            <p>Every listing on this map comes from an Own the HOU collaborative partner, with the down payment assistance programs that may apply based on where the home is located.</p>
+          </div>
+          <div class="d-flex flex-wrap">
+            <For each={listings().geoJSON.features.filter((feature) => (feature.properties.type === 'listing'))}>{(item, i) => (
+                <div class={`w-50 p-4`}>
+                  <div
+                    role="button"
+                    class={`card ${item.id === activeMapSelection() && 'bg-subtle-primary' || ''}`}
+                    onClick={() => {setActiveMapSelection(item.id)}}>
+                    <img src={item.properties.imageURL} class="card-img-top object-fit-cover border-bottom border-gray" style="height: 15em;"/>
+                    <div class="card-body">
+                      <div class="card-title">
+                        <h5>
+                          {new Intl.NumberFormat("en-US",{
                             style: "currency",
                             currency: "USD",
                             maximumFractionDigits: 0,
-                          }).format(activeFeature().properties.price * 0.05)}</strong>.
-                        </p>
+                          }).format(item.properties.price * 1 || item.properties.priceListed * 1)}
+                        </h5>
+
+                        <span class="badge rounded-pill border border-primary fg-primary me-1">{item.properties.statusTitle}</span>
+                      </div>
+                      <p class="card-text mb-0">
+                        {item.properties.addressLine1}<br/>{item.properties.addressLine2}
+                      </p>
+                      <div class="d-flex flex-wrap gap-3">
+                        <span class="badge rounded-pill border border-primary fg-primary">{item.properties.subdivision}</span>
+                        {/* <span class="badge rounded-pill border border-primary fg-primary">{item.properties.agency}</span> */}
+                        <span class="badge rounded-pill border border-primary fg-primary">{item.properties.beds} bedrooms</span>
+                        <span class="badge rounded-pill border border-primary fg-primary">{item.properties.fullBaths + ((item.properties.halfBaths || 0)/2)} bathrooms</span>
+                        <span class="badge rounded-pill border border-primary fg-primary">{item.properties.interiorSize} sqft.</span>
+                        <span class="badge rounded-pill border border-primary fg-primary">{item.properties.buildingType}</span>
+                        <span class="badge rounded-pill border border-primary fg-primary">{item.properties.schoolDistrict}</span>
                       </div>
                     </div>
-                  </div>
+                    <div class="card-footer">
+                      <p class="mb-1">
+                        <small>
+                          <strong>Available Down Payment Assistance Programs</strong>
+                        </small>
+                      </p>
+                      <div class="d-flex flex-wrap gap-3">
+                        {item.properties.programs.map((program) => (
+                          <DPAProgramBadge program={program}/>
+                        ))}
+                      </div>
 
-                  <div class="btn-group">
-                    <a class="btn btn-outline-primary" target="_blank" href={activeFeature().properties.harURL}>See Listing on HAR</a>
-                    <a class="btn btn-outline-primary" target="_blank" href={activeFeature().properties.agencyURL}>Get DPA with <strong>{activeFeature().properties.agency}</strong></a>
+                    </div>
                   </div>
                 </div>
-              </Show>
-            </div>
-
+            )}</For> 
           </div>
-
         </div>
-      </div>
-    </main>
+      </FinderDrawerPanel>
+    </FinderDrawerProvider>
   );
 }

@@ -111,7 +111,27 @@
 --bs-primary-rgb: var(--blue-bell-rgb);
 --bs-dark-rgb: var(--oth--twilight-indigo-rgb);
 
+--bs-navbar-bg: var(--twilight-indigo);
 }
+.drawer {
+  --bs-drawer-border-radius: 0;
+  --bs-drawer-inset: 0px;
+  --bs-drawer-box-shadow: 0;
+
+  --bs-drawer-padding-y: 0;
+  --bs-drawer-padding-x: 0;
+  --bs-border-width: 0;
+}
+
+
+[data-finder-drawer-panel="opened"] {
+  margin-left: 400px;
+
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  transition-duration: 0.5s;
+  transition-property: margin;
+}
+
 :root,
 :host {
 
@@ -148,6 +168,10 @@ html {
     filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#adc2eb", endColorstr="#fcd19c", GradientType=1 );
 }
 
+body {
+  --bs-bg-body: transparent;
+}
+
 .navbar-brand {
   display: flex;
   align-items: end;
@@ -158,4 +182,13 @@ html {
   font-size: 14px;
   line-height: 1;
   margin-left: 0.25rem;
+}
+
+[data-program-state="ineligible"],
+[data-program-state="inactive"] {
+  display: none;
+}
+
+[data-program-state="eligible-partial"] [data-details="limits"] [data-limit="income"] ul {
+  display: none;
 }
