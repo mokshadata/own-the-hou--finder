@@ -161,10 +161,34 @@ export function Map(props: {
         },
       });
 
-      map.on('mousemove', 'houses-on-map', (e) => {
-        if (e.features.length > 0 && document) {
-          // console.log(e.features[0]);
+      map.on('mousemove', 'houses-for-sale', (e) => {
+        if (e.features.length > 0 && document && statusesToKeep().includes('For Sale')) {
+          map.getCanvas().style.cursor = 'pointer';
 
+          setActiveMapSelection(e.features[0].id)
+
+          document.querySelector(`[data-listing="listing-${e.features[0].id}"]`)?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          })
+        }
+      })
+
+      map.on('mousemove', 'houses-sold', (e) => {
+        if (e.features.length > 0 && document && statusesToKeep().includes('SOLD')) {
+          map.getCanvas().style.cursor = 'pointer';
+
+          setActiveMapSelection(e.features[0].id)
+
+          document.querySelector(`[data-listing="listing-${e.features[0].id}"]`)?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          })
+        }
+      })
+
+      map.on('mousemove', 'houses-pending', (e) => {
+        if (e.features.length > 0 && document && statusesToKeep().includes('Under Contract - Pending')) {
           map.getCanvas().style.cursor = 'pointer';
 
           setActiveMapSelection(e.features[0].id)
@@ -202,6 +226,10 @@ export function Map(props: {
 
   createEffect(() => (statusesToKeep()), (value, previous) => {
     if (!map) {return}
+    if (!value.includes('For Sale')) {
+      map.setPaintProperty('houses-for-sale', 'circle-color', 'transparent');
+      map.setPaintProperty('houses-for-sale', 'circle-stroke-color', 'transparent');
+    }
     if (!value.includes('SOLD')) {
       map.setPaintProperty('houses-sold', 'circle-color', 'transparent');
       map.setPaintProperty('houses-sold', 'circle-stroke-color', 'transparent');
@@ -209,6 +237,10 @@ export function Map(props: {
     if (!value.includes('Under Contract - Pending')) {
       map.setPaintProperty('houses-pending', 'circle-color', 'transparent');
       map.setPaintProperty('houses-pending', 'circle-stroke-color', 'transparent');
+    }
+    if (value.includes('For Sale')) {
+      map.setPaintProperty('houses-for-sale', 'circle-color', '#e86e24');
+      map.setPaintProperty('houses-for-sale', 'circle-stroke-color', '#503aa8');
     }
     if (value.includes('SOLD')) {
       map.setPaintProperty('houses-sold', 'circle-color', '#fcb900');

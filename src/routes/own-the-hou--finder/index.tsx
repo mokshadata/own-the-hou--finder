@@ -59,11 +59,11 @@ const getListings = query(async () => {
   // (getRequestEvent() is undefined in the browser, where location wins).
   const origin = location.origin;
 
-  const listings = await json((new URL('/own-the-hou--finder/data/combined-20261019--single-family.json', origin)).toString());
-  const listingsWithGeocoding = await csv((new URL('/own-the-hou--finder/data/combined-20261019--single-family.csv', origin)).toString());
+  const listings = await json((new URL('./data/combined-20261019--single-family.json', origin)).toString());
+  const listingsWithGeocoding = await csv((new URL('./data/combined-20261019--single-family.csv', origin)).toString());
 
-  const harrisCountyProgramLimits = await json((new URL('/own-the-hou--finder/data/unincorp-harris-county.geojson', origin)).toString());
-  const cohProgramLimits = await json((new URL('/own-the-hou--finder/data/coh-city-limits.geojson', origin)).toString());
+  const harrisCountyProgramLimits = await json((new URL('./data/unincorp-harris-county.geojson', origin)).toString());
+  const cohProgramLimits = await json((new URL('./data/coh-city-limits.geojson', origin)).toString());
 
   const programBoundsGeoJSON = {
     type: 'FeatureCollection',
@@ -201,7 +201,6 @@ export default function Listings() {
   const activeSubdivision = () => (listings().geoJSON.features.find((item) => (item.properties.houses?.includes(activeMapSelection()))))
   // const focusFeatureCoords = () => (activeFeature().geometry.coordinates)
   // const focusSubdivisionCoords = () => (activeSubdivision() && centroid(activeSubdivision().geometry).geometry.coordinates || [])
-  const statuses = () => ([...new Set(listings().geoJSON.features.filter((item) => (item.properties.type === 'listing')).map((item) => (item.properties.statusTitle)))].toSorted())
   const statusHousingCount = () => (
     Object.entries(
       Object.groupBy(
@@ -215,11 +214,6 @@ export default function Listings() {
     }))
     .toSorted((a, b) => (a.statusName.localeCompare(b.statusName)))
   )
-
-  createEffect(() => (statusesToKeep()), (value, prev) => {
-    console.log({ value })
-  })
-
 
   return (
     <FinderDrawerProvider>
@@ -251,15 +245,19 @@ export default function Listings() {
         </div>
       )}
       footer={(<Show when={activeFeature()}>
-        <div class="btn-group btn-group-flush w-100" role="group">
-          <a class="btn btn-subtle theme-primary" target="_blank" href={activeFeature().properties.harURL}>View listing</a>
-          <a class="btn btn-subtle theme-primary" target="_blank" href={activeFeature().properties.agencyURL}>Contact <strong>{activeFeature().properties.agency}</strong></a>
+        <div class="btn-group w-100" role="group">
+          <a class="btn btn-outline theme-primary border border-2 border-primary" target="_blank" href={activeFeature().properties.harURL}>View listing</a>
+          <a class="btn btn-outline theme-primary border border-2 border-primary" target="_blank" href={activeFeature().properties.agencyURL}>Go to <strong>{activeFeature().properties.agency}</strong></a>
         </div>
       </Show>)}
       >
         <Show when={activeFeature()}>
           <div class="px-4 pt-4">
-            <h2>{activeFeature().properties.subdivision}</h2>
+            <h3>Neighborhood: {activeFeature().properties.subdivision}</h3>
+            <h4>
+              {activeFeature().properties.addressLine1}<br/>
+              {activeFeature().properties.addressLine2}
+            </h4>
             {
               activeSubdivision().properties.agencies.map((item) => (
                 <p class="mb-0">
@@ -344,22 +342,23 @@ export default function Listings() {
                     class={`card ${item.id === activeMapSelection() && 'bg-subtle-primary' || ''}`}
                     onClick={() => {setActiveMapSelection(item.id)}}>
                     <img src={item.properties.imageURL} class="card-img-top object-fit-cover border-bottom border-gray" style="height: 15em;"/>
-                    <div class="card-body">
-                      <div class="card-title">
-                        <h5>
-                          {new Intl.NumberFormat("en-US",{
-                            style: "currency",
-                            currency: "USD",
-                            maximumFractionDigits: 0,
-                          }).format(item.properties.price * 1 || item.properties.priceListed * 1)}
+                    <div class="card-body gap-0 py-4">
+                      <div class="card-title d-flex">
+                        <h5 class="flex-fill">
+                          <i><u>
+                            {new Intl.NumberFormat("en-US",{
+                              style: "currency",
+                              currency: "USD",
+                              maximumFractionDigits: 0,
+                            }).format(item.properties.price * 1 || item.properties.priceListed * 1)}
+                          </u></i>
                         </h5>
-
-                        <span class="badge rounded-pill border border-primary fg-primary me-1">{item.properties.statusTitle}</span>
+                        <span class="badge rounded-pill theme-warning">{item.properties.statusTitle}</span>
                       </div>
                       <p class="card-text mb-0">
                         {item.properties.addressLine1}<br/>{item.properties.addressLine2}
                       </p>
-                      <div class="d-flex flex-wrap gap-3">
+                      <div class="d-flex flex-wrap gap-2 mt-2 mb-0">
                         <span class="badge rounded-pill border border-primary fg-primary">{item.properties.subdivision}</span>
                         {/* <span class="badge rounded-pill border border-primary fg-primary">{item.properties.agency}</span> */}
                         <span class="badge rounded-pill border border-primary fg-primary">{item.properties.beds} bedrooms</span>
@@ -375,7 +374,7 @@ export default function Listings() {
                           <strong>Available Down Payment Assistance Programs</strong>
                         </small>
                       </p>
-                      <div class="d-flex flex-wrap gap-3">
+                      <div class="d-flex flex-wrap gap-2">
                         {item.properties.programs.map((program) => (
                           <DPAProgramBadge program={program}/>
                         ))}
