@@ -8,7 +8,10 @@ import type {
 import { merge, onSettled, createEffect } from 'solid-js';
 import { centroid } from "@turf/turf"
 
-import { activeMapSelection, setActiveMapSelection } from '../stores';
+import {
+  activeMapSelection, setActiveMapSelection,
+  statusesToKeep, setStatusesToKeep,
+} from '../stores';
 
 export function Map(props: {
   center: {
@@ -82,10 +85,10 @@ export function Map(props: {
         },
       });
       map.addLayer({
-        'id': 'houses-on-map',
+        'id': 'houses-for-sale',
         'type': 'circle',
         'source': 'houses',
-        'filter': ['==', ['get', 'type'], 'listing'],
+        'filter': ['==', ['get', 'statusTitle'], 'For Sale'],
         'paint': {
           'circle-radius': [
             'interpolate',
@@ -97,6 +100,42 @@ export function Map(props: {
           'circle-color': '#e86e24',  // Default color
           'circle-stroke-width': 1,
           'circle-stroke-color': '#503aa8', // Color when selected
+        },
+      });
+      map.addLayer({
+        'id': 'houses-sold',
+        'type': 'circle',
+        'source': 'houses',
+        'filter': ['==', ['get', 'statusTitle'], 'SOLD'],
+        'paint': {
+          'circle-radius': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            12, 4,   // At zoom level 5 or lower, radius is 2px
+            15, 8  // At zoom level 15 or higher, radius is 20px
+          ],
+          'circle-color': 'transparent',  // Default color
+          'circle-stroke-width': 1,
+          'circle-stroke-color': 'transparent', // Color when selected
+        },
+      });
+      map.addLayer({
+        'id': 'houses-pending',
+        'type': 'circle',
+        'source': 'houses',
+        'filter': ['==', ['get', 'statusTitle'], 'Under Contract - Pending'],
+        'paint': {
+          'circle-radius': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            12, 4,   // At zoom level 5 or lower, radius is 2px
+            15, 8  // At zoom level 15 or higher, radius is 20px
+          ],
+          'circle-color': 'transparent',  // Default color
+          'circle-stroke-width': 1,
+          'circle-stroke-color': 'transparent', // Color when selected
         },
       });
       map.addLayer({
@@ -159,6 +198,27 @@ export function Map(props: {
       { source: 'houses', id: value },
       { selected: true }
     );
+  })
+
+  createEffect(() => (statusesToKeep()), (value, previous) => {
+    if (!map) {return}
+    if (!value.includes('SOLD')) {
+      map.setPaintProperty('houses-sold', 'circle-color', 'transparent');
+      map.setPaintProperty('houses-sold', 'circle-stroke-color', 'transparent');
+    }
+    if (!value.includes('Under Contract - Pending')) {
+      map.setPaintProperty('houses-pending', 'circle-color', 'transparent');
+      map.setPaintProperty('houses-pending', 'circle-stroke-color', 'transparent');
+    }
+    if (value.includes('SOLD')) {
+      map.setPaintProperty('houses-sold', 'circle-color', '#fcb900');
+      map.setPaintProperty('houses-sold', 'circle-stroke-color', '#fcb900');
+    }
+    if (value.includes('Under Contract - Pending')) {
+      map.setPaintProperty('houses-pending', 'circle-color', '#fcb900');
+      map.setPaintProperty('houses-pending', 'circle-stroke-color', '#fcb900');
+    }
+
   })
   
   createEffect(() => (focusSubdivisionCoords()), (value, previous) => {    

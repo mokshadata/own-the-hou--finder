@@ -192,3 +192,13 @@ body {
 [data-program-state="eligible-partial"] [data-details="limits"] [data-limit="income"] ul {
   display: none;
 }
+
+[data-status] {
+  display: none;
+}
+
+[data-statuses*="For Sale"] [data-status="For Sale"],
+[data-statuses*="SOLD"] [data-status="SOLD"],
+[data-statuses*="Under Contract - Pending"] [data-status="Under Contract - Pending"] {
+  display: flex;
+}

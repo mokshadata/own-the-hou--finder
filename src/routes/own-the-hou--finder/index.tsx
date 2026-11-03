@@ -1,6 +1,6 @@
 import { Title } from '@solidjs/meta';
 import { query, type RouteDefinition, type RouteProps } from '@solidjs/router';
-import { createEffect, createMemo, For, Show, Errored, onSettled} from 'solid-js';
+import { createEffect, createMemo, For, Show, Errored, onSettled, createSignal} from 'solid-js';
 
 import { DPATool, DPAProgramsList, DPAProgram, DPAProgramBadge, DPAProgramSummary, getMatchingPrograms } from 'own-the-hou--tools';
 
@@ -8,7 +8,10 @@ import { FinderDrawerProvider, FinderDrawer, FinderController, FinderDrawerPanel
 
 import { points, bbox, bboxPolygon, transformScale, } from "@turf/turf"
 
-import { activeMapSelection, setActiveMapSelection } from '../../stores';
+import {
+  activeMapSelection, setActiveMapSelection,
+  statusesToKeep, setStatusesToKeep
+} from '../../stores';
 
 import { csv, json } from "d3-fetch";
 
@@ -56,11 +59,11 @@ const getListings = query(async () => {
   // (getRequestEvent() is undefined in the browser, where location wins).
   const origin = location.origin;
 
-  const listings = await json((new URL('/own-the-hou--finder/data/combined-20261019--single-family.json', origin)).toString());
-  const listingsWithGeocoding = await csv((new URL('/own-the-hou--finder/data/combined-20261019--single-family.csv', origin)).toString());
+  const listings = await json((new URL('./data/combined-20261019--single-family.json', origin)).toString());
+  const listingsWithGeocoding = await csv((new URL('./data/combined-20261019--single-family.csv', origin)).toString());
 
-  const harrisCountyProgramLimits = await json((new URL('/own-the-hou--finder/data/unincorp-harris-county.geojson', origin)).toString());
-  const cohProgramLimits = await json((new URL('/own-the-hou--finder/data/coh-city-limits.geojson', origin)).toString());
+  const harrisCountyProgramLimits = await json((new URL('./data/unincorp-harris-county.geojson', origin)).toString());
+  const cohProgramLimits = await json((new URL('./data/coh-city-limits.geojson', origin)).toString());
 
   const programBoundsGeoJSON = {
     type: 'FeatureCollection',
@@ -198,6 +201,25 @@ export default function Listings() {
   const activeSubdivision = () => (listings().geoJSON.features.find((item) => (item.properties.houses?.includes(activeMapSelection()))))
   // const focusFeatureCoords = () => (activeFeature().geometry.coordinates)
   // const focusSubdivisionCoords = () => (activeSubdivision() && centroid(activeSubdivision().geometry).geometry.coordinates || [])
+  const statuses = () => ([...new Set(listings().geoJSON.features.filter((item) => (item.properties.type === 'listing')).map((item) => (item.properties.statusTitle)))].toSorted())
+  const statusHousingCount = () => (
+    Object.entries(
+      Object.groupBy(
+        listings().geoJSON.features.filter((item) => (item.properties.type === 'listing')),
+        (item) => (item.properties.statusTitle)
+      )
+    ).map(([statusName, properties]) => ({
+      statusName,
+      statusSlug: statusName.replace(' ', '-'),
+      count: properties?.length,
+    }))
+    .toSorted((a, b) => (a.statusName.localeCompare(b.statusName)))
+  )
+
+  createEffect(() => (statusesToKeep()), (value, prev) => {
+    console.log({ value })
+  })
+
 
   return (
     <FinderDrawerProvider>
@@ -246,14 +268,14 @@ export default function Listings() {
               ))
             }
             <p class="mb-0 mt-2">
-              <strong>Recommended Down Payment Range (3 - 20%)</strong>
+              <strong>Recommended Down Payment Range (3.5 - 5%)</strong>
             </p>
 
-            <div class="progress-stacked">
-              <div class="progress" role="progressbar" aria-label="Segment one" aria-valuenow="3.5" aria-valuemin="0" aria-valuemax="100" style="width: 3.5%">
+            <div class="progress-stacked border border-1 border-primary">
+              <div class="progress" role="progressbar" aria-label="Minimum down payment" aria-valuenow="3.5" aria-valuemin="0" aria-valuemax="100" style="width: 3.5%">
                 <div class="progress-bar" style="background: var(--bs-progress-bg);"></div>
               </div>
-              <div class="progress" role="progressbar" aria-label="Segment two" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100" style="width: 5%">
+              <div class="progress" role="progressbar" aria-label="Recommended down payment" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100" style="width: 5%">
                 <div class="progress-bar bg-info progress-bar-striped progress-bar-animated"></div>
               </div>
             </div>
@@ -284,18 +306,41 @@ export default function Listings() {
       </FinderDrawer>
       <FinderDrawerPanel>
         <div class="d-flex flex-column p-4" style={{'max-width': '1200px'}}>
-          <div class="alert theme-info d-flex flex-column m-4" role="alert">
+          <div class="alert theme-primary d-flex flex-column m-4 sticky-top" role="alert">
             <h4 class="alert-heading mb-2">
               Affordable Home Finder
               <FinderController/>
             </h4>
             <p>Every listing on this map comes from an Own the HOU collaborative partner, with the down payment assistance programs that may apply based on where the home is located.</p>
+            <div class="d-flex">              
+              {statusHousingCount().map((status) => (
+                <div class="form-field me-8">
+                  <div class="switch theme-primary">
+                    <input
+                      type="checkbox"
+                      value={status.statusName}
+                      id={status.statusSlug}
+                      role="switch"
+                      switch
+                      checked={statusesToKeep().includes(status.statusName)}
+                      onChange={() => (
+                        statusesToKeep().includes(status.statusName) &&
+                        setStatusesToKeep([...new Set([...statusesToKeep().filter((hey) => (hey !== status.statusName))])].toSorted()) ||
+                        setStatusesToKeep([...new Set([...statusesToKeep(), status.statusName])].toSorted())
+                      )}
+                  />
+                  </div>
+                  <label for={status.statusSlug}>{status.statusName} ({status.count})</label>
+                </div>
+              ))}
+            </div>
           </div>
-          <div class="d-flex flex-wrap">
+          <div class="d-flex flex-wrap" data-statuses={statusesToKeep().join('|')}>
             <For each={listings().geoJSON.features.filter((feature) => (feature.properties.type === 'listing'))}>{(item, i) => (
-                <div class={`w-50 p-4`}>
+                <div class={`w-50 p-4`} data-status={`${item.properties.statusTitle}`}>
                   <div
                     role="button"
+                    data-listing={`listing-${item.id}`}
                     class={`card ${item.id === activeMapSelection() && 'bg-subtle-primary' || ''}`}
                     onClick={() => {setActiveMapSelection(item.id)}}>
                     <img src={item.properties.imageURL} class="card-img-top object-fit-cover border-bottom border-gray" style="height: 15em;"/>
