@@ -111,6 +111,10 @@
 --bs-primary-rgb: var(--blue-bell-rgb);
 --bs-dark-rgb: var(--oth--twilight-indigo-rgb);
 
+--bs-info-rgb: var(--rebecca-purple-rgb);
+--bs-primary-rgb: var(--blue-bell-rgb);
+--bs-dark-rgb: var(--oth--twilight-indigo-rgb);
+
 --bs-navbar-bg: var(--twilight-indigo);
 }
 .drawer {

@@ -59,11 +59,11 @@ const getListings = query(async () => {
   // (getRequestEvent() is undefined in the browser, where location wins).
   const origin = location.origin;
 
-  const listings = await json((new URL('/own-the-hou--finder/data/combined-20261019--single-family.json', origin)).toString());
-  const listingsWithGeocoding = await csv((new URL('/own-the-hou--finder/data/combined-20261019--single-family.csv', origin)).toString());
+  const listings = await json((new URL('./data/combined-20261019--single-family.json', origin)).toString());
+  const listingsWithGeocoding = await csv((new URL('./data/combined-20261019--single-family.csv', origin)).toString());
 
-  const harrisCountyProgramLimits = await json((new URL('/own-the-hou--finder/data/unincorp-harris-county.geojson', origin)).toString());
-  const cohProgramLimits = await json((new URL('/own-the-hou--finder/data/coh-city-limits.geojson', origin)).toString());
+  const harrisCountyProgramLimits = await json((new URL('./data/unincorp-harris-county.geojson', origin)).toString());
+  const cohProgramLimits = await json((new URL('./data/coh-city-limits.geojson', origin)).toString());
 
   const programBoundsGeoJSON = {
     type: 'FeatureCollection',
@@ -246,14 +246,14 @@ export default function Listings() {
       )}
       footer={(<Show when={activeFeature()}>
         <div class="btn-group w-100" role="group">
-          <a class="btn btn-outline theme-primary border border-2 border-primary" target="_blank" href={activeFeature().properties.harURL}>View listing</a>
-          <a class="btn btn-outline theme-primary border border-2 border-primary" target="_blank" href={activeFeature().properties.agencyURL}>Go to <strong>{activeFeature().properties.agency}</strong></a>
+          <a class="btn btn-outline theme-primary border border-2 border-primary rounded-0" target="_blank" href={activeFeature().properties.harURL}>View listing</a>
+          <a class="btn btn-outline theme-primary border border-2 border-primary rounded-0" target="_blank" href={activeFeature().properties.agencyURL}>Go to <strong>{activeFeature().properties.agency}</strong></a>
         </div>
       </Show>)}
       >
         <Show when={activeFeature()}>
           <div class="px-4 pt-4">
-            <h3>Neighborhood: {activeFeature().properties.subdivision}</h3>
+            <h4 class="fg-accent fw-bold">Neighborhood: {activeFeature().properties.subdivision}</h4>
             <h4>
               {activeFeature().properties.addressLine1}<br/>
               {activeFeature().properties.addressLine2}
@@ -265,11 +265,13 @@ export default function Listings() {
                 </p>
               ))
             }
-            <p class="mb-0 mt-2">
-              <strong>Recommended Down Payment Range (3.5 - 5%)</strong>
+            <hr class="border-1 mb-4 border-primary"/>
+            <h4 class="fg-accent fw-bold">Down Payment Assistance Information</h4>
+            <p class="mb-0 mt-2 fw-semibold">
+              Recommended Down Payment Range (3.5 - 5%)
             </p>
 
-            <div class="progress-stacked border border-1 border-primary">
+            <div class="progress-stacked border border-1 border-primary mb-1">
               <div class="progress" role="progressbar" aria-label="Minimum down payment" aria-valuenow="3.5" aria-valuemin="0" aria-valuemax="100" style="width: 3.5%">
                 <div class="progress-bar" style="background: var(--bs-progress-bg);"></div>
               </div>
@@ -278,17 +280,17 @@ export default function Listings() {
               </div>
             </div>
             <p class="mb-1">
-              <strong>{new Intl.NumberFormat("en-US",{
+              <span class="border-bottom border-1 border-black fst-italic">{new Intl.NumberFormat("en-US",{
                 style: "currency",
                 currency: "USD",
                 maximumFractionDigits: 0,
-              }).format((activeFeature().properties.price || activeFeature().properties.priceListed) * 0.035)}</strong> to <strong>{new Intl.NumberFormat("en-US",{
+              }).format((activeFeature().properties.price || activeFeature().properties.priceListed) * 0.035)}</span> to <span class="border-bottom border-1 border-black fst-italic">{new Intl.NumberFormat("en-US",{
                 style: "currency",
                 currency: "USD",
                 maximumFractionDigits: 0,
-              }).format((activeFeature().properties.price || activeFeature().properties.priceListed) * 0.05)}</strong>
+              }).format((activeFeature().properties.price || activeFeature().properties.priceListed) * 0.05)}</span>
             </p>
-            <p>Depending on your household income, you may qualify for Down Payment Assistance through:</p>
+            <p class="mt-6">Depending on your household income, you may qualify for Down Payment Assistance through:</p>
           </div>
           <div class="accordion accordion-sm theme-primary">
             {activeFeature().properties.programs.map((program) => (
@@ -345,15 +347,15 @@ export default function Listings() {
                     <div class="card-body gap-0 py-4">
                       <div class="card-title d-flex">
                         <h5 class="flex-fill">
-                          <i><u>
+                          <span class="border-bottom border-1 border-black fst-italic">
                             {new Intl.NumberFormat("en-US",{
                               style: "currency",
                               currency: "USD",
                               maximumFractionDigits: 0,
                             }).format(item.properties.price * 1 || item.properties.priceListed * 1)}
-                          </u></i>
+                          </span>
                         </h5>
-                        <span class="badge rounded-pill theme-warning">{item.properties.statusTitle}</span>
+                        <span class="badge rounded-pill theme-warning fs-md">{item.properties.statusTitle}</span>
                       </div>
                       <p class="card-text mb-0">
                         {item.properties.addressLine1}<br/>{item.properties.addressLine2}

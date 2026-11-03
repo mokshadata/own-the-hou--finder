@@ -39,7 +39,7 @@ export const FinderController: Component = (props) => {
   const { drawerState, setDrawerState } = useFinderDrawer()
 
   return (
-    <button class="btn bg-transparent" onClick={() => setDrawerState({ open: !drawerState().open })}>
+    <button class="btn bg-transparent p-1" style={{'margin-top': '-0.3em'}} onClick={() => setDrawerState({ open: !drawerState().open })}>
       <svg
         width="24"
         viewBox="0 0 24 24"
