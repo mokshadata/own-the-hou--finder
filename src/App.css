@@ -222,6 +222,10 @@ body {
   margin-left: 0.25rem;
 }
 
+[data-listing] {
+  scroll-margin-top: 200px;
+}
+
 [data-program-state="ineligible"],
 [data-program-state="inactive"] {
   display: none;
