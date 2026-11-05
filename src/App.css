@@ -125,11 +125,13 @@
   --bs-drawer-padding-y: 0;
   --bs-drawer-padding-x: 0;
   --bs-border-width: 0;
+
+  --bs-drawer-width: 480px;
 }
 
 
 [data-finder-drawer-panel="opened"] {
-  margin-left: 400px;
+  margin-right: 480px;
 
   transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   transition-duration: 0.5s;
@@ -205,4 +207,46 @@ body {
 [data-statuses*="SOLD"] [data-status="SOLD"],
 [data-statuses*="Under Contract - Pending"] [data-status="Under Contract - Pending"] {
   display: flex;
+}
+
+.intro-card .card-header {
+  background-color: var(--oth2--twilight-indigo);
+  color: white;
+  border-radius: 2px;
+}
+
+.intro-card {
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10em);
+  border-radius: 8px;
+}
+
+details, hr {
+  border-style: dotted;
+  border-left: none;
+  border-right: none;
+}
+
+hr {
+  border-width: 1px;
+  border-top: none;
+}
+
+details strong {
+  font-weight: 600;
+}
+
+summary {
+  padding-left: 0.75rem;
+  padding-right: 0.5rem;
+}
+
+.drawer-footer {
+  background-color: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10em);
+}
+
+dialog {
+  background-color: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(10em);
 }

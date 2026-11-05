@@ -59,11 +59,11 @@ const getListings = query(async () => {
   // (getRequestEvent() is undefined in the browser, where location wins).
   const origin = location.origin;
 
-  const listings = await json((new URL('/own-the-hou--finder/data/combined-20261019--single-family.json', origin)).toString());
-  const listingsWithGeocoding = await csv((new URL('/own-the-hou--finder/data/combined-20261019--single-family.csv', origin)).toString());
+  const listings = await json((new URL('./data/combined-20261019--single-family.json', origin)).toString());
+  const listingsWithGeocoding = await csv((new URL('./data/combined-20261019--single-family.csv', origin)).toString());
 
-  const harrisCountyProgramLimits = await json((new URL('/own-the-hou--finder/data/unincorp-harris-county.geojson', origin)).toString());
-  const cohProgramLimits = await json((new URL('/own-the-hou--finder/data/coh-city-limits.geojson', origin)).toString());
+  const harrisCountyProgramLimits = await json((new URL('./data/unincorp-harris-county.geojson', origin)).toString());
+  const cohProgramLimits = await json((new URL('./data/coh-city-limits.geojson', origin)).toString());
 
   const programBoundsGeoJSON = {
     type: 'FeatureCollection',
@@ -222,7 +222,6 @@ export default function Listings() {
         backdrop={false}
         tabindex={-1}
         label="finder-sidebar"
-        style={{'background-color': 'rgba(255, 255, 255, 0.75)'}}
         header={(
         <div class="d-flex flex-column w-100">
           <nav class="drawer-title navbar gap-3 bg-dark p-3 w-100" data-bs-theme="dark">
@@ -245,16 +244,16 @@ export default function Listings() {
         </div>
       )}
       footer={(<Show when={activeFeature()}>
-        <div class="btn-group w-100" role="group">
-          <a class="btn btn-outline theme-primary border border-2 border-primary rounded-0" target="_blank" href={activeFeature().properties.harURL}>View listing</a>
-          <a class="btn btn-outline theme-primary border border-2 border-primary rounded-0" target="_blank" href={activeFeature().properties.agencyURL}>Go to <strong>{activeFeature().properties.agency}</strong></a>
+        <div class="d-flex w-100 gap-4 px-4" role="group">
+          <a class="btn btn-outline theme-primary border border-2 border-primary my-4 flex-fill" target="_blank" href={activeFeature().properties.harURL}>View listing</a>
+          <a class="btn btn-outline theme-primary border border-2 border-primary my-4 flex-fill" target="_blank" href={activeFeature().properties.agencyURL}>Go to <strong>{activeFeature().properties.agency}</strong></a>
         </div>
       </Show>)}
       >
         <Show when={activeFeature()}>
           <div class="px-4 pt-4">
             <h4 class="fg-accent fw-bold">Neighborhood: {activeFeature().properties.subdivision}</h4>
-            <h4>
+            <h4 class="mt-6 mb-6">
               {activeFeature().properties.addressLine1}<br/>
               {activeFeature().properties.addressLine2}
             </h4>
@@ -265,9 +264,9 @@ export default function Listings() {
                 </p>
               ))
             }
-            <hr class="border-1 mb-4 border-primary"/>
+            <hr class="border-1 border-bottom mb-6 mt-6 border-primary"/>
             <h4 class="fg-accent fw-bold">Down Payment Assistance Information</h4>
-            <p class="mb-0 mt-2 fw-semibold">
+            <p class="mb-0 mt-4 fw-semibold">
               Recommended Down Payment Range (3.5 - 5%)
             </p>
 
@@ -292,7 +291,7 @@ export default function Listings() {
             </p>
             <p class="mt-6">Depending on your household income, you may qualify for Down Payment Assistance through:</p>
           </div>
-          <div class="accordion accordion-sm theme-primary">
+          <div class="accordion theme-primary mb-8">
             {activeFeature().properties.programs.map((program) => (
               <DPAProgramSummary
                 program={program}
@@ -306,13 +305,17 @@ export default function Listings() {
       </FinderDrawer>
       <FinderDrawerPanel>
         <div class="d-flex flex-column p-4" style={{'max-width': '1200px'}}>
-          <div class="alert theme-primary d-flex flex-column m-4 sticky-top" role="alert">
-            <h4 class="alert-heading mb-2">
-              Affordable Home Finder
-              <FinderController/>
-            </h4>
-            <p>Every listing on this map comes from an Own the HOU collaborative partner, with the down payment assistance programs that may apply based on where the home is located.</p>
-            <div class="d-flex">              
+          <div class="intro-card card sticky-top m-4" role="card">
+            <div class="card-header">
+              <h5 class="card-title mb-0">
+                Affordable Home Finder
+                <FinderController/>
+              </h5>
+            </div>
+            <div class="card-body">
+              <p class="card-text">Every listing on this map comes from an Own the HOU collaborative partner, with the down payment assistance programs that may apply based on where the home is located.</p>
+            </div>
+            <div class="card-footer d-flex">              
               {statusHousingCount().map((status) => (
                 <div class="form-field me-8">
                   <div class="switch theme-primary">
@@ -347,7 +350,7 @@ export default function Listings() {
                     <div class="card-body gap-0 py-4">
                       <div class="card-title d-flex">
                         <h5 class="flex-fill">
-                          <span class="border-bottom border-1 border-black fst-italic">
+                          <span class="border-bottom border-1 border-black fst-italic fs-lg">
                             {new Intl.NumberFormat("en-US",{
                               style: "currency",
                               currency: "USD",

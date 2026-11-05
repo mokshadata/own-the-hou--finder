@@ -44,7 +44,7 @@ export const FinderController: Component = (props) => {
         width="24"
         viewBox="0 0 24 24"
         fill="none"
-        stroke="currentColor"
+        stroke="white"
         stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
@@ -88,7 +88,7 @@ export const FinderDrawer: ParentComponent<DrawerProps> = ({
   return (
     <dialog
       ref={dialogElement}
-      class={`drawer drawer-start ${props.class && props.class || ''} ${drawerState().open && 'show'}`}
+      class={`drawer drawer-end ${props.class && props.class || ''} ${drawerState().open && 'show'}`}
       open={drawerState().open}
       style={style}
       data-bs-scroll={scroll && 'true' || 'false'}
