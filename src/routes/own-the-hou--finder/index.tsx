@@ -245,8 +245,8 @@ export default function Listings() {
       )}
       footer={(<Show when={activeFeature()}>
         <div class="d-flex w-100 gap-4 px-4" role="group">
-          <a class="btn btn-outline theme-primary border border-2 border-primary my-4 flex-fill" target="_blank" href={activeFeature().properties.harURL}>View listing</a>
-          <a class="btn btn-outline theme-primary border border-2 border-primary my-4 flex-fill" target="_blank" href={activeFeature().properties.agencyURL}>Go to <strong>{activeFeature().properties.agency}</strong></a>
+          <a class="btn btn-subtle theme-accent border border-2 border-accent my-4 flex-fill" target="_blank" href={activeFeature().properties.harURL}>View listing</a>
+          <a class="btn btn-subtle theme-accent border border-2 border-accent my-4 flex-fill" target="_blank" href={activeFeature().properties.agencyURL}>Go to <strong>{activeFeature().properties.agency}</strong></a>
         </div>
       </Show>)}
       >
@@ -364,13 +364,13 @@ export default function Listings() {
                         {item.properties.addressLine1}<br/>{item.properties.addressLine2}
                       </p>
                       <div class="d-flex flex-wrap gap-2 mt-2 mb-0">
-                        <span class="badge rounded-pill border border-primary fg-primary">{item.properties.subdivision}</span>
-                        {/* <span class="badge rounded-pill border border-primary fg-primary">{item.properties.agency}</span> */}
-                        <span class="badge rounded-pill border border-primary fg-primary">{item.properties.beds} bedrooms</span>
-                        <span class="badge rounded-pill border border-primary fg-primary">{item.properties.fullBaths + ((item.properties.halfBaths || 0)/2)} bathrooms</span>
-                        <span class="badge rounded-pill border border-primary fg-primary">{item.properties.interiorSize} sqft.</span>
-                        <span class="badge rounded-pill border border-primary fg-primary">{item.properties.buildingType}</span>
-                        <span class="badge rounded-pill border border-primary fg-primary">{item.properties.schoolDistrict}</span>
+                        <span class="badge rounded-pill theme-primary">{item.properties.subdivision}</span>
+                        {/* <span class="badge rounded-pill theme-primary">{item.properties.agency}</span> */}
+                        <span class="badge rounded-pill theme-primary">{item.properties.beds} bedrooms</span>
+                        <span class="badge rounded-pill theme-primary">{item.properties.fullBaths + ((item.properties.halfBaths || 0)/2)} bathrooms</span>
+                        <span class="badge rounded-pill theme-primary">{item.properties.interiorSize} sqft.</span>
+                        <span class="badge rounded-pill theme-primary">{item.properties.buildingType}</span>
+                        <span class="badge rounded-pill theme-primary">{item.properties.schoolDistrict}</span>
                       </div>
                     </div>
                     <div class="card-footer">

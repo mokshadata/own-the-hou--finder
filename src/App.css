@@ -116,7 +116,39 @@
 --bs-dark-rgb: var(--oth--twilight-indigo-rgb);
 
 --bs-navbar-bg: var(--twilight-indigo);
+
+  --bs-primary-base: var(--blue-bell);
+  --bs-primary-bg: var(--blue-bell);
+  --bs-info-bg: var(--rebecca-purple);
+  --bs-info-contrast: white;
 }
+
+@layer utilities {
+  .fg-accent {
+    --bs-fg: var(--rebecca-purple);
+    color: var(--bs-fg);
+  }
+}
+
+@layer helpers {
+  .theme-info {
+    --bs-theme-base: var(--rebecca-purple);
+    --bs-theme-fg: var(--bs-info-fg);
+    --bs-theme-fg-emphasis: var(--bs-info-fg-emphasis);
+    --bs-theme-bg: var(--bs-info-bg);
+    --bs-theme-bg-subtle: var(--bs-info-bg-subtle);
+    --bs-theme-bg-muted: var(--bs-info-bg-muted);
+    --bs-theme-border: var(--bs-info-border);
+    --bs-theme-focus-ring: var(--bs-info-focus-ring);
+    --bs-theme-contrast: var(--bs-info-contrast);
+  }
+}
+
+.badge {
+  font-weight: 500;
+  letter-spacing: 0.25px;
+}
+
 .drawer {
   --bs-drawer-border-radius: 0;
   --bs-drawer-inset: 0px;
@@ -232,7 +264,7 @@ hr {
   border-top: none;
 }
 
-details strong {
+summary div {
   font-weight: 600;
 }
 
