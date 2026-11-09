@@ -6,6 +6,11 @@ import { DPATool, DPAProgramsList, DPAProgram, DPAProgramBadge, DPAProgramSummar
 
 import { FinderDrawerProvider, FinderDrawer, FinderController, FinderDrawerPanel } from '../../components/Sidebar';
 
+import { ListingCard } from '../../components/Card';
+import { Filter } from '../../components/Filter';
+import { Map } from "../../components/Mapbox";
+import { DownPaymentRange } from '../../components/Range';
+
 import { points, bbox, bboxPolygon, transformScale, } from "@turf/turf"
 
 import {
@@ -15,7 +20,8 @@ import {
 
 import { csv, json } from "d3-fetch";
 
-import { Map } from "../../components/Mapbox";
+
+import { toTitleCase } from '../../utils';
 
 const subdivisionsURL = {
   'Avenue Park Replat': 'https://www.har.com/pricetrends/avenue-park-replat-realestate/16111',
@@ -59,11 +65,11 @@ const getListings = query(async () => {
   // (getRequestEvent() is undefined in the browser, where location wins).
   const origin = location.origin;
 
-  const listings = await json((new URL('/own-the-hou--finder/data/combined-20261019--single-family.json', origin)).toString());
-  const listingsWithGeocoding = await csv((new URL('/own-the-hou--finder/data/combined-20261019--single-family.csv', origin)).toString());
+  const listings = await json((new URL('./data/combined-20261019--single-family.json', origin)).toString());
+  const listingsWithGeocoding = await csv((new URL('./data/combined-20261019--single-family.csv', origin)).toString());
 
-  const harrisCountyProgramLimits = await json((new URL('/own-the-hou--finder/data/unincorp-harris-county.geojson', origin)).toString());
-  const cohProgramLimits = await json((new URL('/own-the-hou--finder/data/coh-city-limits.geojson', origin)).toString());
+  const harrisCountyProgramLimits = await json((new URL('./data/unincorp-harris-county.geojson', origin)).toString());
+  const cohProgramLimits = await json((new URL('./data/coh-city-limits.geojson', origin)).toString());
 
   const programBoundsGeoJSON = {
     type: 'FeatureCollection',
@@ -211,6 +217,7 @@ export default function Listings() {
       statusName,
       statusSlug: statusName.replace(' ', '-'),
       count: properties?.length,
+      statusLabel: toTitleCase(statusName),
     }))
     .toSorted((a, b) => (a.statusName.localeCompare(b.statusName)))
   )
@@ -266,29 +273,7 @@ export default function Listings() {
             }
             <hr class="border-1 border-bottom mb-6 mt-6 border-primary"/>
             <h4 class="fg-accent fw-bold">Down Payment Assistance Information</h4>
-            <p class="mb-0 mt-4 fw-semibold">
-              Recommended Down Payment Range (3.5 - 5%)
-            </p>
-
-            <div class="progress-stacked border border-1 border-primary mb-1">
-              <div class="progress" role="progressbar" aria-label="Minimum down payment" aria-valuenow="3.5" aria-valuemin="0" aria-valuemax="100" style="width: 3.5%">
-                <div class="progress-bar" style="background: var(--bs-progress-bg);"></div>
-              </div>
-              <div class="progress" role="progressbar" aria-label="Recommended down payment" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100" style="width: 5%">
-                <div class="progress-bar bg-info progress-bar-striped progress-bar-animated"></div>
-              </div>
-            </div>
-            <p class="mb-1">
-              <span class="border-bottom border-1 border-black fst-italic">{new Intl.NumberFormat("en-US",{
-                style: "currency",
-                currency: "USD",
-                maximumFractionDigits: 0,
-              }).format((activeFeature().properties.price || activeFeature().properties.priceListed) * 0.035)}</span> to <span class="border-bottom border-1 border-black fst-italic">{new Intl.NumberFormat("en-US",{
-                style: "currency",
-                currency: "USD",
-                maximumFractionDigits: 0,
-              }).format((activeFeature().properties.price || activeFeature().properties.priceListed) * 0.05)}</span>
-            </p>
+            <DownPaymentRange activeFeature={activeFeature}/>
             <p class="mt-6">Depending on your household income, you may qualify for Down Payment Assistance through:</p>
           </div>
           <div class="accordion theme-primary mb-8">
@@ -312,78 +297,14 @@ export default function Listings() {
             <p>Every listing on this map comes from an Own the HOU collaborative partner, with the down payment assistance programs that may apply based on where the home is located.</p>
             <div class="intro-footer d-flex">
               {statusHousingCount().map((status) => (
-                <div class="form-field me-8">
-                  <div class="switch theme-primary">
-                    <input
-                      type="checkbox"
-                      value={status.statusName}
-                      id={status.statusSlug}
-                      role="switch"
-                      switch
-                      checked={statusesToKeep().includes(status.statusName)}
-                      onChange={() => (
-                        statusesToKeep().includes(status.statusName) &&
-                        setStatusesToKeep([...new Set([...statusesToKeep().filter((hey) => (hey !== status.statusName))])].toSorted()) ||
-                        setStatusesToKeep([...new Set([...statusesToKeep(), status.statusName])].toSorted())
-                      )}
-                  />
-                  </div>
-                  <label for={status.statusSlug}>{status.statusName} ({status.count})</label>
-                </div>
+                <Filter status={status}/>
               ))}
             </div>
           </div>
           <div class="container mx-0" data-statuses={statusesToKeep().join('|')}>
             <div class="row">
               <For each={listings().geoJSON.features.filter((feature) => (feature.properties.type === 'listing'))}>{(item, i) => (
-                  <div class={`col xs:col-12 xl:col-6`} data-status={`${item.properties.statusTitle}`}>
-                    <div
-                      role="button"
-                      data-listing={`listing-${item.id}`}
-                      class={`mb-8 card ${item.id === activeMapSelection() && 'bg-subtle-primary' || ''}`}
-                      onClick={() => {setActiveMapSelection(item.id)}}>
-                      <img src={item.properties.imageURL} class="card-img-top object-fit-cover border-bottom border-gray" style="height: 15em;"/>
-                      <div class="card-body gap-0 py-4">
-                        <div class="card-title d-flex">
-                          <h5 class="flex-fill">
-                            <span class="border-bottom border-1 border-black fst-italic fs-lg">
-                              {new Intl.NumberFormat("en-US",{
-                                style: "currency",
-                                currency: "USD",
-                                maximumFractionDigits: 0,
-                              }).format(item.properties.price * 1 || item.properties.priceListed * 1)}
-                            </span>
-                          </h5>
-                          <span class="badge rounded-pill theme-warning fs-md">{item.properties.statusTitle}</span>
-                        </div>
-                        <p class="card-text mb-0">
-                          {item.properties.addressLine1}<br/>{item.properties.addressLine2}
-                        </p>
-                        <div class="d-flex flex-wrap gap-2 mt-2 mb-0">
-                          <span class="badge rounded-pill theme-primary">{item.properties.subdivision}</span>
-                          {/* <span class="badge rounded-pill theme-primary">{item.properties.agency}</span> */}
-                          <span class="badge rounded-pill theme-primary">{item.properties.beds} bedrooms</span>
-                          <span class="badge rounded-pill theme-primary">{item.properties.fullBaths + ((item.properties.halfBaths || 0)/2)} bathrooms</span>
-                          <span class="badge rounded-pill theme-primary">{item.properties.interiorSize} sqft.</span>
-                          <span class="badge rounded-pill theme-primary">{item.properties.buildingType}</span>
-                          <span class="badge rounded-pill theme-primary">{item.properties.schoolDistrict}</span>
-                        </div>
-                      </div>
-                      <div class="card-footer">
-                        <p class="mb-1">
-                          <small>
-                            <strong>Available Down Payment Assistance Programs</strong>
-                          </small>
-                        </p>
-                        <div class="d-flex flex-wrap gap-2">
-                          {item.properties.programs.map((program) => (
-                            <DPAProgramBadge program={program}/>
-                          ))}
-                        </div>
-
-                      </div>
-                    </div>
-                  </div>
+                <ListingCard item={item}/>
               )}</For> 
             </div>
           </div>
