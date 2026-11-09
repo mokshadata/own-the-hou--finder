@@ -59,11 +59,11 @@ const getListings = query(async () => {
   // (getRequestEvent() is undefined in the browser, where location wins).
   const origin = location.origin;
 
-  const listings = await json((new URL('/own-the-hou--finder/data/combined-20261019--single-family.json', origin)).toString());
-  const listingsWithGeocoding = await csv((new URL('/own-the-hou--finder/data/combined-20261019--single-family.csv', origin)).toString());
+  const listings = await json((new URL('./data/combined-20261019--single-family.json', origin)).toString());
+  const listingsWithGeocoding = await csv((new URL('./data/combined-20261019--single-family.csv', origin)).toString());
 
-  const harrisCountyProgramLimits = await json((new URL('/own-the-hou--finder/data/unincorp-harris-county.geojson', origin)).toString());
-  const cohProgramLimits = await json((new URL('/own-the-hou--finder/data/coh-city-limits.geojson', origin)).toString());
+  const harrisCountyProgramLimits = await json((new URL('./data/unincorp-harris-county.geojson', origin)).toString());
+  const cohProgramLimits = await json((new URL('./data/coh-city-limits.geojson', origin)).toString());
 
   const programBoundsGeoJSON = {
     type: 'FeatureCollection',
@@ -224,7 +224,7 @@ export default function Listings() {
         label="finder-sidebar"
         header={(
         <div class="d-flex flex-column w-100">
-          <nav class="drawer-title navbar gap-3 bg-dark p-3 w-100" data-bs-theme="dark">
+          <nav class="drawer-title navbar gap-3 bg-dark p-3 pe-0 w-100" data-bs-theme="dark">
             <a href="#" class="navbar-brand">
               <img
                 src="https://ownthehou.org/wp-content/themes/twentytwentyfive--own-the-hou/assets/images/logo-header.svg"
@@ -308,7 +308,6 @@ export default function Listings() {
           <div class="intro sticky-top m-4" role="card">
             <h2 class="mb-0">
               Affordable Home Finder
-              <FinderController/>
             </h2>
             <p>Every listing on this map comes from an Own the HOU collaborative partner, with the down payment assistance programs that may apply based on where the home is located.</p>
             <div class="intro-footer d-flex">
@@ -337,7 +336,7 @@ export default function Listings() {
           <div class="container mx-0" data-statuses={statusesToKeep().join('|')}>
             <div class="row">
               <For each={listings().geoJSON.features.filter((feature) => (feature.properties.type === 'listing'))}>{(item, i) => (
-                  <div class={`col xs:col-12 lg:col-6 2xl:col-4`} data-status={`${item.properties.statusTitle}`}>
+                  <div class={`col xs:col-12 xl:col-6`} data-status={`${item.properties.statusTitle}`}>
                     <div
                       role="button"
                       data-listing={`listing-${item.id}`}

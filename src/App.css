@@ -161,15 +161,6 @@
   --bs-drawer-width: 480px;
 }
 
-
-[data-finder-drawer-panel="opened"] {
-  margin-right: 480px;
-
-  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-  transition-duration: 0.5s;
-  transition-property: margin;
-}
-
 :root,
 :host {
 
@@ -216,10 +207,6 @@ html {
     filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#adc2eb", endColorstr="#fcd19c", GradientType=1 );
 
     padding: 1rem 0;
-}
-
-.intro svg {
-  stroke: black;
 }
 
 body {
@@ -298,7 +285,65 @@ summary {
   backdrop-filter: blur(10em);
 }
 
+.intro svg g {
+  stroke: black;
+  fill: black;
+}
+
+[data-finder-drawer-panel="opened"] {
+  margin-right: 480px;
+
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  transition-duration: 0.5s;
+  transition-property: margin;
+}
+
+dialog[data-open="close"] nav {
+  position: relative;
+}
+
+dialog nav button {
+  background-color: var(--oth2--twilight-indigo);
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  padding-bottom: 0.75rem;
+  padding-top: 0.6rem;
+
+  transition: left 200ms linear, fill 200ms linear, background-color 200ms linear;
+}
+
+dialog nav button:hover {
+  background-color: white;
+}
+
+dialog nav button:hover svg path {
+  fill: var(--oth2--twilight-indigo);
+  stroke: var(--oth2--twilight-indigo);
+}
+
+dialog[data-open="close"] nav button {
+  position: absolute;
+  left: -3rem;
+}
+
+@layer components {
+  .drawer {
+    visibility: initial;
+    overflow: initial;
+  }
+}
+
 dialog {
   background-color: rgba(255, 255, 255, 0.65);
   backdrop-filter: blur(10em);
+}
+
+@media screen and (width >= 1440px) {
+  [data-finder-drawer-panel="opened"] {
+    margin-right: calc(100% - 960px);
+  }
+
+  .drawer {
+    --bs-drawer-width: calc(100% - 960px);
+  }
 }
