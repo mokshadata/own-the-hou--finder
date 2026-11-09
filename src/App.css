@@ -206,6 +206,22 @@ html {
     filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#adc2eb", endColorstr="#fcd19c", GradientType=1 );
 }
 
+.intro {
+    background-attachment: fixed;
+    /* https://coolors.co/gradient-maker/adc2eb-fcd19c?position=0,100&opacity=100,100&type=linear&rotation=135 */
+    background-color: hsla(220, 61%, 80%, 1);
+    background-image: linear-gradient(-45deg, hsla(220, 61%, 80%, 1) 0%, hsla(33, 94%, 80%, 1) 100%);
+    background-image: -moz-linear-gradient(-45deg, hsla(220, 61%, 80%, 1) 0%, hsla(33, 94%, 80%, 1) 100%);
+    background-image: -webkit-linear-gradient(-45deg, hsla(220, 61%, 80%, 1) 0%, hsla(33, 94%, 80%, 1) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#adc2eb", endColorstr="#fcd19c", GradientType=1 );
+
+    padding: 1rem 0;
+}
+
+.intro svg {
+  stroke: black;
+}
+
 body {
   --bs-bg-body: transparent;
 }

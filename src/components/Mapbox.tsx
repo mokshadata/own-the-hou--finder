@@ -258,7 +258,7 @@ export function Map(props: {
 
     map.flyTo({
       center: value,
-      zoom: 16,
+      zoom: 14,
     })
   })
 

@@ -59,11 +59,11 @@ const getListings = query(async () => {
   // (getRequestEvent() is undefined in the browser, where location wins).
   const origin = location.origin;
 
-  const listings = await json((new URL('/own-the-hou--finder/data/combined-20261019--single-family.json', origin)).toString());
-  const listingsWithGeocoding = await csv((new URL('/own-the-hou--finder/data/combined-20261019--single-family.csv', origin)).toString());
+  const listings = await json((new URL('./data/combined-20261019--single-family.json', origin)).toString());
+  const listingsWithGeocoding = await csv((new URL('./data/combined-20261019--single-family.csv', origin)).toString());
 
-  const harrisCountyProgramLimits = await json((new URL('/own-the-hou--finder/data/unincorp-harris-county.geojson', origin)).toString());
-  const cohProgramLimits = await json((new URL('/own-the-hou--finder/data/coh-city-limits.geojson', origin)).toString());
+  const harrisCountyProgramLimits = await json((new URL('./data/unincorp-harris-county.geojson', origin)).toString());
+  const cohProgramLimits = await json((new URL('./data/coh-city-limits.geojson', origin)).toString());
 
   const programBoundsGeoJSON = {
     type: 'FeatureCollection',
@@ -245,7 +245,7 @@ export default function Listings() {
       )}
       footer={(<Show when={activeFeature()}>
         <div class="d-flex w-100 gap-4 px-4" role="group">
-          <a class="btn btn-subtle theme-accent border border-2 border-accent my-4 flex-fill" target="_blank" href={activeFeature().properties.harURL}>View listing</a>
+          <a class="btn btn-subtle theme-accent border border-2 border-accent my-4 flex-fill" target="_blank" href={activeFeature().properties.harURL}>View <strong>Listing</strong></a>
           <a class="btn btn-subtle theme-accent border border-2 border-accent my-4 flex-fill" target="_blank" href={activeFeature().properties.agencyURL}>Go to <strong>{activeFeature().properties.agency}</strong></a>
         </div>
       </Show>)}
@@ -304,18 +304,14 @@ export default function Listings() {
         </Show>
       </FinderDrawer>
       <FinderDrawerPanel>
-        <div class="d-flex flex-column p-4" style={{'max-width': '1200px'}}>
-          <div class="intro-card card sticky-top m-4" role="card">
-            <div class="card-header">
-              <h5 class="card-title mb-0">
-                Affordable Home Finder
-                <FinderController/>
-              </h5>
-            </div>
-            <div class="card-body">
-              <p class="card-text">Every listing on this map comes from an Own the HOU collaborative partner, with the down payment assistance programs that may apply based on where the home is located.</p>
-            </div>
-            <div class="card-footer d-flex">              
+        <div class="d-flex flex-column p-4">
+          <div class="intro sticky-top m-4" role="card">
+            <h2 class="mb-0">
+              Affordable Home Finder
+              <FinderController/>
+            </h2>
+            <p>Every listing on this map comes from an Own the HOU collaborative partner, with the down payment assistance programs that may apply based on where the home is located.</p>
+            <div class="intro-footer d-flex">
               {statusHousingCount().map((status) => (
                 <div class="form-field me-8">
                   <div class="switch theme-primary">
@@ -338,57 +334,59 @@ export default function Listings() {
               ))}
             </div>
           </div>
-          <div class="d-flex flex-wrap" data-statuses={statusesToKeep().join('|')}>
-            <For each={listings().geoJSON.features.filter((feature) => (feature.properties.type === 'listing'))}>{(item, i) => (
-                <div class={`w-50 p-4`} data-status={`${item.properties.statusTitle}`}>
-                  <div
-                    role="button"
-                    data-listing={`listing-${item.id}`}
-                    class={`card ${item.id === activeMapSelection() && 'bg-subtle-primary' || ''}`}
-                    onClick={() => {setActiveMapSelection(item.id)}}>
-                    <img src={item.properties.imageURL} class="card-img-top object-fit-cover border-bottom border-gray" style="height: 15em;"/>
-                    <div class="card-body gap-0 py-4">
-                      <div class="card-title d-flex">
-                        <h5 class="flex-fill">
-                          <span class="border-bottom border-1 border-black fst-italic fs-lg">
-                            {new Intl.NumberFormat("en-US",{
-                              style: "currency",
-                              currency: "USD",
-                              maximumFractionDigits: 0,
-                            }).format(item.properties.price * 1 || item.properties.priceListed * 1)}
-                          </span>
-                        </h5>
-                        <span class="badge rounded-pill theme-warning fs-md">{item.properties.statusTitle}</span>
+          <div class="container mx-0" data-statuses={statusesToKeep().join('|')}>
+            <div class="row">
+              <For each={listings().geoJSON.features.filter((feature) => (feature.properties.type === 'listing'))}>{(item, i) => (
+                  <div class={`col xs:col-12 lg:col-6 2xl:col-4`} data-status={`${item.properties.statusTitle}`}>
+                    <div
+                      role="button"
+                      data-listing={`listing-${item.id}`}
+                      class={`mb-8 card ${item.id === activeMapSelection() && 'bg-subtle-primary' || ''}`}
+                      onClick={() => {setActiveMapSelection(item.id)}}>
+                      <img src={item.properties.imageURL} class="card-img-top object-fit-cover border-bottom border-gray" style="height: 15em;"/>
+                      <div class="card-body gap-0 py-4">
+                        <div class="card-title d-flex">
+                          <h5 class="flex-fill">
+                            <span class="border-bottom border-1 border-black fst-italic fs-lg">
+                              {new Intl.NumberFormat("en-US",{
+                                style: "currency",
+                                currency: "USD",
+                                maximumFractionDigits: 0,
+                              }).format(item.properties.price * 1 || item.properties.priceListed * 1)}
+                            </span>
+                          </h5>
+                          <span class="badge rounded-pill theme-warning fs-md">{item.properties.statusTitle}</span>
+                        </div>
+                        <p class="card-text mb-0">
+                          {item.properties.addressLine1}<br/>{item.properties.addressLine2}
+                        </p>
+                        <div class="d-flex flex-wrap gap-2 mt-2 mb-0">
+                          <span class="badge rounded-pill theme-primary">{item.properties.subdivision}</span>
+                          {/* <span class="badge rounded-pill theme-primary">{item.properties.agency}</span> */}
+                          <span class="badge rounded-pill theme-primary">{item.properties.beds} bedrooms</span>
+                          <span class="badge rounded-pill theme-primary">{item.properties.fullBaths + ((item.properties.halfBaths || 0)/2)} bathrooms</span>
+                          <span class="badge rounded-pill theme-primary">{item.properties.interiorSize} sqft.</span>
+                          <span class="badge rounded-pill theme-primary">{item.properties.buildingType}</span>
+                          <span class="badge rounded-pill theme-primary">{item.properties.schoolDistrict}</span>
+                        </div>
                       </div>
-                      <p class="card-text mb-0">
-                        {item.properties.addressLine1}<br/>{item.properties.addressLine2}
-                      </p>
-                      <div class="d-flex flex-wrap gap-2 mt-2 mb-0">
-                        <span class="badge rounded-pill theme-primary">{item.properties.subdivision}</span>
-                        {/* <span class="badge rounded-pill theme-primary">{item.properties.agency}</span> */}
-                        <span class="badge rounded-pill theme-primary">{item.properties.beds} bedrooms</span>
-                        <span class="badge rounded-pill theme-primary">{item.properties.fullBaths + ((item.properties.halfBaths || 0)/2)} bathrooms</span>
-                        <span class="badge rounded-pill theme-primary">{item.properties.interiorSize} sqft.</span>
-                        <span class="badge rounded-pill theme-primary">{item.properties.buildingType}</span>
-                        <span class="badge rounded-pill theme-primary">{item.properties.schoolDistrict}</span>
-                      </div>
-                    </div>
-                    <div class="card-footer">
-                      <p class="mb-1">
-                        <small>
-                          <strong>Available Down Payment Assistance Programs</strong>
-                        </small>
-                      </p>
-                      <div class="d-flex flex-wrap gap-2">
-                        {item.properties.programs.map((program) => (
-                          <DPAProgramBadge program={program}/>
-                        ))}
-                      </div>
+                      <div class="card-footer">
+                        <p class="mb-1">
+                          <small>
+                            <strong>Available Down Payment Assistance Programs</strong>
+                          </small>
+                        </p>
+                        <div class="d-flex flex-wrap gap-2">
+                          {item.properties.programs.map((program) => (
+                            <DPAProgramBadge program={program}/>
+                          ))}
+                        </div>
 
+                      </div>
                     </div>
                   </div>
-                </div>
-            )}</For> 
+              )}</For> 
+            </div>
           </div>
         </div>
       </FinderDrawerPanel>
