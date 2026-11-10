@@ -3,6 +3,8 @@ import { Loading } from 'solid-js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { paths, Router } from './router';
+import { ListingsLayout } from './routes/own-the-hou--finder';
+
 import './App.css';
 
 export default function App() {
@@ -11,9 +13,11 @@ export default function App() {
       {(props) => (
         <>
           <Title>Own the HOU: Home Finder</Title>
-          <Loading fallback={<main class="container py-5">Loading…</main>}>
+          <ListingsLayout>
+          <Loading fallback={<main class="p-4">Loading...</main>}>
             {props.children}
-          </Loading>
+            </Loading>
+          </ListingsLayout>
         </>
       )}
     </Router>

@@ -1,7 +1,8 @@
-import { statusesToKeep, setStatusesToKeep } from "../stores";
-import { toTitleCase } from "../utils";
+import { useListings } from "./ListingProvider";
 
 export function Filter({ status }) {
+  const { statusesToKeep, setStatusesToKeep } = useListings();
+
   return (
     <div class="form-field me-8 w-full">
       <div class="switch theme-primary">

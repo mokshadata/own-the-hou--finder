@@ -5,11 +5,11 @@ import { useFinderDrawer } from './Sidebar';
 
 import { toTitleCase } from '../utils'
 
-import {
-  activeMapSelection, setActiveMapSelection,
-} from '../stores';
+import { useListings } from './ListingProvider';
 
 export function ListingCard({ item, }) {
+  const { activeMapSelection, setActiveMapSelection } = useListings();
+
   const {
     drawerState,
     setDrawerState,

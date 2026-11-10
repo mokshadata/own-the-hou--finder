@@ -1,10 +1,11 @@
 import { Title } from '@solidjs/meta';
-import { query, type RouteDefinition, type RouteProps } from '@solidjs/router';
-import { createEffect, createMemo, For, Show, Errored, onSettled, createSignal} from 'solid-js';
+import { query, type RouteDefinition, type RouteProps, } from '@solidjs/router';
+import { createEffect, createMemo, For, Show, Errored, onSettled, createSignal, Loading,} from 'solid-js';
 
 import { DPAProgramSummary, getMatchingPrograms } from 'own-the-hou--tools';
 
 import { FinderDrawerProvider, FinderDrawer, FinderController, FinderDrawerPanel, useFinderDrawer } from '../../components/Sidebar';
+import { ListingsProvider, useListings } from '../../components/ListingProvider';
 
 import { ListingCard } from '../../components/Card';
 import { Filter } from '../../components/Filter';
@@ -12,11 +13,6 @@ import { Map } from "../../components/Mapbox";
 import { DownPaymentRange } from '../../components/Range';
 
 import { points, bbox, bboxPolygon, transformScale, booleanContains, toWgs84, feature } from "@turf/turf"
-
-import {
-  activeMapSelection, setActiveMapSelection,
-  statusesToKeep, setStatusesToKeep
-} from '../../stores';
 
 import { csv, json } from "d3-fetch";
 
@@ -64,13 +60,13 @@ const getListings = query(async () => {
   // (getRequestEvent() is undefined in the browser, where location wins).
   const origin = location.origin;
 
-  const listings = await json((new URL('/own-the-hou--finder/data/combined-20261019--single-family.json', origin)).toString());
-  const listingsWithGeocoding = await csv((new URL('/own-the-hou--finder/data/combined-20261019--single-family.csv', origin)).toString());
+  const listings = await json((new URL('./data/combined-20261019--single-family.json', origin)).toString());
+  const listingsWithGeocoding = await csv((new URL('./data/combined-20261019--single-family.csv', origin)).toString());
 
-  const harrisCountyProgramLimits = await json((new URL('/own-the-hou--finder/data/unincorp-harris-county.geojson', origin)).toString());
-  const cohProgramLimits = await json((new URL('/own-the-hou--finder/data/coh-city-limits.geojson', origin)).toString());
+  const harrisCountyProgramLimits = await json((new URL('./data/unincorp-harris-county.geojson', origin)).toString());
+  const cohProgramLimits = await json((new URL('./data/coh-city-limits.geojson', origin)).toString());
 
-  const cohSuperNeighborhoodsProjected = await json((new URL('/own-the-hou--finder/data/coh-super-neighborhoods-projected.geojson', origin)).toString());
+  const cohSuperNeighborhoodsProjected = await json((new URL('./data/coh-super-neighborhoods-projected.geojson', origin)).toString());
 
   const programBoundsGeoJSON = {
     type: 'FeatureCollection',
@@ -203,12 +199,18 @@ export const route = {
   preload: () => void getListings(),
 } satisfies RouteDefinition;
 
-export default function Listings() {
-  const listings = createMemo(() => getListings());
-  const activeFeature = () => (listings().geoJSON.features.find((item) => (item.id === activeMapSelection() && item.properties.type === 'listing')))
-  const activeSubdivision = () => (listings().geoJSON.features.find((item) => (item.properties.houses?.includes(activeMapSelection()))))
-  // const focusFeatureCoords = () => (activeFeature().geometry.coordinates)
-  // const focusSubdivisionCoords = () => (activeSubdivision() && centroid(activeSubdivision().geometry).geometry.coordinates || [])
+export function ListingsLayout(props) {
+
+  return (
+    <ListingsProvider>
+      <ListingsBody>{props.children}</ListingsBody>
+    </ListingsProvider>
+  );
+}
+
+export function ListingsBody(props) {
+  const { listings, activeFeature, activeSubdivision } = useListings()
+
   const statusHousingCount = () => (
     Object.entries(
       Object.groupBy(
@@ -231,64 +233,92 @@ export default function Listings() {
         backdrop={false}
         tabindex={-1}
         label="finder-sidebar"
-        header={(
-        <div class="d-flex flex-column w-100">
-          <nav class="drawer-title navbar gap-3 bg-dark p-3 pe-0 w-100" data-bs-theme="dark">
-            <a href="#" class="navbar-brand">
-              <img
-                src="https://ownthehou.org/wp-content/themes/twentytwentyfive--own-the-hou/assets/images/logo-header.svg"
-                style="height: 44.9833px"
+        header={
+          <div class="d-flex flex-column w-100">
+            <nav
+              class="drawer-title navbar gap-3 bg-dark p-3 pe-0 w-100"
+              data-bs-theme="dark"
+            >
+              <a href="#" class="navbar-brand">
+                <img
+                  src="https://ownthehou.org/wp-content/themes/twentytwentyfive--own-the-hou/assets/images/logo-header.svg"
+                  style="height: 44.9833px"
+                />
+                <span>Home Finder</span>
+              </a>
+              <FinderController />
+            </nav>
+            <div style={{ height: "40vh", width: "100%" }}>
+              <Map
+                center={{ lat: 29.749907, long: -95.358421 }}
+                zoom={10}
               />
-              <span>Home Finder</span>
-            </a>
-            <FinderController/>
-          </nav>
-          <div style={{height: '40vh', width: '100%'}}>
-            <Map
-              center={{lat: 29.749907, long: -95.358421,}}
-              zoom={10}
-              geojson={listings().geoJSON}
-            />
+            </div>
           </div>
-        </div>
-      )}
-      footer={(<Show when={activeFeature()}>
-        <div class="d-flex w-100 gap-4 px-4" role="group">
-          <a class="btn btn-subtle theme-accent border border-2 border-accent my-4 flex-fill" target="_blank" href={activeFeature().properties.harURL}>View <strong>Listing</strong></a>
-          <a class="btn btn-subtle theme-accent border border-2 border-accent my-4 flex-fill" target="_blank" href={activeFeature().properties.agencyURL}>Go to <strong>{activeFeature().properties.agency}</strong></a>
-        </div>
-      </Show>)}
+        }
+        footer={
+          <Show when={activeFeature()}>
+            <div class="d-flex w-100 gap-4 px-4" role="group">
+              <a
+                class="btn btn-subtle theme-accent border border-2 border-accent my-4 flex-fill"
+                target="_blank"
+                href={activeFeature().properties.harURL}
+              >
+                View <strong>Listing</strong>
+              </a>
+              <a
+                class="btn btn-subtle theme-accent border border-2 border-accent my-4 flex-fill"
+                target="_blank"
+                href={activeFeature().properties.agencyURL}
+              >
+                Go to <strong>{activeFeature().properties.agency}</strong>
+              </a>
+            </div>
+          </Show>
+        }
       >
         <Show when={activeFeature()}>
           <div class="px-4 pt-4">
             <h4 class="fg-accent">
               <span class="fw-bold">
-                {toTitleCase(activeFeature().properties.neighborhood.SNBNAME)} Neighborhood
-              </span><span>, {activeFeature().properties.subdivision} Subdivision</span>
+                {toTitleCase(activeFeature().properties.neighborhood.SNBNAME)}{" "}
+                Neighborhood
+              </span>
+              <span>
+                , {activeFeature().properties.subdivision} Subdivision
+              </span>
             </h4>
             <h4 class="mt-6 mb-6">
-              {activeFeature().properties.addressLine1}<br/>
+              {activeFeature().properties.addressLine1}
+              <br />
               {activeFeature().properties.addressLine2}
             </h4>
-            {
-              activeSubdivision().properties.agencies.map((item) => (
-                <p class="mb-0">
-                  {item.count} house{item.count > 1 && 's' || ''} available through <a target="_blank" href={item.url}><strong>{item.name}</strong></a>
-                </p>
-              ))
-            }
-            <hr class="border-1 border-bottom mb-6 mt-6 border-primary"/>
-            <h4 class="fg-accent fw-bold">Down Payment Assistance Information</h4>
-            <DownPaymentRange activeFeature={activeFeature}/>
-            <p class="mt-6">Depending on your household income, you may qualify for Down Payment Assistance through:</p>
+            {activeSubdivision().properties.agencies.map((item) => (
+              <p class="mb-0">
+                {item.count} house{(item.count > 1 && "s") || ""} available
+                through{" "}
+                <a target="_blank" href={item.url}>
+                  <strong>{item.name}</strong>
+                </a>
+              </p>
+            ))}
+            <hr class="border-1 border-bottom mb-6 mt-6 border-primary" />
+            <h4 class="fg-accent fw-bold">
+              Down Payment Assistance Information
+            </h4>
+            <DownPaymentRange activeFeature={activeFeature} />
+            <p class="mt-6">
+              Depending on your household income, you may qualify for Down
+              Payment Assistance through:
+            </p>
           </div>
           <div class="accordion theme-primary mb-8">
             {activeFeature().properties.programs.map((program) => (
               <DPAProgramSummary
                 program={program}
-                houseListingPrice={() => (activeFeature().properties.price)}
-                downPaymentPercentLower={() => (0.035)}
-                downPaymentPercentUpper={() => (0.05)}
+                houseListingPrice={() => activeFeature().properties.price}
+                downPaymentPercentLower={() => 0.035}
+                downPaymentPercentUpper={() => 0.05}
               />
             ))}
           </div>
@@ -297,25 +327,39 @@ export default function Listings() {
       <FinderDrawerPanel>
         <div class="d-flex flex-column p-4">
           <div class="intro sticky-top m-4" role="card">
-            <h2 class="mb-0">
-              Affordable Home Finder
-            </h2>
-            <p>Every listing on this map comes from an Own the HOU collaborative partner, with the down payment assistance programs that may apply based on where the home is located.</p>
+            <h2 class="mb-0">Affordable Home Finder</h2>
+            <p>
+              Every listing on this map comes from an Own the HOU collaborative
+              partner, with the down payment assistance programs that may apply
+              based on where the home is located.
+            </p>
             <div class="intro-footer d-flex flex-wrap">
               {statusHousingCount().map((status) => (
-                <Filter status={status}/>
+                <Filter status={status} />
               ))}
             </div>
           </div>
-          <div class="container mx-0" data-statuses={statusesToKeep().join('|')}>
-            <div class="row">
-              <For each={listings().geoJSON.features.filter((feature) => (feature.properties.type === 'listing'))}>{(item, i) => (
-                <ListingCard item={item}/>
-              )}</For> 
-            </div>
-          </div>
+          {props.children}
         </div>
       </FinderDrawerPanel>
     </FinderDrawerProvider>
   );
+}
+
+export default function Listings() {
+  const { listings, setListings, statusesToKeep } = useListings()
+  const fetchedListings = createMemo(() => getListings());
+  createEffect(() => (fetchedListings()), (value, prev) => {
+    setListings(value)
+  })
+
+  return (
+    <div class="container mx-0" data-statuses={statusesToKeep().join('|')}>
+      <div class="row">
+        <For each={listings().geoJSON.features.filter((feature) => (feature.properties.type === 'listing'))}>{(item, i) => (
+          <ListingCard item={item}/>
+        )}</For> 
+      </div>
+    </div>
+  )
 }

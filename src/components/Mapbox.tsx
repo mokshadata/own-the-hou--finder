@@ -1,17 +1,8 @@
 import * as mapboxgl from 'mapbox-gl/esm';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-import type {
-  GeoJSON
-} from 'geojson';
-
 import { merge, onSettled, createEffect } from 'solid-js';
-import { centroid } from "@turf/turf"
-
-import {
-  activeMapSelection, setActiveMapSelection,
-  statusesToKeep, setStatusesToKeep,
-} from '../stores';
+import { useListings } from './ListingProvider';
 
 export function Map(props: {
   center: {
@@ -19,8 +10,10 @@ export function Map(props: {
     lat: number,
   },
   zoom: number,
-  geojson: GeoJSON,
+  geojson: Function,
 }) {
+  const { activeMapSelection, setActiveMapSelection, statusesToKeep, listings, focusSubdivisionCoords } = useListings();
+  const geojson = () => (listings().geoJSON)
 
   let mapElement;
   let map
@@ -32,11 +25,18 @@ export function Map(props: {
         center: [props.center.long, props.center.lat], // starting position [lng, lat]. Note that lat must be set between -90 and 90
         zoom: props.zoom, // starting zoom
     });
+  })
 
-    map.on('load', () => {
+  createEffect(() => (geojson()), (value, prev) => {
+    if (!map) {
+      return
+    }
+
+    if (value.features.length) {
+    // map.on('load', () => {
       map.addSource('houses', {
         type: 'geojson',
-        data: props.geojson,
+        data: value,
       })
 
       // map.addLayer({
@@ -202,13 +202,9 @@ export function Map(props: {
         }
       })
 
-    })
+    // })
+    }
   })
-
-  const activeFeature = () => (props.geojson.features.find((item) => (item.id === activeMapSelection())))
-  const activeSubdivision = () => (props.geojson.features.find((item) => (item.properties.houses?.includes(activeMapSelection()))))
-  const focusFeatureCoords = () => (activeFeature().geometry.coordinates)
-  const focusSubdivisionCoords = () => (activeSubdivision() && centroid(activeSubdivision().geometry).geometry.coordinates || [])
 
   createEffect(() => (activeMapSelection()), (value, previous) => {
     if (!map) {return}
@@ -256,7 +252,7 @@ export function Map(props: {
   })
   
   createEffect(() => (focusSubdivisionCoords()), (value, previous) => {    
-    if (!map) {return}
+    if (!map || !value.length) {return}
 
     map.flyTo({
       center: value,
