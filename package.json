@@ -49,6 +49,7 @@
     "leaflet": "^1.9.4",
     "mapbox-gl": "^3.31.0",
     "own-the-hou--tools": "git+https://github.com/mokshadata/own-the-hou--tools.git",
+    "proj4": "^2.22.0",
     "solid-js": "^2.0.0-rc.9"
   }
 }

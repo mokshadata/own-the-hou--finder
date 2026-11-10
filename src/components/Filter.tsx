@@ -3,7 +3,7 @@ import { toTitleCase } from "../utils";
 
 export function Filter({ status }) {
   return (
-    <div class="form-field me-8">
+    <div class="form-field me-8 w-full">
       <div class="switch theme-primary">
         <input
           type="checkbox"

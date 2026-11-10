@@ -290,12 +290,14 @@ summary {
   fill: black;
 }
 
-[data-finder-drawer-panel="opened"] {
-  margin-right: 480px;
+@media screen and (width >= 960px) {
+  [data-finder-drawer-panel="opened"] {
+    margin-right: 480px;
 
-  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-  transition-duration: 0.5s;
-  transition-property: margin;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    transition-duration: 0.5s;
+    transition-property: margin;
+  }
 }
 
 dialog[data-open="close"] nav {
@@ -314,6 +316,11 @@ dialog nav button {
 
 dialog nav button:hover {
   background-color: white;
+}
+
+dialog nav button svg path {
+  fill: #FFF;
+  stroke: #FFF;
 }
 
 dialog nav button:hover svg path {

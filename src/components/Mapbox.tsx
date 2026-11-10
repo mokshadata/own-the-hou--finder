@@ -28,11 +28,10 @@ export function Map(props: {
   onSettled(() => {
     map = new mapboxgl.Map({
         accessToken: 'pk.eyJ1IjoicGFuZGFmdWxtYW5kYSIsImEiOiI2ZExMSUFRIn0.EReWG9JyWfuekKvxXhCQpw', // associates the map with your Mapbox account and its permissions
-        container: 'map', // container ID
+        container: mapElement,
         center: [props.center.long, props.center.lat], // starting position [lng, lat]. Note that lat must be set between -90 and 90
         zoom: props.zoom, // starting zoom
     });
-    window.map = map
 
     map.on('load', () => {
       map.addSource('houses', {
@@ -84,24 +83,7 @@ export function Map(props: {
           'line-width': 1,
         },
       });
-      map.addLayer({
-        'id': 'houses-for-sale',
-        'type': 'circle',
-        'source': 'houses',
-        'filter': ['==', ['get', 'statusTitle'], 'For Sale'],
-        'paint': {
-          'circle-radius': [
-            'interpolate',
-            ['linear'],
-            ['zoom'],
-            12, 4,   // At zoom level 5 or lower, radius is 2px
-            15, 8  // At zoom level 15 or higher, radius is 20px
-          ],
-          'circle-color': '#e86e24',  // Default color
-          'circle-stroke-width': 1,
-          'circle-stroke-color': '#503aa8', // Color when selected
-        },
-      });
+
       map.addLayer({
         'id': 'houses-sold',
         'type': 'circle',
@@ -138,6 +120,26 @@ export function Map(props: {
           'circle-stroke-color': 'transparent', // Color when selected
         },
       });
+
+      map.addLayer({
+        'id': 'houses-for-sale',
+        'type': 'circle',
+        'source': 'houses',
+        'filter': ['==', ['get', 'statusTitle'], 'For Sale'],
+        'paint': {
+          'circle-radius': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            12, 4,   // At zoom level 5 or lower, radius is 2px
+            15, 8  // At zoom level 15 or higher, radius is 20px
+          ],
+          'circle-color': '#e86e24',  // Default color
+          'circle-stroke-width': 1,
+          'circle-stroke-color': '#503aa8', // Color when selected
+        },
+      });
+
       map.addLayer({
         'id': 'houses-on-map-active',
         'type': 'circle',
@@ -226,10 +228,6 @@ export function Map(props: {
 
   createEffect(() => (statusesToKeep()), (value, previous) => {
     if (!map) {return}
-    if (!value.includes('For Sale')) {
-      map.setPaintProperty('houses-for-sale', 'circle-color', 'transparent');
-      map.setPaintProperty('houses-for-sale', 'circle-stroke-color', 'transparent');
-    }
     if (!value.includes('SOLD')) {
       map.setPaintProperty('houses-sold', 'circle-color', 'transparent');
       map.setPaintProperty('houses-sold', 'circle-stroke-color', 'transparent');
@@ -238,17 +236,21 @@ export function Map(props: {
       map.setPaintProperty('houses-pending', 'circle-color', 'transparent');
       map.setPaintProperty('houses-pending', 'circle-stroke-color', 'transparent');
     }
-    if (value.includes('For Sale')) {
-      map.setPaintProperty('houses-for-sale', 'circle-color', '#e86e24');
-      map.setPaintProperty('houses-for-sale', 'circle-stroke-color', '#503aa8');
+    if (!value.includes('For Sale')) {
+      map.setPaintProperty('houses-for-sale', 'circle-color', 'transparent');
+      map.setPaintProperty('houses-for-sale', 'circle-stroke-color', 'transparent');
     }
     if (value.includes('SOLD')) {
       map.setPaintProperty('houses-sold', 'circle-color', '#fcb900');
-      map.setPaintProperty('houses-sold', 'circle-stroke-color', '#fcb900');
+      map.setPaintProperty('houses-sold', 'circle-stroke-color', '#503aa8');
     }
     if (value.includes('Under Contract - Pending')) {
       map.setPaintProperty('houses-pending', 'circle-color', '#fcb900');
-      map.setPaintProperty('houses-pending', 'circle-stroke-color', '#fcb900');
+      map.setPaintProperty('houses-pending', 'circle-stroke-color', '#503aa8');
+    }
+    if (value.includes('For Sale')) {
+      map.setPaintProperty('houses-for-sale', 'circle-color', '#e86e24');
+      map.setPaintProperty('houses-for-sale', 'circle-stroke-color', '#503aa8');
     }
 
   })
@@ -264,7 +266,6 @@ export function Map(props: {
 
   return (
     <div
-      id="map"
       class="col-12 h-100"
       ref={mapElement}
     ></div>

@@ -1,5 +1,7 @@
-import { DPAProgramBadge, } from 'own-the-hou--tools';
+import { DPAProgramBadge, DPAProgramSummary } from 'own-the-hou--tools';
 import { DownPaymentRange } from './Range';
+import { Map } from './Mapbox';
+import { useFinderDrawer } from './Sidebar';
 
 import { toTitleCase } from '../utils'
 
@@ -8,9 +10,14 @@ import {
 } from '../stores';
 
 export function ListingCard({ item, }) {
+  const {
+    drawerState,
+    setDrawerState,
+  } = useFinderDrawer()
+
   return (
     <div
-      class={`col xs:col-12 xl:col-6`}
+      class={`col col-12 ${(!drawerState().open && 'lg:col-6') || (drawerState().open && 'xl:col-6') || ''}`}
       data-status={`${item.properties.statusTitle}`}
     >
       <div
@@ -19,6 +26,9 @@ export function ListingCard({ item, }) {
         class={`mb-8 card ${(item.id === activeMapSelection() && "bg-subtle-primary border-accent") || ""}`}
         onClick={() => {
           setActiveMapSelection(item.id);
+          if (!drawerState().open) {
+            setDrawerState({ open: true})
+          }
         }}
       >
         <img
@@ -49,6 +59,9 @@ export function ListingCard({ item, }) {
             {item.properties.addressLine2}
           </p>
           <div class="d-flex flex-wrap gap-2 mt-2 mb-0">
+            <span class="badge rounded-pill theme-primary">
+              {toTitleCase(item.properties.neighborhood.SNBNAME)}
+            </span>
             <span class="badge rounded-pill theme-primary">
               {item.properties.subdivision}
             </span>

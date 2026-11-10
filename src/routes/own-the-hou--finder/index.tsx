@@ -2,16 +2,16 @@ import { Title } from '@solidjs/meta';
 import { query, type RouteDefinition, type RouteProps } from '@solidjs/router';
 import { createEffect, createMemo, For, Show, Errored, onSettled, createSignal} from 'solid-js';
 
-import { DPATool, DPAProgramsList, DPAProgram, DPAProgramBadge, DPAProgramSummary, getMatchingPrograms } from 'own-the-hou--tools';
+import { DPAProgramSummary, getMatchingPrograms } from 'own-the-hou--tools';
 
-import { FinderDrawerProvider, FinderDrawer, FinderController, FinderDrawerPanel } from '../../components/Sidebar';
+import { FinderDrawerProvider, FinderDrawer, FinderController, FinderDrawerPanel, useFinderDrawer } from '../../components/Sidebar';
 
 import { ListingCard } from '../../components/Card';
 import { Filter } from '../../components/Filter';
 import { Map } from "../../components/Mapbox";
 import { DownPaymentRange } from '../../components/Range';
 
-import { points, bbox, bboxPolygon, transformScale, } from "@turf/turf"
+import { points, bbox, bboxPolygon, transformScale, booleanContains, toWgs84, feature } from "@turf/turf"
 
 import {
   activeMapSelection, setActiveMapSelection,
@@ -19,7 +19,6 @@ import {
 } from '../../stores';
 
 import { csv, json } from "d3-fetch";
-
 
 import { toTitleCase } from '../../utils';
 
@@ -65,11 +64,13 @@ const getListings = query(async () => {
   // (getRequestEvent() is undefined in the browser, where location wins).
   const origin = location.origin;
 
-  const listings = await json((new URL('/own-the-hou--finder/data/combined-20261019--single-family.json', origin)).toString());
-  const listingsWithGeocoding = await csv((new URL('/own-the-hou--finder/data/combined-20261019--single-family.csv', origin)).toString());
+  const listings = await json((new URL('./data/combined-20261019--single-family.json', origin)).toString());
+  const listingsWithGeocoding = await csv((new URL('./data/combined-20261019--single-family.csv', origin)).toString());
 
-  const harrisCountyProgramLimits = await json((new URL('/own-the-hou--finder/data/unincorp-harris-county.geojson', origin)).toString());
-  const cohProgramLimits = await json((new URL('/own-the-hou--finder/data/coh-city-limits.geojson', origin)).toString());
+  const harrisCountyProgramLimits = await json((new URL('./data/unincorp-harris-county.geojson', origin)).toString());
+  const cohProgramLimits = await json((new URL('./data/coh-city-limits.geojson', origin)).toString());
+
+  const cohSuperNeighborhoodsProjected = await json((new URL('./data/coh-super-neighborhoods-projected.geojson', origin)).toString());
 
   const programBoundsGeoJSON = {
     type: 'FeatureCollection',
@@ -184,6 +185,7 @@ const getListings = query(async () => {
         // coordinates: [-95.484657, 29.930173],
         houseListingPrice: feature.properties.price,
       }),//getPotentialPrograms(feature),
+      neighborhood: cohSuperNeighborhoodsProjected.features.find((neigh) => (booleanContains(neigh, feature))).properties,
     }
   }))
 
@@ -259,7 +261,11 @@ export default function Listings() {
       >
         <Show when={activeFeature()}>
           <div class="px-4 pt-4">
-            <h4 class="fg-accent fw-bold">Neighborhood: {activeFeature().properties.subdivision}</h4>
+            <h4 class="fg-accent">
+              <span class="fw-bold">
+                {toTitleCase(activeFeature().properties.neighborhood.SNBNAME)} Neighborhood
+              </span><span>, {activeFeature().properties.subdivision} Subdivision</span>
+            </h4>
             <h4 class="mt-6 mb-6">
               {activeFeature().properties.addressLine1}<br/>
               {activeFeature().properties.addressLine2}
@@ -295,7 +301,7 @@ export default function Listings() {
               Affordable Home Finder
             </h2>
             <p>Every listing on this map comes from an Own the HOU collaborative partner, with the down payment assistance programs that may apply based on where the home is located.</p>
-            <div class="intro-footer d-flex">
+            <div class="intro-footer d-flex flex-wrap">
               {statusHousingCount().map((status) => (
                 <Filter status={status}/>
               ))}
