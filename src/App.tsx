@@ -3,7 +3,7 @@ import { Loading } from 'solid-js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { paths, Router } from './router';
-import { ListingsLayout } from './routes/own-the-hou--finder';
+import { ListingsLayout } from './routes';
 
 import './App.css';
 

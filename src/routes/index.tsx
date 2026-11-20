@@ -4,19 +4,19 @@ import { createEffect, createMemo, For, Show, Errored, onSettled, createSignal, 
 
 import { DPAProgramSummary, getMatchingPrograms } from 'own-the-hou--tools';
 
-import { FinderDrawerProvider, FinderDrawer, FinderController, FinderDrawerPanel, useFinderDrawer } from '../../components/Sidebar';
-import { ListingsProvider, useListings } from '../../components/ListingProvider';
+import { FinderDrawerProvider, FinderDrawer, FinderController, FinderDrawerPanel, useFinderDrawer } from '../components/Sidebar';
+import { ListingsProvider, useListings } from '../components/ListingProvider';
 
-import { ListingCard } from '../../components/Card';
-import { Filter } from '../../components/Filter';
-import { Map } from "../../components/Mapbox";
-import { DownPaymentRange } from '../../components/Range';
+import { ListingCard } from '../components/Card';
+import { Filter } from '../components/Filter';
+import { Map } from "../components/Mapbox";
+import { DownPaymentRange } from '../components/Range';
 
 import { points, bbox, bboxPolygon, transformScale, booleanContains, toWgs84, feature } from "@turf/turf"
 
 import { csv, json } from "d3-fetch";
 
-import { toTitleCase } from '../../utils';
+import { toTitleCase } from '../utils';
 
 const subdivisionsURL = {
   'Avenue Park Replat': 'https://www.har.com/pricetrends/avenue-park-replat-realestate/16111',
@@ -60,13 +60,13 @@ const getListings = query(async () => {
   // (getRequestEvent() is undefined in the browser, where location wins).
   const origin = location.origin;
 
-  const listings = await json((new URL('/own-the-hou--finder/data/combined-20261019--single-family.json', origin)).toString());
-  const listingsWithGeocoding = await csv((new URL('/own-the-hou--finder/data/combined-20261019--single-family.csv', origin)).toString());
+  const listings = await json((new URL('./data/combined-20261019--single-family.json', origin)).toString());
+  const listingsWithGeocoding = await csv((new URL('./data/combined-20261019--single-family.csv', origin)).toString());
 
-  const harrisCountyProgramLimits = await json((new URL('/own-the-hou--finder/data/unincorp-harris-county.geojson', origin)).toString());
-  const cohProgramLimits = await json((new URL('/own-the-hou--finder/data/coh-city-limits.geojson', origin)).toString());
+  const harrisCountyProgramLimits = await json((new URL('./data/unincorp-harris-county.geojson', origin)).toString());
+  const cohProgramLimits = await json((new URL('./data/coh-city-limits.geojson', origin)).toString());
 
-  const cohSuperNeighborhoodsProjected = await json((new URL('/own-the-hou--finder/data/coh-super-neighborhoods-projected.geojson', origin)).toString());
+  const cohSuperNeighborhoodsProjected = await json((new URL('./data/coh-super-neighborhoods-projected.geojson', origin)).toString());
 
   const programBoundsGeoJSON = {
     type: 'FeatureCollection',
